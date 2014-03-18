@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--Product Version: Vivado v2013.4 (64-bit)-->
+<Project Version="6" Minor="14" Path="/home/bluecmd/work/mexiko/mexiko.xpr">
+	<FileSet Dir="sources_1" File="fileset.xml"/>
+	<FileSet Dir="constrs_1" File="fileset.xml"/>
+	<FileSet Dir="sim_1" File="fileset.xml"/>
+	<FileSet Dir="xilinx_phy10g" File="fileset.xml"/>
+	<RunSet Dir="runs" File="runs.xml"/>
+	<DefaultLaunch Dir="$PRUNDIR"/>
+	<Config>
+		<Option Name="Id" Val="40adaf79e9ef480aa27036ced7975dea"/>
+		<Option Name="Part" Val="xc7k325tffg900-2"/>
+		<Option Name="CompiledLibDir" Val="$PCACHEDIR/compile_simlib"/>
+		<Option Name="Board" Val=""/>
+		<Option Name="ActiveSimSet" Val="sim_1"/>
+	</Config>
+	<MsgRule>
+		<MsgAttr Name="RuleType" Val="0"/>
+		<MsgAttr Name="Limit" Val="-1"/>
+		<MsgAttr Name="NewSeverity" Val="ANY"/>
+		<MsgAttr Name="Id" Val="Synth 8-565"/>
+		<MsgAttr Name="Severity" Val="ANY"/>
+		<MsgAttr Name="ShowRule" Val="1"/>
+		<MsgAttr Name="RuleSource" Val="8"/>
+		<MsgAttr Name="StringsToMatch" Val="WARNING: [Synth 8-565] redefining clock &apos;network_i/octa_i/gen_lane[7].lane/xilinx_phy10g_i/txclk322&apos;"/>
+	</MsgRule>
+</Project>
+
