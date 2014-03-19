@@ -106,7 +106,7 @@ set_property PACKAGE_PIN AE13         [get_ports {ddr3_ba_o[2]}]
 set_property PACKAGE_PIN AG9          [get_ports {ddr3_ras_n_o}]
 set_property PACKAGE_PIN AC10         [get_ports {ddr3_cas_n_o}]
 set_property PACKAGE_PIN AK10         [get_ports {ddr3_we_n_o}]
-set_property PACKAGE_PIN AK14         [get_ports {ddr3_reset_n_o}]
+set_property PACKAGE_PIN AK14         [get_ports {ddr3_rst_n_o}]
 set_property PACKAGE_PIN AC12         [get_ports {ddr3_cke_o[0]}]
 set_property PACKAGE_PIN AE8          [get_ports {ddr3_odt_o[0]}]
 set_property PACKAGE_PIN AE9          [get_ports {ddr3_cs_n_o[0]}]
@@ -151,3 +151,7 @@ set_property IOSTANDARD LVCMOS33      [get_ports {areset_i}]
 # FPGA_USER_LED0
 set_property PACKAGE_PIN AJ22         [get_ports {resetdone_o}]
 set_property IOSTANDARD LVCMOS33      [get_ports {resetdone_o}]
+
+# USB UART
+set_property PACKAGE_PIN AF23         [get_ports {usb_uart_rxd}]
+set_property PACKAGE_PIN AE23         [get_ports {usb_uart_txd}]
