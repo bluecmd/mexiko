@@ -1,0 +1,3 @@
+[submodule "rtl/mor1kx"]
+	path = rtl/mor1kx
+	url = https://github.com/openrisc/mor1kx.git
