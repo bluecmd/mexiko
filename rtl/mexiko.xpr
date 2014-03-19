@@ -1,10 +1,13 @@
 <?xml version="1.0"?>
 <!--Product Version: Vivado v2013.4 (64-bit)-->
-<Project Version="6" Minor="14" Path="/home/bluecmd/work/mexiko/mexiko.xpr">
+<Project Version="6" Minor="14" Path="/home/bluecmd/work/mexiko/rtl/mexiko.xpr">
 	<FileSet Dir="sources_1" File="fileset.xml"/>
 	<FileSet Dir="constrs_1" File="fileset.xml"/>
 	<FileSet Dir="sim_1" File="fileset.xml"/>
 	<FileSet Dir="xilinx_phy10g" File="fileset.xml"/>
+	<FileSet Dir="xilinx_mac10g" File="fileset.xml"/>
+	<FileSet Dir="xilinx_ddr3" File="fileset.xml"/>
+	<FileSet Dir="xilinx_pcie1x" File="fileset.xml"/>
 	<RunSet Dir="runs" File="runs.xml"/>
 	<DefaultLaunch Dir="$PRUNDIR"/>
 	<Config>
