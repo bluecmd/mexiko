@@ -35,10 +35,10 @@ module ff_syncer #(
   parameter SYNC_REGS = 4,
   parameter RESET_VAL = 1'b0
 ) (
-  input   wire  clk_i,
-  input   wire  rst_i,
-  input   wire  data_i,
-  output  wire  data_o
+  input   clk_i,
+  input   rst_i,
+  input   data_i,
+  output  data_o
 );
 
   /* note: this _must_ be named sync_r for the timing constraint false paths

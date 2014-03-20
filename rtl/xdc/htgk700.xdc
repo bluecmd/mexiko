@@ -154,4 +154,6 @@ set_property IOSTANDARD LVCMOS33      [get_ports {resetdone_o}]
 
 # USB UART
 set_property PACKAGE_PIN AF23         [get_ports {usb_uart_rxd}]
+set_property IOSTANDARD LVCMOS33      [get_ports {usb_uart_rxd}]
 set_property PACKAGE_PIN AE23         [get_ports {usb_uart_txd}]
+set_property IOSTANDARD LVCMOS33      [get_ports {usb_uart_txd}]
