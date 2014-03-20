@@ -1,8 +1,173 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <DARoots Version="1" Minor="30">
-  <FileSet Name="sources_1" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
+  <FileSet Name="sources_1" Type="DesignSrcs" RelSrcDir="$PSRCDIR/../..">
     <Filter Type="Srcs"/>
-    <File Path="$PSRCDIR/sources_1/example_design/EP_MEM.v">
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx_true_dpram_sclk.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx_simple_dpram_sclk.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../orpsoc-cores/cores/uart16550/rtl/verilog/raminfr.v">
+      <FileInfo>
+        <Attr Name="Library" Val="uart"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../orpsoc-cores/cores/adv_debug_sys/rtl/verilog/syncflop.v">
+      <FileInfo>
+        <Attr Name="Library" Val="adbg"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx-defines.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx-sprs.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx_ticktimer.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx_store_buffer.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx_rf_ram.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx_pic.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx_immu.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx_icache.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx_dmmu.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx_dcache.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx_cfgrs.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../example_design/EP_MEM.v">
       <FileInfo>
         <Attr Name="Library" Val="example_designs"/>
         <Attr Name="UsedInSynthesis" Val="1"/>
@@ -13,7 +178,260 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/example_design/PIO_TX_ENGINE.v">
+    <File Path="$PPRDIR/../orpsoc-cores/cores/uart16550/rtl/verilog/uart_defines.v">
+      <FileInfo>
+        <Attr Name="Library" Val="uart"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../orpsoc-cores/cores/uart16550/rtl/verilog/uart_tfifo.v">
+      <FileInfo>
+        <Attr Name="Library" Val="uart"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../orpsoc-cores/cores/uart16550/rtl/verilog/uart_rfifo.v">
+      <FileInfo>
+        <Attr Name="Library" Val="uart"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../orpsoc-cores/cores/adv_debug_sys/rtl/verilog/syncreg.v">
+      <FileInfo>
+        <Attr Name="Library" Val="adbg"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../orpsoc-cores/cores/adv_debug_sys/rtl/verilog/bytefifo.v">
+      <FileInfo>
+        <Attr Name="Library" Val="adbg"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx_wb_mux_espresso.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx_wb_mux_cappuccino.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx_rf_espresso.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx_rf_cappuccino.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx_lsu_espresso.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx_lsu_cappuccino.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx_fetch_tcm_prontoespresso.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx_fetch_prontoespresso.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx_fetch_espresso.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx_fetch_cappuccino.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx_execute_ctrl_cappuccino.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx_execute_alu.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx_decode_execute_cappuccino.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx_decode.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx_ctrl_prontoespresso.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx_ctrl_espresso.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx_ctrl_cappuccino.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx_branch_prediction.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../example_design/PIO_TX_ENGINE.v">
       <FileInfo>
         <Attr Name="Library" Val="example_designs"/>
         <Attr Name="UsedInSynthesis" Val="1"/>
@@ -24,7 +442,7 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/example_design/PIO_RX_ENGINE.v">
+    <File Path="$PPRDIR/../example_design/PIO_RX_ENGINE.v">
       <FileInfo>
         <Attr Name="Library" Val="example_designs"/>
         <Attr Name="UsedInSynthesis" Val="1"/>
@@ -35,7 +453,7 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/example_design/PIO_EP_MEM_ACCESS.v">
+    <File Path="$PPRDIR/../example_design/PIO_EP_MEM_ACCESS.v">
       <FileInfo>
         <Attr Name="Library" Val="example_designs"/>
         <Attr Name="UsedInSynthesis" Val="1"/>
@@ -46,7 +464,7 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/new/ff_syncer.sv">
+    <File Path="$PPRDIR/../utils/ff_syncer.sv">
       <FileInfo>
         <Attr Name="UsedInSynthesis" Val="1"/>
         <Attr Name="UsedInImplementation" Val="1"/>
@@ -56,7 +474,172 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/example_design/traffic_gen/mig_7series_v2_0_data_gen_chk.v">
+    <File Path="$PPRDIR/../orpsoc-cores/cores/verilog-arbiter/src/arbiter.v">
+      <FileInfo>
+        <Attr Name="Library" Val="wishbone"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../orpsoc-cores/cores/uart16550/rtl/verilog/uart_transmitter.v">
+      <FileInfo>
+        <Attr Name="Library" Val="uart"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../orpsoc-cores/cores/uart16550/rtl/verilog/timescale.v">
+      <FileInfo>
+        <Attr Name="Library" Val="uart"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../orpsoc-cores/cores/uart16550/rtl/verilog/uart_sync_flops.v">
+      <FileInfo>
+        <Attr Name="Library" Val="uart"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../orpsoc-cores/cores/uart16550/rtl/verilog/uart_receiver.v">
+      <FileInfo>
+        <Attr Name="Library" Val="uart"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../orpsoc-cores/cores/adv_debug_sys/rtl/verilog/adbg_wb_defines.v">
+      <FileInfo>
+        <Attr Name="Library" Val="adbg"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../orpsoc-cores/cores/adv_debug_sys/rtl/verilog/adbg_wb_biu.v">
+      <FileInfo>
+        <Attr Name="Library" Val="adbg"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../orpsoc-cores/cores/adv_debug_sys/rtl/verilog/adbg_or1k_defines.v">
+      <FileInfo>
+        <Attr Name="Library" Val="adbg"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../orpsoc-cores/cores/adv_debug_sys/rtl/verilog/adbg_or1k_status_reg.v">
+      <FileInfo>
+        <Attr Name="Library" Val="adbg"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../orpsoc-cores/cores/adv_debug_sys/rtl/verilog/adbg_or1k_biu.v">
+      <FileInfo>
+        <Attr Name="Library" Val="adbg"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../orpsoc-cores/cores/adv_debug_sys/rtl/verilog/adbg_jsp_biu.v">
+      <FileInfo>
+        <Attr Name="Library" Val="adbg"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../orpsoc-cores/cores/adv_debug_sys/rtl/verilog/adbg_crc32.v">
+      <FileInfo>
+        <Attr Name="Library" Val="adbg"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx_cpu_prontoespresso.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx_cpu_espresso.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx_cpu_cappuccino.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../example_design/traffic_gen/mig_7series_v2_0_data_gen_chk.v">
       <FileInfo>
         <Attr Name="Library" Val="example_designs"/>
         <Attr Name="UsedInSynthesis" Val="1"/>
@@ -67,7 +650,7 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/example_design/traffic_gen/mig_7series_v2_0_cmd_prbs_gen_axi.v">
+    <File Path="$PPRDIR/../example_design/traffic_gen/mig_7series_v2_0_cmd_prbs_gen_axi.v">
       <FileInfo>
         <Attr Name="Library" Val="example_designs"/>
         <Attr Name="UsedInSynthesis" Val="1"/>
@@ -78,7 +661,7 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/example_design/PIO_TO_CTRL.v">
+    <File Path="$PPRDIR/../example_design/PIO_TO_CTRL.v">
       <FileInfo>
         <Attr Name="Library" Val="example_designs"/>
         <Attr Name="UsedInSynthesis" Val="1"/>
@@ -89,7 +672,7 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/example_design/PIO_EP.v">
+    <File Path="$PPRDIR/../example_design/PIO_EP.v">
       <FileInfo>
         <Attr Name="Library" Val="example_designs"/>
         <Attr Name="UsedInSynthesis" Val="1"/>
@@ -100,7 +683,7 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/new/xilinx_phy10g_shared_logic.sv">
+    <File Path="$PPRDIR/../xilinx/xilinx_phy10g_shared_logic.sv">
       <FileInfo>
         <Attr Name="UsedInSynthesis" Val="1"/>
         <Attr Name="UsedInImplementation" Val="1"/>
@@ -110,7 +693,7 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/new/xilinx_phy10g_quad_logic.sv">
+    <File Path="$PPRDIR/../xilinx/xilinx_phy10g_quad_logic.sv">
       <FileInfo>
         <Attr Name="UsedInSynthesis" Val="1"/>
         <Attr Name="UsedInImplementation" Val="1"/>
@@ -120,7 +703,7 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/new/xilinx_lane.sv">
+    <File Path="$PPRDIR/../xilinx/xilinx_lane.sv">
       <FileInfo>
         <Attr Name="UsedInSynthesis" Val="1"/>
         <Attr Name="UsedInImplementation" Val="1"/>
@@ -130,7 +713,139 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/example_design/traffic_gen/mig_7series_v2_0_tg.v">
+    <File Path="$PPRDIR/../orpsoc-cores/cores/wb_intercon/wb_data_resize.v">
+      <FileInfo>
+        <Attr Name="Library" Val="wishbone"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../orpsoc-cores/cores/wb_intercon/wb_arbiter.v">
+      <FileInfo>
+        <Attr Name="Library" Val="wishbone"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../orpsoc-cores/cores/uart16550/rtl/verilog/uart_wb.v">
+      <FileInfo>
+        <Attr Name="Library" Val="uart"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../orpsoc-cores/cores/uart16550/rtl/verilog/uart_regs.v">
+      <FileInfo>
+        <Attr Name="Library" Val="uart"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../orpsoc-cores/cores/uart16550/rtl/verilog/uart_debug_if.v">
+      <FileInfo>
+        <Attr Name="Library" Val="uart"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../orpsoc-cores/cores/adv_debug_sys/rtl/verilog/adbg_defines.v">
+      <FileInfo>
+        <Attr Name="Library" Val="adbg"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../orpsoc-cores/cores/adv_debug_sys/rtl/verilog/adbg_wb_module.v">
+      <FileInfo>
+        <Attr Name="Library" Val="adbg"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../orpsoc-cores/cores/adv_debug_sys/rtl/verilog/adbg_or1k_module.v">
+      <FileInfo>
+        <Attr Name="Library" Val="adbg"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../orpsoc-cores/cores/adv_debug_sys/rtl/verilog/adbg_jsp_module.v">
+      <FileInfo>
+        <Attr Name="Library" Val="adbg"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx_cpu.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx_bus_if_wb32.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx_bus_if_avalon.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../example_design/traffic_gen/mig_7series_v2_0_tg.v">
       <FileInfo>
         <Attr Name="Library" Val="example_designs"/>
         <Attr Name="UsedInSynthesis" Val="1"/>
@@ -141,7 +856,7 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/example_design/traffic_gen/mig_7series_v2_0_axi4_wrapper.v">
+    <File Path="$PPRDIR/../example_design/traffic_gen/mig_7series_v2_0_axi4_wrapper.v">
       <FileInfo>
         <Attr Name="Library" Val="example_designs"/>
         <Attr Name="UsedInSynthesis" Val="1"/>
@@ -152,7 +867,7 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/example_design/support/xilinx_pcie1x_pipe_clock.v">
+    <File Path="$PPRDIR/../example_design/support/xilinx_pcie1x_pipe_clock.v">
       <FileInfo>
         <Attr Name="Library" Val="example_designs"/>
         <Attr Name="UsedInSynthesis" Val="1"/>
@@ -163,7 +878,7 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/example_design/PIO.v">
+    <File Path="$PPRDIR/../example_design/PIO.v">
       <FileInfo>
         <Attr Name="Library" Val="example_designs"/>
         <Attr Name="UsedInSynthesis" Val="1"/>
@@ -174,7 +889,7 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/orpsoc/wb_intercon.v">
+    <File Path="$PPRDIR/../xilinx/xilinx_octa10g.sv">
       <FileInfo>
         <Attr Name="UsedInSynthesis" Val="1"/>
         <Attr Name="UsedInImplementation" Val="1"/>
@@ -184,7 +899,7 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/new/xilinx_octa10g.sv">
+    <File Path="$PPRDIR/../rom.sv">
       <FileInfo>
         <Attr Name="UsedInSynthesis" Val="1"/>
         <Attr Name="UsedInImplementation" Val="1"/>
@@ -194,7 +909,61 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/example_design/traffic_gen/mig_7series_v2_0_axi4_tg.v">
+    <File Path="$PPRDIR/../orpsoc/wb_intercon.v">
+      <FileInfo>
+        <Attr Name="Library" Val="wishbone"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../orpsoc/clkgen.sv">
+      <FileInfo>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../orpsoc-cores/cores/uart16550/rtl/verilog/uart_top.v">
+      <FileInfo>
+        <Attr Name="Library" Val="uart"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../orpsoc-cores/cores/adv_debug_sys/rtl/verilog/adbg_top.v">
+      <FileInfo>
+        <Attr Name="Library" Val="adbg"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx.v">
+      <FileInfo>
+        <Attr Name="Library" Val="mor1kx"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../example_design/traffic_gen/mig_7series_v2_0_axi4_tg.v">
       <FileInfo>
         <Attr Name="Library" Val="example_designs"/>
         <Attr Name="UsedInSynthesis" Val="1"/>
@@ -205,7 +974,7 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/example_design/support/xilinx_pcie1x_support.v">
+    <File Path="$PPRDIR/../example_design/support/xilinx_pcie1x_support.v">
       <FileInfo>
         <Attr Name="Library" Val="example_designs"/>
         <Attr Name="UsedInSynthesis" Val="1"/>
@@ -216,7 +985,7 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/example_design/pcie_app_7x.v">
+    <File Path="$PPRDIR/../example_design/pcie_app_7x.v">
       <FileInfo>
         <Attr Name="Library" Val="example_designs"/>
         <Attr Name="UsedInSynthesis" Val="1"/>
@@ -227,7 +996,7 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/new/mexiko-defs.vh">
+    <File Path="$PPRDIR/../mexiko-defs.vh">
       <FileInfo>
         <Attr Name="UsedInSynthesis" Val="1"/>
         <Attr Name="UsedInSimulation" Val="1"/>
@@ -236,7 +1005,7 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/orpsoc/wb_intercon.vh">
+    <File Path="$PPRDIR/../orpsoc/wb_intercon.vh">
       <FileInfo>
         <Attr Name="UsedInSynthesis" Val="1"/>
         <Attr Name="UsedInSimulation" Val="1"/>
@@ -245,17 +1014,7 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/orpsoc/orpsoc.sv">
-      <FileInfo>
-        <Attr Name="UsedInSynthesis" Val="1"/>
-        <Attr Name="UsedInImplementation" Val="1"/>
-        <Attr Name="UsedInSimulation" Val="1"/>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
-    <File Path="$PSRCDIR/sources_1/new/network.sv">
+    <File Path="$PPRDIR/../orpsoc/orpsoc.sv">
       <FileInfo>
         <Attr Name="UsedInSynthesis" Val="1"/>
         <Attr Name="UsedInImplementation" Val="1"/>
@@ -265,7 +1024,17 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/example_design/xilinx_pcie_2_1_ep_7x.v">
+    <File Path="$PPRDIR/../network.sv">
+      <FileInfo>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../example_design/xilinx_pcie_2_1_ep_7x.v">
       <FileInfo>
         <Attr Name="Library" Val="example_designs"/>
         <Attr Name="UsedInSynthesis" Val="1"/>
@@ -276,7 +1045,7 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/example_design/example_top.v">
+    <File Path="$PPRDIR/../example_design/example_top.v">
       <FileInfo>
         <Attr Name="Library" Val="example_designs"/>
         <Attr Name="UsedInSynthesis" Val="1"/>
@@ -287,18 +1056,11 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/new/mexiko.sv">
+    <File Path="$PPRDIR/../mexiko.sv">
       <FileInfo>
         <Attr Name="UsedInSynthesis" Val="1"/>
         <Attr Name="UsedInImplementation" Val="1"/>
         <Attr Name="UsedInSimulation" Val="1"/>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
-    <File Path="$PDATADIR/sources_1/ports.xml">
-      <FileInfo SFType="PortsDb">
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>

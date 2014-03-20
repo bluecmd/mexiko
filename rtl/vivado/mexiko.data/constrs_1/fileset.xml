@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <DARoots Version="1" Minor="30">
-  <FileSet Name="constrs_1" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
+  <FileSet Name="constrs_1" Type="Constrs" RelSrcDir="$PSRCDIR/../../xdc">
     <Filter Type="Constrs"/>
-    <File Path="$PSRCDIR/constrs_1/new/htgk700.xdc">
+    <File Path="$PSRCDIR/../../xdc/htgk700.xdc">
       <FileInfo>
         <Attr Name="UsedInSynthesis" Val="1"/>
         <Attr Name="UsedInImplementation" Val="1"/>
@@ -24,7 +24,7 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/constrs_1/new/xilinx_phy10g.xdc">
+    <File Path="$PSRCDIR/../../xdc/xilinx_phy10g.xdc">
       <FileInfo>
         <Attr Name="UsedInSynthesis" Val="1"/>
         <Attr Name="UsedInImplementation" Val="1"/>
@@ -34,7 +34,7 @@
       </FileInfo>
     </File>
     <Config>
-      <Option Name="TargetConstrsFile" Val="$PSRCDIR/constrs_1/new/htgk700.xdc"/>
+      <Option Name="TargetConstrsFile" Val="$PSRCDIR/../../xdc/htgk700.xdc"/>
       <Option Name="ConstrsType" Val="XDC"/>
     </Config>
   </FileSet>

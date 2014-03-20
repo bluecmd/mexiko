@@ -96,21 +96,21 @@ module xilinx_phy10g_shared_logic(
     .O (clk156)
   );
 
-  ff_syncer #(.SYNC_REGS(4), .RESET_VAL(1'b1)) areset_clk156_sync_i (
+  ff_syncer #(.RESET_VAL(1'b1)) areset_clk156_sync_i (
     .clk_i(clk156),
     .rst_i(areset_i),
     .data_i(1'b0),
     .data_o(areset_clk156_o)
   );
 
-  ff_syncer #(.SYNC_REGS(4), .RESET_VAL(1'b0)) qplllock_txusrclk2_sync_i (
+  ff_syncer #(.RESET_VAL(1'b0)) qplllock_txusrclk2_sync_i (
     .clk_i(txusrclk2),
     .rst_i(!qplllock_i),
     .data_i(1'b1),
     .data_o(qplllock_txusrclk2)
   );
 
-  ff_syncer #(.SYNC_REGS(4), .RESET_VAL(1'b1)) gttxreset_txusrclk2_sync_i (
+  ff_syncer #(.RESET_VAL(1'b1)) gttxreset_txusrclk2_sync_i (
     .clk_i(txusrclk2),
     .rst_i(gttxreset),
     .data_i(1'b0),
