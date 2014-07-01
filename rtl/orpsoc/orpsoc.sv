@@ -61,7 +61,7 @@ module orpsoc #(
 
   clkgen clkgen0 (
     .sys_clk_i(sys_clk_i),
-    .sys_rst_i(sys_rst_n_i),
+    .sys_rst_i(sys_rst_n_i), /* TODO(bluecmd): Wut? */
     .wb_clk_o(wb_clk),
     .wb_rst_o(wb_rst)
   );

@@ -33,9 +33,12 @@
 
 module mexiko(
   /* System wide */
-  input             areset_i,
+  input             areset_n_i,
   output            resetdone_o,
-
+  input             user_clk_p_i,
+  input             user_clk_n_i,
+  input             emerg_clk_i,
+  
   /* QSFP */
   output [0:7]      qsfp_txp_o,
   output [0:7]      qsfp_txn_o,
@@ -44,6 +47,7 @@ module mexiko(
   input             qsfp_refclk_p_i,
   input             qsfp_refclk_n_i,
 
+`ifdef DDR3
   /* DDR3 */
   inout  [63:0]     ddr3_dq_io,
   inout  [7:0]      ddr3_dqs_n_io,
@@ -62,7 +66,9 @@ module mexiko(
   output [0:0]      ddr3_odt_o,
   input             ddr3_refclk_p_i,
   input             ddr3_refclk_n_i,
-
+ `endif 
+ 
+`ifdef PCIE
   /* PCIe */
   output [0:0]      pci_txp_o,
   output [0:0]      pci_txn_o,
@@ -70,13 +76,20 @@ module mexiko(
   input  [0:0]      pci_rxn_i,
   input             pci_perst_n_i,
   output            pci_wake_n_o,
-  input  [0:0]      pci_refclk100_p_i,
-  input  [0:0]      pci_refclk100_n_i,
+  input             pci_refclk100_p_i,
+  input             pci_refclk100_n_i,
+`endif
   
   /* USB UART */
   input             usb_uart_rxd,
-  output            usb_uart_txd
+  output            usb_uart_txd,
+  
+  /* DEBUG */
+  output [0:6]      debug_o
 );
+  wire user_clk;
+  wire emerg_clk;
+  wire sys_clk;
   wire sys_rst_n;
   wire sys_rst;
 
@@ -85,18 +98,38 @@ module mexiko(
   /* TODO(bluecmd): Do something nice here, like a counter or something.
    * Also clean up the mess with _n and whatnot. At least see what best practise
    * says about mixing them. */
-  assign sys_rst_n = 1'b1;
-  assign sys_rst = 1'b0;
+  assign sys_rst_n = areset_n_i;
+  assign sys_rst = ~areset_n_i;
+
+`ifdef USE_EMERGENCY_CLK
+  assign sys_clk = emerg_clk;
+`else
+  assign sys_clk = user_clk;
+`endif
+
+  /* Debug unit to show that the sys_clk is alive */
+  reg [28:0] dbg_user_clk_cntr_r = 29'b0;
+  reg [26:0] dbg_emerg_clk_cntr_r = 27'b0;
   
-  /* TODO(bluecmd): Maybe use DDR3 clock instead of PCIe clock?
-   * I'm thinking that if we can avoid synchronization on that path it would
-   * be nice. */
-  IBUFDS_GTE2 sys_clk_ibuf (
-    .CEB(1'b0),
-    .I(pci_refclk100_p_i[0]),
-    .IB(pci_refclk100_n_i[0]),
-    .O(sys_clk),
-    .ODIV2()
+  /* Using 250 MHz (default for User Si570) and 80 MHz (EMC OSC)
+   * these two will blink at at ~1 Hz. */
+  assign debug_o[6] = dbg_user_clk_cntr_r[28];
+  assign debug_o[5] = dbg_emerg_clk_cntr_r[26];
+  always @(posedge user_clk) begin
+    dbg_user_clk_cntr_r <= dbg_user_clk_cntr_r + 29'b1;
+  end
+  always @(posedge emerg_clk) begin
+    dbg_emerg_clk_cntr_r <= dbg_emerg_clk_cntr_r + 27'b1;
+  end
+  
+  IBUFGDS user_clk_ibuf (
+    .I(user_clk_p_i),
+    .IB(user_clk_n_i),
+    .O(user_clk)
+  );
+  IBUFG emerg_clk_ibuf (
+    .I(emerg_clk_i),
+    .O(emerg_clk)
   );
 
   network network_i (
@@ -110,11 +143,12 @@ module mexiko(
     .rxn_i(qsfp_rxn_i)
   );
 
+`ifdef SOC
   orpsoc soc_i (
     .sys_clk_i(sys_clk),
     .sys_rst_n_i(sys_rst_n),
-`ifdef SIM
     /* TODO(bluecmd): do this */
+`ifdef SIM
     .tdo_pad_o,
     .tms_pad_i,
     .tck_pad_i,
@@ -123,15 +157,26 @@ module mexiko(
     .uart0_srx_pad_i(usb_uart_rxd),
     .uart0_stx_pad_o(usb_uart_txd)
   );
+`endif
 
+`ifdef PCIE
+  IBUFDS_GTE2 sys_clk_ibuf (
+    .CEB(1'b0),
+    .I(pci_refclk100_p_i),
+    .IB(pci_refclk100_n_i),
+    .O(pcie_clk),
+    .ODIV2()
+  );
   xilinx_pcie_2_1_ep_7x pcie_example_i (
     .pci_exp_txp(pci_txp_o),
     .pci_exp_txn(pci_txn_o),
     .pci_exp_rxp(pci_rxp_i),
     .pci_exp_rxn(pci_rxn_i),
-    .sys_clk(sys_clk),
+    .sys_clk(pcie_clk),
     .sys_rst_n(pci_perst_n_i));
+`endif
 
+`ifdef DDR3
   example_top ddr_example_i (
     .ddr3_dq(ddr3_dq_io),
     .ddr3_dqs_n(ddr3_dqs_n_io),
@@ -154,5 +199,5 @@ module mexiko(
     .init_calib_complete(),
     .device_temp_i(12'b0),
     .sys_rst(sys_rst));
-
+`endif
 endmodule

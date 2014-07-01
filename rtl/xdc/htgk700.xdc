@@ -1,4 +1,4 @@
-set_property LOC GTXE2_CHANNEL_X0Y7   [get_cells -hierarchical -filter {NAME =~ *pipe_lane[0]*gtxe2_channel_i}]
+# set_property LOC GTXE2_CHANNEL_X0Y7   [get_cells -hierarchical -filter {NAME =~ *pipe_lane[0]*gtxe2_channel_i}]
 set_property LOC GTXE2_CHANNEL_X0Y8   [get_cells -hierarchical -filter {NAME =~ *octa_i/gen_lane[0].lane*gtxe2_i}]
 set_property LOC GTXE2_CHANNEL_X0Y9   [get_cells -hierarchical -filter {NAME =~ *octa_i/gen_lane[1].lane*gtxe2_i}]
 set_property LOC GTXE2_CHANNEL_X0Y10  [get_cells -hierarchical -filter {NAME =~ *octa_i/gen_lane[2].lane*gtxe2_i}]
@@ -11,7 +11,13 @@ set_property LOC GTXE2_CHANNEL_X0Y15  [get_cells -hierarchical -filter {NAME =~ 
 set_property PACKAGE_PIN C8           [get_ports {qsfp_refclk_p_i}]
 # TODO(bluecmd): All QSFP pins, add here and validate
 
-set_property PACKAGE_PIN L8           [get_ports {pci_refclk100_p_i[0]}]
+set_property PACKAGE_PIN R24            [get_ports {emerg_clk_i}]
+set_property IOSTANDARD LVCMOS18        [get_ports {emerg_clk_i}]
+set_property PACKAGE_PIN T26            [get_ports {user_clk_p_i}]
+set_property IOSTANDARD DIFF_HSTL_II_18 [get_ports {user_clk_p_i}]
+set_property PACKAGE_PIN T27            [get_ports {user_clk_n_i}]
+set_property IOSTANDARD DIFF_HSTL_II_18 [get_ports {user_clk_n_i}]
+#set_property PACKAGE_PIN L8           [get_ports {pci_refclk100_p_i[0]}]
 # TODO(bluecmd): Verify these, they don't play nice with the XCVR placement
 # set_property PACKAGE_PIN R7           [get_ports {pci_rxn_i[0]}]
 # set_property PACKAGE_PIN R8           [get_ports {pci_rxp_i[0]}]
@@ -145,12 +151,26 @@ set_property PACKAGE_PIN AC9          [get_ports {ddr3_ck_n_o[0]}]
 # set_property PACKAGE_PIN AK11       [get_ports {ddr3_event_o}]
 
 # FPGA_USER_PB
-set_property PACKAGE_PIN M19          [get_ports {areset_i}]
-set_property IOSTANDARD LVCMOS33      [get_ports {areset_i}]
+set_property PACKAGE_PIN M19          [get_ports {areset_n_i}]
+set_property IOSTANDARD LVCMOS33      [get_ports {areset_n_i}]
 
-# FPGA_USER_LED0
+# FPGA_USER_LEDx
 set_property PACKAGE_PIN AJ22         [get_ports {resetdone_o}]
 set_property IOSTANDARD LVCMOS33      [get_ports {resetdone_o}]
+set_property PACKAGE_PIN AH22         [get_ports {debug_o[0]}]
+set_property IOSTANDARD LVCMOS33      [get_ports {debug_o[0]}]
+set_property PACKAGE_PIN AG22         [get_ports {debug_o[1]}]
+set_property IOSTANDARD LVCMOS33      [get_ports {debug_o[1]}]
+set_property PACKAGE_PIN AF21         [get_ports {debug_o[2]}]
+set_property IOSTANDARD LVCMOS33      [get_ports {debug_o[2]}]
+set_property PACKAGE_PIN AD21         [get_ports {debug_o[3]}]
+set_property IOSTANDARD LVCMOS33      [get_ports {debug_o[3]}]
+set_property PACKAGE_PIN AH25         [get_ports {debug_o[4]}]
+set_property IOSTANDARD LVCMOS33      [get_ports {debug_o[4]}]
+set_property PACKAGE_PIN AH24         [get_ports {debug_o[5]}]
+set_property IOSTANDARD LVCMOS33      [get_ports {debug_o[5]}]
+set_property PACKAGE_PIN AE21         [get_ports {debug_o[6]}]
+set_property IOSTANDARD LVCMOS33      [get_ports {debug_o[6]}]
 
 # USB UART
 set_property PACKAGE_PIN AF23         [get_ports {usb_uart_rxd}]
