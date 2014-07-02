@@ -256,20 +256,8 @@ module orpsoc #(
 
   wire    uart0_irq;
 
-  wire [31:0]     wb8_m2s_uart0_adr;
-  wire [1:0]      wb8_m2s_uart0_bte;
-  wire [2:0]      wb8_m2s_uart0_cti;
-  wire            wb8_m2s_uart0_cyc;
-  wire [7:0]      wb8_m2s_uart0_dat;
-  wire            wb8_m2s_uart0_stb;
-  wire            wb8_m2s_uart0_we;
-  wire [7:0]      wb8_s2m_uart0_dat;
-  wire            wb8_s2m_uart0_ack;
-  wire            wb8_s2m_uart0_err;
-  wire            wb8_s2m_uart0_rty;
-
-  assign  wb8_s2m_uart0_err = 0;
-  assign  wb8_s2m_uart0_rty = 0;
+  //assign  wb_s2m_uart0_err = 0;
+  //assign  wb_s2m_uart0_rty = 0;
 
   uart_top uart0 (
     /* Wishbone slave interface */

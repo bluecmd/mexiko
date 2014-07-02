@@ -1,6 +1,7 @@
 
 VERILATOR_FLAGS = -Wno-fatal -Wno-combdly
 VERILATOR_INCLUDE = \
+	-I${PWD}/include \
 	-I${PWD}/.. \
 	-I${PWD}/../mor1kx/rtl/verilog \
 	-I${PWD}/../orpsoc-cores/cores/elf-loader \
@@ -16,7 +17,12 @@ VERILATOR_INCLUDE = \
 
 .PHONY: obj_dir/Vtestbench
 
-obj_dir/Vtestbench: bench/testbench.sv bench/testbench.cpp
+all: obj_dir/Vtestbench
+
+include/wb_intercon.v: include/wb_intercon.conf
+	../orpsoc-cores/cores/wb_intercon/sw/wb_intercon_gen $< $@
+
+obj_dir/Vtestbench: bench/testbench.sv bench/testbench.cpp include/wb_intercon.v
 	 verilator $(VERILATOR_FLAGS) -cc bench/testbench.sv --top-module testbench \
 		 --exe bench/testbench.cpp $(VERILATOR_INCLUDE) 
 	 make -C obj_dir -f Vtestbench.mk Vtestbench CXXFLAGS=$(CXXFLAGS)
