@@ -12,7 +12,7 @@ all: bootrom.v sim.elf
 clean:
 	rm -f *.o *.elf bootrom.v bin2vlogarray
 
-%.o: %.S
+%.o: %.S bootrom_config.h
 	$(CC) -c $< -o $@ -DTIMESTAMP="\"$(STAMP)\""
 
 bootrom.elf: $(BOOTROM_DEPS)
