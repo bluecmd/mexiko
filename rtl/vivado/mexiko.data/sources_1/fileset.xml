@@ -24,6 +24,16 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
+    <File Path="$PPRDIR/../mor1kx/rtl/verilog/mor1kx_cache_lru.v">
+      <FileInfo>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
     <File Path="$PPRDIR/../orpsoc-cores/cores/uart16550/rtl/verilog/raminfr.v">
       <FileInfo>
         <Attr Name="Library" Val="uart"/>
@@ -178,9 +188,8 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../orpsoc-cores/cores/uart16550/rtl/verilog/uart_defines.v">
+    <File Path="$PPRDIR/../orpsoc/include/uart_defines.v">
       <FileInfo>
-        <Attr Name="Library" Val="uart"/>
         <Attr Name="UsedInSynthesis" Val="1"/>
         <Attr Name="UsedInImplementation" Val="1"/>
         <Attr Name="UsedInSimulation" Val="1"/>
@@ -713,6 +722,25 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
+    <File Path="$PPRDIR/../orpsoc-cores/cores/verilog_utils/verilog_utils.vh">
+      <FileInfo>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../orpsoc-cores/cores/wb_intercon/wb_mux.v">
+      <FileInfo>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
     <File Path="$PPRDIR/../orpsoc-cores/cores/wb_intercon/wb_data_resize.v">
       <FileInfo>
         <Attr Name="Library" Val="wishbone"/>
@@ -747,17 +775,6 @@
       </FileInfo>
     </File>
     <File Path="$PPRDIR/../orpsoc-cores/cores/uart16550/rtl/verilog/uart_regs.v">
-      <FileInfo>
-        <Attr Name="Library" Val="uart"/>
-        <Attr Name="UsedInSynthesis" Val="1"/>
-        <Attr Name="UsedInImplementation" Val="1"/>
-        <Attr Name="UsedInSimulation" Val="1"/>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
-    <File Path="$PPRDIR/../orpsoc-cores/cores/uart16550/rtl/verilog/uart_debug_if.v">
       <FileInfo>
         <Attr Name="Library" Val="uart"/>
         <Attr Name="UsedInSynthesis" Val="1"/>
@@ -899,7 +916,7 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../rom.sv">
+    <File Path="$PPRDIR/../orpsoc/rom.sv">
       <FileInfo>
         <Attr Name="UsedInSynthesis" Val="1"/>
         <Attr Name="UsedInImplementation" Val="1"/>
@@ -909,7 +926,7 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../orpsoc/wb_intercon.v">
+    <File Path="$PPRDIR/../orpsoc/include/wb_intercon.v">
       <FileInfo>
         <Attr Name="Library" Val="wishbone"/>
         <Attr Name="UsedInSynthesis" Val="1"/>
@@ -996,7 +1013,7 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../mexiko-defs.vh">
+    <File Path="$PPRDIR/../orpsoc/include/wb_intercon.vh">
       <FileInfo>
         <Attr Name="UsedInSynthesis" Val="1"/>
         <Attr Name="UsedInSimulation" Val="1"/>
@@ -1005,7 +1022,7 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../orpsoc/wb_intercon.vh">
+    <File Path="$PPRDIR/../mexiko-defs.vh">
       <FileInfo>
         <Attr Name="UsedInSynthesis" Val="1"/>
         <Attr Name="UsedInSimulation" Val="1"/>
@@ -1066,9 +1083,27 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
+    <File Path="$PPRDIR/../orpsoc-cores/cores/uart16550/rtl/verilog/uart_defines.v">
+      <FileInfo>
+        <Attr Name="Library" Val="uart"/>
+        <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedInImplementation" Val="1"/>
+        <Attr Name="UsedInSimulation" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
     <File Path="$PSRCDIR/sources_1/ip/xilinx_ddr3/mig_a.prj">
       <FileInfo>
         <Attr Name="UsedInSynthesis" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PDATADIR/sources_1/ports.xml">
+      <FileInfo SFType="PortsDb">
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>

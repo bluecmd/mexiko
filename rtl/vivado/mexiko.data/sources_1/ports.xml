@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Interface Version="1" Minor="2">
 	<Ifc Id="ROOT" Top="1">
-		<Bus Id="qsfp_txp_o">
+		<Bus Id="debug_o">
 			<Port Id="0" Dir="OUT"/>
 			<Port Id="1" Dir="OUT"/>
 			<Port Id="2" Dir="OUT"/>
@@ -9,27 +9,6 @@
 			<Port Id="4" Dir="OUT"/>
 			<Port Id="5" Dir="OUT"/>
 			<Port Id="6" Dir="OUT"/>
-			<Port Id="7" Dir="OUT"/>
-		</Bus>
-		<Bus Id="qsfp_txn_o">
-			<Port Id="0" Dir="OUT"/>
-			<Port Id="1" Dir="OUT"/>
-			<Port Id="2" Dir="OUT"/>
-			<Port Id="3" Dir="OUT"/>
-			<Port Id="4" Dir="OUT"/>
-			<Port Id="5" Dir="OUT"/>
-			<Port Id="6" Dir="OUT"/>
-			<Port Id="7" Dir="OUT"/>
-		</Bus>
-		<Bus Id="qsfp_rxp_i">
-			<Port Id="0" Dir="IN"/>
-			<Port Id="1" Dir="IN"/>
-			<Port Id="2" Dir="IN"/>
-			<Port Id="3" Dir="IN"/>
-			<Port Id="4" Dir="IN"/>
-			<Port Id="5" Dir="IN"/>
-			<Port Id="6" Dir="IN"/>
-			<Port Id="7" Dir="IN"/>
 		</Bus>
 		<Bus Id="qsfp_rxn_i">
 			<Port Id="0" Dir="IN"/>
@@ -41,10 +20,44 @@
 			<Port Id="6" Dir="IN"/>
 			<Port Id="7" Dir="IN"/>
 		</Bus>
-		<Port Id="qsfp_refclk_p_i" Dir="IN"/>
-		<Port Id="qsfp_refclk_n_i" Dir="IN"/>
+		<Bus Id="qsfp_rxp_i">
+			<Port Id="0" Dir="IN"/>
+			<Port Id="1" Dir="IN"/>
+			<Port Id="2" Dir="IN"/>
+			<Port Id="3" Dir="IN"/>
+			<Port Id="4" Dir="IN"/>
+			<Port Id="5" Dir="IN"/>
+			<Port Id="6" Dir="IN"/>
+			<Port Id="7" Dir="IN"/>
+		</Bus>
+		<Bus Id="qsfp_txn_o">
+			<Port Id="0" Dir="OUT"/>
+			<Port Id="1" Dir="OUT"/>
+			<Port Id="2" Dir="OUT"/>
+			<Port Id="3" Dir="OUT"/>
+			<Port Id="4" Dir="OUT"/>
+			<Port Id="5" Dir="OUT"/>
+			<Port Id="6" Dir="OUT"/>
+			<Port Id="7" Dir="OUT"/>
+		</Bus>
+		<Bus Id="qsfp_txp_o">
+			<Port Id="0" Dir="OUT"/>
+			<Port Id="1" Dir="OUT"/>
+			<Port Id="2" Dir="OUT"/>
+			<Port Id="3" Dir="OUT"/>
+			<Port Id="4" Dir="OUT"/>
+			<Port Id="5" Dir="OUT"/>
+			<Port Id="6" Dir="OUT"/>
+			<Port Id="7" Dir="OUT"/>
+		</Bus>
 		<Port Id="areset_i" Dir="IN"/>
+		<Port Id="qsfp_refclk_n_i" Dir="IN"/>
+		<Port Id="qsfp_refclk_p_i" Dir="IN"/>
 		<Port Id="resetdone_o" Dir="OUT"/>
+		<Port Id="usb_uart_rxd" Dir="IN"/>
+		<Port Id="usb_uart_txd" Dir="OUT"/>
+		<Port Id="user_clk_n_i" Dir="IN"/>
+		<Port Id="user_clk_p_i" Dir="IN"/>
 	</Ifc>
 </Interface>
 
