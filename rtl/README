@@ -1,0 +1,9 @@
+
+# Check out all the submodules
+git submodule update --init --recursive
+
+# Generate ROM
+make rom
+
+# Simulate in Verilator
+make sim

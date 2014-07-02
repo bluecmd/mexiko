@@ -32,7 +32,7 @@
 `include "mexiko-defs.vh"
 
 module orpsoc #(
-  parameter       rom0_aw = 6,
+  parameter       rom0_aw = 8,
   parameter       uart0_aw = 3
 )(
   input           sys_clk_i,
