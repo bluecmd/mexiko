@@ -25,7 +25,7 @@ all: obj_dir/Vtestbench
 include/wb_intercon.v: include/wb_intercon.conf
 	../orpsoc-cores/cores/wb_intercon/sw/wb_intercon_gen $< $@
 
-bootrom/bootrom.v: bootrom/*.S
+bootrom/bootrom.v: bootrom/*.S bootrom/bootrom_config.h
 	make -C bootrom bootrom.v
 
 obj_dir/Vtestbench: $(DEPS)
