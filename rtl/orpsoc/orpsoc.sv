@@ -70,34 +70,6 @@ module orpsoc #(
   `include "wb_intercon.vh"
 
   ////////////////////////////////////////////////////////////////////////
-  // JTAG TAP
-  ////////////////////////////////////////////////////////////////////////
-
-  /*
-`ifdef SIM
-`else
-  assign jtag_tap_pause_dr = 1'b0;
-
-  BSCANE2 #(
-    .JTAG_CHAIN(1)
-  )
-  xilinx_jtag_i (
-    .DRCK(),
-    .RESET(),
-    .RUNTEST(),
-    .TMS(),
-    .TCK(dbg_tck),
-    .SEL(dbg_if_select),
-    .TDO(dbg_if_tdo),
-    .TDI(jtag_tap_tdo),
-    .SHIFT(jtag_tap_shift_dr),
-    .UPDATE(jtag_tap_update_dr),
-    .CAPTURE(jtag_tap_capture_dr)
-  );
-`endif
-  */
-
-  ////////////////////////////////////////////////////////////////////////
   // System OR1K CPU
   ////////////////////////////////////////////////////////////////////////
 

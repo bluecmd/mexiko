@@ -64,7 +64,7 @@ module testbench (
     .uart_tx(uart_rxd),
 
      /* TODO(bluecmd): Remove magic number */
-    .divisor(16'd26),
+    .divisor(16'd43),
 
     .rx_data(uart_rx_data),
     .rx_done(uart_rx_done),

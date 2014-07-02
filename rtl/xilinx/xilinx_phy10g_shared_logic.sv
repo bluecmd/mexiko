@@ -30,8 +30,6 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-`timescale 1ns / 1ps
-
 module xilinx_phy10g_shared_logic(
   input  areset_i,
   input  refclk_p_i,

@@ -30,8 +30,6 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-`timescale 1ns / 1ps
-
 module xilinx_lane(
     /* shared between lanes */
     input             clk156_i,

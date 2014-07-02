@@ -2,7 +2,7 @@
 #define __HEADER_BOOTROM_CONFIG__
 
 #define UART           0x90000000
-#define SYS_CLK        50000000
+#define SYS_CLK        80000000
 #define BAUD           115200
 
 #define RAM_BASE       0x0

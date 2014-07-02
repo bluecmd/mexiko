@@ -179,7 +179,7 @@ set_property PACKAGE_PIN AE21         [get_ports {debug_o[6]}]
 set_property IOSTANDARD LVCMOS33      [get_ports {debug_o[6]}]
 
 # USB UART
-set_property PACKAGE_PIN AF23         [get_ports {usb_uart_rxd}]
-set_property IOSTANDARD LVCMOS33      [get_ports {usb_uart_rxd}]
-set_property PACKAGE_PIN AE23         [get_ports {usb_uart_txd}]
-set_property IOSTANDARD LVCMOS33      [get_ports {usb_uart_txd}]
+set_property PACKAGE_PIN AF23         [get_ports {usb_uart_rxd_o}]
+set_property IOSTANDARD LVCMOS33      [get_ports {usb_uart_rxd_o}]
+set_property PACKAGE_PIN AE23         [get_ports {usb_uart_txd_i}]
+set_property IOSTANDARD LVCMOS33      [get_ports {usb_uart_txd_i}]

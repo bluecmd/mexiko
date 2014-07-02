@@ -29,8 +29,6 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-`timescale 1ns / 1ps
-
 module xilinx_octa10g (
   input             refclk_p_i,
   input             refclk_n_i,

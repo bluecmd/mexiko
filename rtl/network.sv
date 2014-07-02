@@ -29,8 +29,6 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-`timescale 1ns / 1ps
-
 module network(
     input             refclk_p_i,
     input             refclk_n_i,

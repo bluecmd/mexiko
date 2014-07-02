@@ -30,8 +30,6 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-`timescale 1ns / 1ps
-
 module  xilinx_phy10g_quad_logic (
   input  refclk_i,
   input  qpllreset_i,

@@ -29,9 +29,9 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-`timescale 1ns / 1ps
+`include "mexiko-defs.vh"
 
-module mexiko(
+module mexiko (
   /* System wide */
   input             areset_n_i,
   output            resetdone_o,
@@ -83,8 +83,8 @@ module mexiko(
 `endif
   
   /* USB UART */
-  input             usb_uart_rxd,
-  output            usb_uart_txd,
+  output            usb_uart_rxd_o,
+  input             usb_uart_txd_i,
   
   /* DEBUG */
   output [0:6]      debug_o
@@ -147,21 +147,48 @@ module mexiko(
     .rxn_i(qsfp_rxn_i)
   );
 
-`ifdef SOC
+  wire dbg_tck;
+  wire dbg_if_select;
+  wire dbg_if_tdo;
+  wire jtag_tap_tdo;
+  wire jtag_tap_shift_dr;
+  wire jtag_tap_pause_dr;
+  wire jtag_tap_update_dr;
+  wire jtag_tap_capture_dr;
+
   orpsoc soc_i (
     .sys_clk_i(sys_clk),
-    .sys_rst_n_i(sys_rst_n),
-    /* TODO(bluecmd): do this */
-`ifdef SIM
-    .tdo_pad_o,
-    .tms_pad_i,
-    .tck_pad_i,
-    .tdi_pad_i,
-`endif
-    .uart0_srx_pad_i(usb_uart_rxd),
-    .uart0_stx_pad_o(usb_uart_txd)
+    .sys_rst_i(sys_rst),
+    .uart0_srx_pad_i(usb_uart_txd_i),
+    .uart0_stx_pad_o(usb_uart_rxd_o),
+    .dbg_tck_i(dbg_tck),
+    .dbg_if_select_i(dbg_if_select),
+    .dbg_if_tdo_o(dbg_if_tdo),
+    .jtag_tap_tdo_i(jtag_tap_tdo),
+    .jtag_tap_shift_dr_i(jtag_tap_shift_dr),
+    .jtag_tap_pause_dr_i(jtag_tap_pause_dr),
+    .jtag_tap_update_dr_i(jtag_tap_update_dr),
+    .jtag_tap_capture_dr_i(jtag_tap_capture_dr)
   );
-`endif
+  
+  assign jtag_tap_pause_dr = 1'b0;
+
+  BSCANE2 #(
+    .JTAG_CHAIN(1)
+  )
+  xilinx_jtag_i (
+    .DRCK(),
+    .RESET(),
+    .RUNTEST(),
+    .TMS(),
+    .TCK(dbg_tck),
+    .SEL(dbg_if_select),
+    .TDO(dbg_if_tdo),
+    .TDI(jtag_tap_tdo),
+    .SHIFT(jtag_tap_shift_dr),
+    .UPDATE(jtag_tap_update_dr),
+    .CAPTURE(jtag_tap_capture_dr)
+  );
 
 `ifdef PCIE
   IBUFDS_GTE2 sys_clk_ibuf (

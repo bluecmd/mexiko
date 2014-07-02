@@ -29,8 +29,6 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-`timescale 1ns / 1ps
-
 module ff_syncer #(
   parameter SYNC_REGS = 4,
   parameter RESET_VAL = 1'b0
