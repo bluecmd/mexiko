@@ -1,0 +1,5 @@
+*.o
+*.elf
+bootrom.v
+bootrom.bin
+bin2vlogarray

@@ -1,6 +1,6 @@
 
 # Check out all the submodules
-git submodule update --init --recursive
+git submodule update --init --recursive --remote
 
 # Generate ROM
 make rom

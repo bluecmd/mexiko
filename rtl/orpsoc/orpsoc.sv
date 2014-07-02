@@ -36,32 +36,32 @@ module orpsoc #(
   parameter       uart0_aw = 3
 )(
   input           sys_clk_i,
-  input           sys_rst_n_i,
+  input           sys_rst_i,
 
-`ifdef SIM
-  output          tdo_pad_o,
-  input           tms_pad_i,
-  input           tck_pad_i,
-  input           tdi_pad_i,
-`endif
+  input           dbg_tck_i,
+  input           dbg_if_select_i,
+  output          dbg_if_tdo_o,
+  input           jtag_tap_tdo_i,
+  input           jtag_tap_shift_dr_i,
+  input           jtag_tap_pause_dr_i,
+  input           jtag_tap_update_dr_i,
+  input           jtag_tap_capture_dr_i,
 
   input           uart0_srx_pad_i,
-  output          uart0_stx_pad_o,
-  output          uart0_vcc_pad_o
+  output          uart0_stx_pad_o
 );
-
-  parameter       IDCODE_VALUE=32'h14951185;
 
   ////////////////////////////////////////////////////////////////////////
   //
   // Clock and reset generation module
   //
   ////////////////////////////////////////////////////////////////////////
-  wire    wb_clk, wb_rst;
+  wire    wb_clk;
+  wire    wb_rst /* verilator public */;
 
   clkgen clkgen0 (
     .sys_clk_i(sys_clk_i),
-    .sys_rst_i(sys_rst_n_i),
+    .sys_rst_i(sys_rst_i),
     .wb_clk_o(wb_clk),
     .wb_rst_o(wb_rst)
   );
@@ -79,41 +79,8 @@ module orpsoc #(
   //
   ////////////////////////////////////////////////////////////////////////
 
-  wire    dbg_if_select;
-  wire    dbg_if_tdo;
-  wire    jtag_tap_tdo;
-  wire    jtag_tap_shift_dr;
-  wire    jtag_tap_pause_dr;
-  wire    jtag_tap_update_dr;
-  wire    jtag_tap_capture_dr;
-
+  /*
 `ifdef SIM
-  tap_top jtag_tap0 (
-    .tdo_pad_o                      (tdo_pad_o),
-    .tms_pad_i                      (tms_pad_i),
-    .tck_pad_i                      (dbg_tck),
-    .trst_pad_i                     (async_rst),
-    .tdi_pad_i                      (tdi_pad_i),
-
-    .tdo_padoe_o                    (tdo_padoe_o),
-
-    .tdo_o                          (jtag_tap_tdo),
-
-    .shift_dr_o                     (jtag_tap_shift_dr),
-    .pause_dr_o                     (jtag_tap_pause_dr),
-    .update_dr_o                    (jtag_tap_update_dr),
-    .capture_dr_o                   (jtag_tap_capture_dr),
-
-    .extest_select_o                (),
-    .sample_preload_select_o        (),
-    .mbist_select_o                 (),
-    .debug_select_o                 (dbg_if_select),
-
-
-    .bs_chain_tdi_i                 (1'b0),
-    .mbist_tdi_i                    (1'b0),
-    .debug_tdi_i                    (dbg_if_tdo)
-  );
 `else
   assign jtag_tap_pause_dr = 1'b0;
 
@@ -134,6 +101,7 @@ module orpsoc #(
     .CAPTURE(jtag_tap_capture_dr)
   );
 `endif
+  */
 
   ////////////////////////////////////////////////////////////////////////
   //
@@ -150,17 +118,16 @@ module orpsoc #(
   wire            or1k_dbg_ack_o;
   wire    [31:0]  or1k_dbg_dat_o;
 
-  wire            or1k_dbg_stall_i;
+  wire            or1k_dbg_stall_i /* verilator public */;
   wire            or1k_dbg_ewt_i;
   wire    [3:0]   or1k_dbg_lss_o;
   wire    [1:0]   or1k_dbg_is_o;
   wire    [10:0]  or1k_dbg_wp_o;
-  wire            or1k_dbg_bp_o;
+  wire            or1k_dbg_bp_o /* verilator public */;
   wire            or1k_dbg_rst;
 
   wire            sig_tick;
 
-`ifdef MOR1KX
   mor1kx #(
     .FEATURE_DEBUGUNIT("ENABLED"),
     .FEATURE_CMOV("ENABLED"),
@@ -225,7 +192,6 @@ module orpsoc #(
     .du_stall_i(or1k_dbg_stall_i),
     .du_stall_o(or1k_dbg_bp_o)
   );
-`endif
 
   ////////////////////////////////////////////////////////////////////////
   //
@@ -247,15 +213,15 @@ module orpsoc #(
     .cpu0_bp_i      (or1k_dbg_bp_o),
 
     /* TAP interface */
-    .tck_i          (dbg_tck),
-    .tdi_i          (jtag_tap_tdo),
-    .tdo_o          (dbg_if_tdo),
+    .tck_i          (dbg_tck_i),
+    .tdi_i          (jtag_tap_tdo_i),
+    .tdo_o          (dbg_if_tdo_o),
     .rst_i          (wb_rst),
-    .capture_dr_i   (jtag_tap_capture_dr),
-    .shift_dr_i     (jtag_tap_shift_dr),
-    .pause_dr_i     (jtag_tap_pause_dr),
-    .update_dr_i    (jtag_tap_update_dr),
-    .debug_select_i (dbg_if_select),
+    .capture_dr_i   (jtag_tap_capture_dr_i),
+    .shift_dr_i     (jtag_tap_shift_dr_i),
+    .pause_dr_i     (jtag_tap_pause_dr_i),
+    .update_dr_i    (jtag_tap_update_dr_i),
+    .debug_select_i (dbg_if_select_i),
 
     /* Wishbone debug master */
     .wb_clk_i       (wb_clk),
