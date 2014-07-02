@@ -46,6 +46,8 @@ module mexiko(
   input  [0:7]      qsfp_rxn_i,
   input             qsfp_refclk_p_i,
   input             qsfp_refclk_n_i,
+  
+  output            fmc_pg_c2m_o,
 
 `ifdef DDR3
   /* DDR3 */
@@ -94,6 +96,8 @@ module mexiko(
   wire sys_rst;
 
   assign pci_wake_n_o = 1'b1;
+  
+  assign fmc_pg_c2m_o = 1'b1;
 
   /* TODO(bluecmd): Do something nice here, like a counter or something.
    * Also clean up the mess with _n and whatnot. At least see what best practise

@@ -1,3 +1,6 @@
+set_property CONFIG_MODE BPI16 [current_design]
+set_property BITSTREAM.GENERAL.COMPRESS TRUE [current_design]
+
 # set_property LOC GTXE2_CHANNEL_X0Y7   [get_cells -hierarchical -filter {NAME =~ *pipe_lane[0]*gtxe2_channel_i}]
 set_property LOC GTXE2_CHANNEL_X0Y8   [get_cells -hierarchical -filter {NAME =~ *octa_i/gen_lane[0].lane*gtxe2_i}]
 set_property LOC GTXE2_CHANNEL_X0Y9   [get_cells -hierarchical -filter {NAME =~ *octa_i/gen_lane[1].lane*gtxe2_i}]
@@ -7,6 +10,9 @@ set_property LOC GTXE2_CHANNEL_X0Y12  [get_cells -hierarchical -filter {NAME =~ 
 set_property LOC GTXE2_CHANNEL_X0Y13  [get_cells -hierarchical -filter {NAME =~ *octa_i/gen_lane[5].lane*gtxe2_i}]
 set_property LOC GTXE2_CHANNEL_X0Y14  [get_cells -hierarchical -filter {NAME =~ *octa_i/gen_lane[6].lane*gtxe2_i}]
 set_property LOC GTXE2_CHANNEL_X0Y15  [get_cells -hierarchical -filter {NAME =~ *octa_i/gen_lane[7].lane*gtxe2_i}]
+
+set_property PACKAGE_PIN AA22         [get_ports {fmc_pg_c2m_o}]
+set_property IOSTANDARD LVCMOS33      [get_ports {fmc_pg_c2m_o}]
 
 set_property PACKAGE_PIN C8           [get_ports {qsfp_refclk_p_i}]
 # TODO(bluecmd): All QSFP pins, add here and validate
