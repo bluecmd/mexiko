@@ -32,88 +32,49 @@
 `include "mexiko-defs.vh"
 
 module orpsoc #(
-  parameter       rom0_aw = 6,
+  parameter       rom0_aw = 8,
   parameter       uart0_aw = 3
 )(
   input           sys_clk_i,
-  input           sys_rst_n_i,
+  input           sys_rst_i,
 
-`ifdef SIM
-  output          tdo_pad_o,
-  input           tms_pad_i,
-  input           tck_pad_i,
-  input           tdi_pad_i,
-`endif
+  input           dbg_tck_i,
+  input           dbg_if_select_i,
+  output          dbg_if_tdo_o,
+  input           jtag_tap_tdo_i,
+  input           jtag_tap_shift_dr_i,
+  input           jtag_tap_pause_dr_i,
+  input           jtag_tap_update_dr_i,
+  input           jtag_tap_capture_dr_i,
 
   input           uart0_srx_pad_i,
-  output          uart0_stx_pad_o,
-  output          uart0_vcc_pad_o
+  output          uart0_stx_pad_o
 );
 
-  parameter       IDCODE_VALUE=32'h14951185;
-
   ////////////////////////////////////////////////////////////////////////
-  //
   // Clock and reset generation module
-  //
   ////////////////////////////////////////////////////////////////////////
-  wire    wb_clk, wb_rst;
+  wire    wb_clk;
+  wire    wb_rst /* verilator public */;
 
   clkgen clkgen0 (
     .sys_clk_i(sys_clk_i),
-    .sys_rst_i(sys_rst_n_i), /* TODO(bluecmd): Wut? */
+    .sys_rst_i(sys_rst_i),
     .wb_clk_o(wb_clk),
     .wb_rst_o(wb_rst)
   );
 
   ////////////////////////////////////////////////////////////////////////
-  //
   // Modules interconnections
-  //
   ////////////////////////////////////////////////////////////////////////
   `include "wb_intercon.vh"
 
   ////////////////////////////////////////////////////////////////////////
-  //
   // JTAG TAP
-  //
   ////////////////////////////////////////////////////////////////////////
 
-  wire    dbg_if_select;
-  wire    dbg_if_tdo;
-  wire    jtag_tap_tdo;
-  wire    jtag_tap_shift_dr;
-  wire    jtag_tap_pause_dr;
-  wire    jtag_tap_update_dr;
-  wire    jtag_tap_capture_dr;
-
+  /*
 `ifdef SIM
-  tap_top jtag_tap0 (
-    .tdo_pad_o                      (tdo_pad_o),
-    .tms_pad_i                      (tms_pad_i),
-    .tck_pad_i                      (dbg_tck),
-    .trst_pad_i                     (async_rst),
-    .tdi_pad_i                      (tdi_pad_i),
-
-    .tdo_padoe_o                    (tdo_padoe_o),
-
-    .tdo_o                          (jtag_tap_tdo),
-
-    .shift_dr_o                     (jtag_tap_shift_dr),
-    .pause_dr_o                     (jtag_tap_pause_dr),
-    .update_dr_o                    (jtag_tap_update_dr),
-    .capture_dr_o                   (jtag_tap_capture_dr),
-
-    .extest_select_o                (),
-    .sample_preload_select_o        (),
-    .mbist_select_o                 (),
-    .debug_select_o                 (dbg_if_select),
-
-
-    .bs_chain_tdi_i                 (1'b0),
-    .mbist_tdi_i                    (1'b0),
-    .debug_tdi_i                    (dbg_if_tdo)
-  );
 `else
   assign jtag_tap_pause_dr = 1'b0;
 
@@ -134,11 +95,10 @@ module orpsoc #(
     .CAPTURE(jtag_tap_capture_dr)
   );
 `endif
+  */
 
   ////////////////////////////////////////////////////////////////////////
-  //
-  // OR1K CPU
-  //
+  // System OR1K CPU
   ////////////////////////////////////////////////////////////////////////
 
   wire    [31:0]  or1k_irq;
@@ -150,17 +110,16 @@ module orpsoc #(
   wire            or1k_dbg_ack_o;
   wire    [31:0]  or1k_dbg_dat_o;
 
-  wire            or1k_dbg_stall_i;
+  wire            or1k_dbg_stall_i /* verilator public */;
   wire            or1k_dbg_ewt_i;
   wire    [3:0]   or1k_dbg_lss_o;
   wire    [1:0]   or1k_dbg_is_o;
   wire    [10:0]  or1k_dbg_wp_o;
-  wire            or1k_dbg_bp_o;
+  wire            or1k_dbg_bp_o /* verilator public */;
   wire            or1k_dbg_rst;
 
   wire            sig_tick;
 
-`ifdef MOR1KX
   mor1kx #(
     .FEATURE_DEBUGUNIT("ENABLED"),
     .FEATURE_CMOV("ENABLED"),
@@ -225,12 +184,9 @@ module orpsoc #(
     .du_stall_i(or1k_dbg_stall_i),
     .du_stall_o(or1k_dbg_bp_o)
   );
-`endif
 
   ////////////////////////////////////////////////////////////////////////
-  //
   // Debug Interface
-  //
   ////////////////////////////////////////////////////////////////////////
 
   adbg_top dbg_if0 (
@@ -247,15 +203,15 @@ module orpsoc #(
     .cpu0_bp_i      (or1k_dbg_bp_o),
 
     /* TAP interface */
-    .tck_i          (dbg_tck),
-    .tdi_i          (jtag_tap_tdo),
-    .tdo_o          (dbg_if_tdo),
+    .tck_i          (dbg_tck_i),
+    .tdi_i          (jtag_tap_tdo_i),
+    .tdo_o          (dbg_if_tdo_o),
     .rst_i          (wb_rst),
-    .capture_dr_i   (jtag_tap_capture_dr),
-    .shift_dr_i     (jtag_tap_shift_dr),
-    .pause_dr_i     (jtag_tap_pause_dr),
-    .update_dr_i    (jtag_tap_update_dr),
-    .debug_select_i (dbg_if_select),
+    .capture_dr_i   (jtag_tap_capture_dr_i),
+    .shift_dr_i     (jtag_tap_shift_dr_i),
+    .pause_dr_i     (jtag_tap_pause_dr_i),
+    .update_dr_i    (jtag_tap_update_dr_i),
+    .debug_select_i (dbg_if_select_i),
 
     /* Wishbone debug master */
     .wb_clk_i       (wb_clk),
@@ -274,16 +230,15 @@ module orpsoc #(
   );
 
   ////////////////////////////////////////////////////////////////////////
-  //
   // ROM
-  //
   ////////////////////////////////////////////////////////////////////////
 
   assign  wb_s2m_rom0_err = 1'b0;
   assign  wb_s2m_rom0_rty = 1'b0;
 
-  rom #(.addr_width(rom0_aw))
-  rom0 (
+  rom #(
+    .addr_width(rom0_aw)
+  ) rom0 (
     .wb_clk         (wb_clk),
     .wb_rst         (wb_rst),
     .wb_adr_i       (wb_m2s_rom0_adr[(rom0_aw + 2) - 1 : 2]),
@@ -296,40 +251,26 @@ module orpsoc #(
   );
 
   ////////////////////////////////////////////////////////////////////////
-  //
   // UART0
-  //
   ////////////////////////////////////////////////////////////////////////
 
   wire    uart0_irq;
 
-  wire [31:0]     wb8_m2s_uart0_adr;
-  wire [1:0]      wb8_m2s_uart0_bte;
-  wire [2:0]      wb8_m2s_uart0_cti;
-  wire            wb8_m2s_uart0_cyc;
-  wire [7:0]      wb8_m2s_uart0_dat;
-  wire            wb8_m2s_uart0_stb;
-  wire            wb8_m2s_uart0_we;
-  wire [7:0]      wb8_s2m_uart0_dat;
-  wire            wb8_s2m_uart0_ack;
-  wire            wb8_s2m_uart0_err;
-  wire            wb8_s2m_uart0_rty;
+  //assign  wb_s2m_uart0_err = 0;
+  //assign  wb_s2m_uart0_rty = 0;
 
-  assign  wb8_s2m_uart0_err = 0;
-  assign  wb8_s2m_uart0_rty = 0;
-
-  uart_top uart16550_0 (
+  uart_top uart0 (
     /* Wishbone slave interface */
     .wb_clk_i       (wb_clk),
     .wb_rst_i       (wb_rst),
-    .wb_adr_i       (wb8_m2s_uart0_adr[uart0_aw-1:0]),
-    .wb_dat_i       (wb8_m2s_uart0_dat),
-    .wb_we_i        (wb8_m2s_uart0_we),
-    .wb_stb_i       (wb8_m2s_uart0_stb),
-    .wb_cyc_i       (wb8_m2s_uart0_cyc),
+    .wb_adr_i       (wb_m2s_uart0_adr[uart0_aw-1:0]),
+    .wb_dat_i       (wb_m2s_uart0_dat),
+    .wb_we_i        (wb_m2s_uart0_we),
+    .wb_stb_i       (wb_m2s_uart0_stb),
+    .wb_cyc_i       (wb_m2s_uart0_cyc),
     .wb_sel_i       (4'b0), // Not used in 8-bit mode
-    .wb_dat_o       (wb8_s2m_uart0_dat),
-    .wb_ack_o       (wb8_s2m_uart0_ack),
+    .wb_dat_o       (wb_s2m_uart0_dat),
+    .wb_ack_o       (wb_s2m_uart0_ack),
 
     /* Outputs */
     .int_o          (uart0_irq),
@@ -345,38 +286,8 @@ module orpsoc #(
     .dcd_pad_i      (1'b0)
   );
 
-  wb_data_resize wb_data_resize_uart0 (
-    /* Wishbone Master interface */
-    .wbm_adr_i      (wb_m2s_uart0_adr),
-    .wbm_dat_i      (wb_m2s_uart0_dat),
-    .wbm_sel_i      (wb_m2s_uart0_sel),
-    .wbm_we_i       (wb_m2s_uart0_we ),
-    .wbm_cyc_i      (wb_m2s_uart0_cyc),
-    .wbm_stb_i      (wb_m2s_uart0_stb),
-    .wbm_cti_i      (wb_m2s_uart0_cti),
-    .wbm_bte_i      (wb_m2s_uart0_bte),
-    .wbm_dat_o      (wb_s2m_uart0_dat),
-    .wbm_ack_o      (wb_s2m_uart0_ack),
-    .wbm_err_o      (wb_s2m_uart0_err),
-    .wbm_rty_o      (wb_s2m_uart0_rty),
-    /* Wishbone Slave interface */
-    .wbs_adr_o      (wb8_m2s_uart0_adr),
-    .wbs_dat_o      (wb8_m2s_uart0_dat),
-    .wbs_we_o       (wb8_m2s_uart0_we ),
-    .wbs_cyc_o      (wb8_m2s_uart0_cyc),
-    .wbs_stb_o      (wb8_m2s_uart0_stb),
-    .wbs_cti_o      (wb8_m2s_uart0_cti),
-    .wbs_bte_o      (wb8_m2s_uart0_bte),
-    .wbs_dat_i      (wb8_s2m_uart0_dat),
-    .wbs_ack_i      (wb8_s2m_uart0_ack),
-    .wbs_err_i      (wb8_s2m_uart0_err),
-    .wbs_rty_i      (wb8_s2m_uart0_rty)
-  );
-
   ////////////////////////////////////////////////////////////////////////
-  //
   // Interrupt assignment
-  //
   ////////////////////////////////////////////////////////////////////////
 
   assign or1k_irq[0] = 0; /* Non-maskable inside OR1K */
