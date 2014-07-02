@@ -14,11 +14,17 @@ _start:
   l.movhi r3,hi(txt_banner)
   l.jal   print_str
    l.ori  r3,r3,lo(txt_banner)
+  l.movhi r3,hi(txt_timestamp)
+  l.jal   print_str
+   l.ori  r3,r3,lo(txt_timestamp)
 
 copy_init:
   l.jal   flash_init
    l.movhi r6,0
   l.movhi r7,0xffff
+  l.movhi r3,hi(txt_loading)
+  l.jal   print_str
+   l.ori  r3,r3,lo(txt_loading)
 copy:
   l.jal   flash_read_byte
   l.add   r8,r1,r6
@@ -86,8 +92,14 @@ print_str:
    l.nop
 
 txt_banner:
-  .string "\r\nMexiko Boot ROM\r\nLoading from flash: \0"
+  .string "\r\nMexiko Boot ROM - compiled "
+  .align 4
+txt_timestamp:
+  .string TIMESTAMP
+  .align 4
+txt_loading:
+  .string "\r\nLoading from flash: "
   .align 4
 txt_invalid_size:
-  .string "Invalid size on payload, resetting...\r\n\0"
+  .string "Invalid size on payload, resetting...\r\n"
   .align 4
