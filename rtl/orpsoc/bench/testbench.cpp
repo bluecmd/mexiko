@@ -72,8 +72,10 @@ int main(int argc, char **argv, char **env) {
 
     insn = top->v->soc_i->mor1kx0->mor1kx_cpu->monitor_execute_insn;
     ex_pc = top->v->soc_i->mor1kx0->mor1kx_cpu->monitor_execute_pc;
+#ifdef DEBUG_TRACE
     if (old_ex_pc != ex_pc)
       printf("PC: %08x = %08x\n", ex_pc, insn);
+#endif
     old_ex_pc = ex_pc;
     t++;
   }
