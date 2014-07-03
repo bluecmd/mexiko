@@ -65,11 +65,17 @@ int main(int argc, char **argv, char **env) {
     if (t > RESET_TIME && top->sys_rst_i == 1) {
       printf("Reset released\n");
       top->sys_rst_i = 0;
+
+      /* Press 'd' for 16 cycles
+       * (which is the diff between sys_rst and wb_rst) */
+      top->uart_tx_write_i = 1;
+      top->uart_tx_data_i = 'd';
     }
 
     if (!wb_reset_released && top->v->soc_i->wb_rst == 0) {
       printf("Wishbone reset released\n");
       wb_reset_released = true;
+      top->uart_tx_write_i = 0;
     }
 
     if ((top->v->soc_i->or1k_dbg_stall_i || top->v->soc_i->or1k_dbg_bp_o) &&

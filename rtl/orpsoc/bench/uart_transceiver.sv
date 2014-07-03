@@ -138,7 +138,6 @@ always @(posedge sys_clk) begin
       tx_count16 <= 4'd1;
       tx_busy <= 1'b1;
       uart_tx <= 1'b0;
-      $display("UART: %c", tx_data);
     end else if(enable16 && tx_busy) begin
       tx_count16  <= tx_count16 + 4'd1;
 

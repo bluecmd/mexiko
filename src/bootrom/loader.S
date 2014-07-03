@@ -19,6 +19,18 @@ _start:
   l.jal   print_str
    l.ori  r3,r3,lo(txt_timestamp)
 
+  # If user presses 'd', load diagnostics image.
+  l.jal   uart_getc
+   l.nop
+  l.sfeqi r10,0x64
+  l.bnf   copy_init
+   l.ori  r27,r0,BOOTROM_NORMAL
+  l.ori   r27,r0,BOOTROM_DIAG
+
+  l.movhi r3,hi(txt_diagnostics)
+  l.jal   print_str
+   l.ori  r3,r3,lo(txt_diagnostics)
+
 copy_init:
   l.jal   flash_init
    l.nop
@@ -119,4 +131,7 @@ txt_loading:
   .align 4
 txt_invalid_size:
   .string "Invalid size on payload, resetting...\r\n"
+  .align 4
+txt_diagnostics:
+  .string "\r\nDiagnostics mode enabled"
   .align 4

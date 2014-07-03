@@ -6,14 +6,21 @@ module testbench (
     output          tdo_pad_o,
     input           tms_pad_i,
     input           tck_pad_i,
-    input           tdi_pad_i
+    input           tdi_pad_i,
+    input [7:0]     uart_tx_data_i,
+    input           uart_tx_write_i
 );
   parameter STDOUT = 32'h8000_0001;
+  // 80 MHz / (16 * 115200 Baud) = ~43
+  parameter UART_DIVISOR = 16'd43;
 
   wire [7:0]  uart_rx_data;
   wire        uart_rx_done;
-  wire        uart_rxd;
+  wire        uart_tx_done;
+  reg         uart_tx_wr = 1'b0;
+  reg         uart_tx_busy = 1'b0;
   wire        uart_txd;
+  wire        uart_rxd;
   wire        dbg_tck;
   wire        dbg_if_select;
   wire        dbg_if_tdo;
@@ -44,7 +51,7 @@ module testbench (
     .tck_pad_i(dbg_tck),
     .trst_pad_i(sys_rst_i),
     .tdi_pad_i(tdi_pad_i),
-    .tdo_padoe_o(tdo_padoe_o),
+    .tdo_padoe_o(),
     .tdo_o(jtag_tap_tdo),
     .shift_dr_o(jtag_tap_shift_dr),
     .pause_dr_o(jtag_tap_pause_dr),
@@ -64,15 +71,12 @@ module testbench (
     .sys_clk(sys_clk_i),
     .uart_rx(uart_txd),
     .uart_tx(uart_rxd),
-
-     /* TODO(bluecmd): Remove magic number */
-    .divisor(16'd43),
-
+    .divisor(UART_DIVISOR),
     .rx_data(uart_rx_data),
     .rx_done(uart_rx_done),
-    .tx_data(8'h00),
-    .tx_wr(1'b0),
-    .tx_done(),
+    .tx_data(uart_tx_data_i),
+    .tx_wr(uart_tx_wr),
+    .tx_done(uart_tx_done),
     .rx_break()
   );
 
@@ -81,6 +85,20 @@ module testbench (
     if (uart_rx_done) begin
       $write("%c", uart_rx_data);
       $fflush(STDOUT);
+    end
+  end
+
+  always @(posedge sys_clk_i)
+  begin
+    uart_tx_wr <= 1'b0;
+    if (uart_tx_done) begin
+      uart_tx_busy <= 1'b0;
+    end
+    if (uart_tx_write_i) begin
+      if (~uart_tx_busy & ~sys_rst_i) begin
+        uart_tx_wr <= 1'b1;
+        uart_tx_busy <= 1'b1;
+      end
     end
   end
 

@@ -5,6 +5,7 @@
 #define UART_DLM       1
 
 .global uart_init
+.global uart_getc
 .global uart_putc
 
 uart_init:
@@ -29,6 +30,17 @@ uart_init:
   l.addi  r3,r0,((UART_DIVISOR) & 0x000000ff)
   l.sb    UART_DLL(r29),r3
   l.sb    0x3(r29),r5
+  l.jr    r9
+   l.nop
+
+uart_getc:
+  l.lbz   r5,5(r29)
+  l.andi  r5,r5,0x01
+  l.sfeq  r5,r0
+  l.bnf   1f
+   l.lbz  r10,0(r29)
+  l.ori   r10,r0,0
+1:
   l.jr    r9
    l.nop
 
