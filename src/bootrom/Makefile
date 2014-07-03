@@ -2,9 +2,9 @@
 FLASH_BACKEND = bpi.o
 BOOTROM_DEPS = loader.o uart.o $(FLASH_BACKEND)
 
-CC = or1k-linux-gnu-gcc
-LD = or1k-linux-gnu-ld
-OBJCOPY = or1k-linux-gnu-objcopy
+CC = or1k-elf-gcc
+LD = or1k-elf-ld
+OBJCOPY = or1k-elf-objcopy
 STAMP = $(shell date +'%Y-%m-%d %H:%M')
 
 all: bootrom.v sim.elf

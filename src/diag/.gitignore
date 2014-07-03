@@ -1,1 +1,4 @@
-diag
+diag.elf
+diag.bin
+diag.binsize
+bin2binsizeword
