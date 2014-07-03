@@ -24,7 +24,7 @@ sim.elf: simboot.o $(BOOTROM_DEPS)
 bootrom.bin: bootrom.elf
 	$(OBJCOPY) -O binary $< $@
 
-bin2vlogarray: bin2vlogarray.c
+bin2vlogarray: ../utils/bin2vlogarray.c
 	gcc -o $@ $<
 
 bootrom.v: bootrom.bin bin2vlogarray
