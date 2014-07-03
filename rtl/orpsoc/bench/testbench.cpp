@@ -10,6 +10,7 @@
  *
  */
 
+#include <signal.h>
 #include <stdint.h>
 
 #include "Vtestbench__Syms.h"
@@ -29,8 +30,14 @@
 
 #define RESET_TIME      2
 
+bool done;
+
 double sc_time_stamp() {
   return 1337;
+}
+
+void signal_int(int signal) {
+  done = true;
 }
 
 int main(int argc, char **argv, char **env) {
@@ -48,7 +55,10 @@ int main(int argc, char **argv, char **env) {
   top->sys_clk_i = 0;
   top->sys_rst_i = 1;
 
-  while (1) {
+  done = false;
+  signal(SIGINT, signal_int);
+
+  while (!done) {
 
     top->eval();
 
@@ -79,6 +89,8 @@ int main(int argc, char **argv, char **env) {
     old_ex_pc = ex_pc;
     t++;
   }
+
+  printf("Simulation ended at PC %08x = %08x\n", ex_pc, insn);
 
   exit(0);
 }

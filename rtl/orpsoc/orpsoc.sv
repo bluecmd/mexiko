@@ -31,10 +31,7 @@
 
 `include "mexiko-defs.vh"
 
-module orpsoc #(
-  parameter       rom0_aw = 8,
-  parameter       uart0_aw = 3
-)(
+module orpsoc (
   input           sys_clk_i,
   input           sys_rst_i,
 
@@ -48,7 +45,12 @@ module orpsoc #(
   input           jtag_tap_capture_dr_i,
 
   input           uart0_srx_pad_i,
-  output          uart0_stx_pad_o
+  output          uart0_stx_pad_o,
+
+  inout           qsfp_i2c0_scl_io,
+  inout           qsfp_i2c0_sda_io,
+  inout           qsfp_i2c1_scl_io,
+  inout           qsfp_i2c1_sda_io
 );
 
   ////////////////////////////////////////////////////////////////////////
@@ -89,8 +91,6 @@ module orpsoc #(
   wire    [10:0]  or1k_dbg_wp_o;
   wire            or1k_dbg_bp_o /* verilator public */;
   wire            or1k_dbg_rst;
-
-  wire            sig_tick;
 
   mor1kx #(
     .FEATURE_DEBUGUNIT("ENABLED"),
@@ -202,18 +202,15 @@ module orpsoc #(
   );
 
   ////////////////////////////////////////////////////////////////////////
-  // ROM
+  // Boot ROM (replace with ram_wb)
   ////////////////////////////////////////////////////////////////////////
 
-  assign  wb_s2m_rom0_err = 1'b0;
-  assign  wb_s2m_rom0_rty = 1'b0;
-
   rom #(
-    .addr_width(rom0_aw)
+    .addr_width(8)
   ) rom0 (
     .wb_clk         (wb_clk),
     .wb_rst         (wb_rst),
-    .wb_adr_i       (wb_m2s_rom0_adr[(rom0_aw + 2) - 1 : 2]),
+    .wb_adr_i       (wb_m2s_rom0_adr[9:2]),
     .wb_cyc_i       (wb_m2s_rom0_cyc),
     .wb_stb_i       (wb_m2s_rom0_stb),
     .wb_cti_i       (wb_m2s_rom0_cti),
@@ -223,19 +220,68 @@ module orpsoc #(
   );
 
   ////////////////////////////////////////////////////////////////////////
+  // System Memory (to be replaced with DDR3)
+  ////////////////////////////////////////////////////////////////////////
+
+  ram_wb #(
+    .mem_size_bytes(65536), // 64 KiB
+    .mem_adr_width($clog2(65536))
+  ) sysram (
+    // Wishbone slave interface 0
+    .wbm0_dat_i   (wb_m2s_sysram_dat),
+    .wbm0_adr_i   (wb_m2s_sysram_adr),
+    .wbm0_sel_i   (wb_m2s_sysram_sel),
+    .wbm0_cti_i   (wb_m2s_sysram_cti),
+    .wbm0_bte_i   (wb_m2s_sysram_bte),
+    .wbm0_we_i    (wb_m2s_sysram_we),
+    .wbm0_cyc_i   (wb_m2s_sysram_cyc),
+    .wbm0_stb_i   (wb_m2s_sysram_stb),
+    .wbm0_dat_o   (wb_s2m_sysram_dat),
+    .wbm0_ack_o   (wb_s2m_sysram_ack),
+    .wbm0_err_o   (wb_s2m_sysram_err),
+    .wbm0_rty_o   (wb_s2m_sysram_rty),
+    // Wishbone slave interface 1
+    .wbm1_dat_i   (32'd0),
+    .wbm1_adr_i   (32'd0),
+    .wbm1_sel_i   (4'd0),
+    .wbm1_cti_i   (3'd0),
+    .wbm1_bte_i   (2'd0),
+    .wbm1_we_i    (1'd0),
+    .wbm1_cyc_i   (1'd0),
+    .wbm1_stb_i   (1'd0),
+    .wbm1_dat_o   (),
+    .wbm1_ack_o   (),
+    .wbm1_err_o   (),
+    .wbm1_rty_o   (),
+    // Wishbone slave interface 2
+    .wbm2_dat_i   (32'd0),
+    .wbm2_adr_i   (32'd0),
+    .wbm2_sel_i   (4'd0),
+    .wbm2_cti_i   (3'd0),
+    .wbm2_bte_i   (2'd0),
+    .wbm2_we_i    (1'd0),
+    .wbm2_cyc_i   (1'd0),
+    .wbm2_stb_i   (1'd0),
+    .wbm2_dat_o   (),
+    .wbm2_ack_o   (),
+    .wbm2_err_o   (),
+    .wbm2_rty_o   (),
+    // Clock, reset
+    .wb_clk_i   (wb_clk),
+    .wb_rst_i   (wb_rst)
+  );
+
+  ////////////////////////////////////////////////////////////////////////
   // UART0
   ////////////////////////////////////////////////////////////////////////
 
   wire    uart0_irq;
 
-  //assign  wb_s2m_uart0_err = 0;
-  //assign  wb_s2m_uart0_rty = 0;
-
   uart_top uart0 (
     /* Wishbone slave interface */
     .wb_clk_i       (wb_clk),
     .wb_rst_i       (wb_rst),
-    .wb_adr_i       (wb_m2s_uart0_adr[uart0_aw-1:0]),
+    .wb_adr_i       (wb_m2s_uart0_adr[2:0]),
     .wb_dat_i       (wb_m2s_uart0_dat),
     .wb_we_i        (wb_m2s_uart0_we),
     .wb_stb_i       (wb_m2s_uart0_stb),
@@ -259,6 +305,82 @@ module orpsoc #(
   );
 
   ////////////////////////////////////////////////////////////////////////
+  // I2C QSFP controller 0
+  ////////////////////////////////////////////////////////////////////////
+
+  wire    qsfp_i2c0_irq;
+  wire    qsfp_i2c0_scl_pad_o;
+  wire    qsfp_i2c0_scl_padoen_o;
+  wire    qsfp_i2c0_sda_pad_o;
+  wire    qsfp_i2c0_sda_padoen_o;
+
+  i2c_master_top #(
+    .DEFAULT_SLAVE_ADDR(8'h45)
+  ) qsfp_i2c0 (
+    .wb_clk_i      (wb_clk),
+    .wb_rst_i      (wb_rst),
+    .arst_i        (wb_rst),
+    .wb_adr_i      (wb_m2s_qsfp_i2c0_adr[2:0]),
+    .wb_dat_i      (wb_m2s_qsfp_i2c0_dat),
+    .wb_we_i       (wb_m2s_qsfp_i2c0_we),
+    .wb_cyc_i      (wb_m2s_qsfp_i2c0_cyc),
+    .wb_stb_i      (wb_m2s_qsfp_i2c0_stb),
+    .wb_dat_o      (wb_s2m_qsfp_i2c0_dat),
+    .wb_ack_o      (wb_s2m_qsfp_i2c0_ack),
+    .scl_pad_i     (qsfp_i2c0_scl_io),
+    .scl_pad_o     (qsfp_i2c0_scl_pad_o),
+    .scl_padoen_o  (qsfp_i2c0_scl_padoen_o),
+    .sda_pad_i     (qsfp_i2c0_sda_io),
+    .sda_pad_o     (qsfp_i2c0_sda_pad_o),
+    .sda_padoen_o  (qsfp_i2c0_sda_padoen_o),
+
+    // Interrupt
+    .wb_inta_o     (qsfp_i2c0_irq)
+  );
+
+  // I2C PHY lines
+  assign qsfp_i2c0_scl_io = qsfp_i2c0_scl_padoen_o ? 1'bz : qsfp_i2c0_scl_pad_o;
+  assign qsfp_i2c0_sda_io = qsfp_i2c0_sda_padoen_o ? 1'bz : qsfp_i2c0_sda_pad_o;
+
+  ////////////////////////////////////////////////////////////////////////
+  // I2C QSFP controller 1
+  ////////////////////////////////////////////////////////////////////////
+
+  wire    qsfp_i2c1_irq;
+  wire    qsfp_i2c1_scl_pad_o;
+  wire    qsfp_i2c1_scl_padoen_o;
+  wire    qsfp_i2c1_sda_pad_o;
+  wire    qsfp_i2c1_sda_padoen_o;
+
+  i2c_master_top #(
+    .DEFAULT_SLAVE_ADDR(8'h45)
+  ) qsfp_i2c1 (
+    .wb_clk_i      (wb_clk),
+    .wb_rst_i      (wb_rst),
+    .arst_i        (wb_rst),
+    .wb_adr_i      (wb_m2s_qsfp_i2c1_adr[2:0]),
+    .wb_dat_i      (wb_m2s_qsfp_i2c1_dat),
+    .wb_we_i       (wb_m2s_qsfp_i2c1_we),
+    .wb_cyc_i      (wb_m2s_qsfp_i2c1_cyc),
+    .wb_stb_i      (wb_m2s_qsfp_i2c1_stb),
+    .wb_dat_o      (wb_s2m_qsfp_i2c1_dat),
+    .wb_ack_o      (wb_s2m_qsfp_i2c1_ack),
+    .scl_pad_i     (qsfp_i2c1_scl_io),
+    .scl_pad_o     (qsfp_i2c1_scl_pad_o),
+    .scl_padoen_o  (qsfp_i2c1_scl_padoen_o),
+    .sda_pad_i     (qsfp_i2c1_sda_io),
+    .sda_pad_o     (qsfp_i2c1_sda_pad_o),
+    .sda_padoen_o  (qsfp_i2c1_sda_padoen_o),
+
+    // Interrupt
+    .wb_inta_o     (qsfp_i2c1_irq)
+  );
+
+  // I2C PHY lines
+  assign qsfp_i2c1_scl_io = qsfp_i2c1_scl_padoen_o ? 1'bz : qsfp_i2c1_scl_pad_o;
+  assign qsfp_i2c1_sda_io = qsfp_i2c1_sda_padoen_o ? 1'bz : qsfp_i2c1_sda_pad_o;
+
+  ////////////////////////////////////////////////////////////////////////
   // Interrupt assignment
   ////////////////////////////////////////////////////////////////////////
 
@@ -272,8 +394,8 @@ module orpsoc #(
   assign or1k_irq[7] = 0;
   assign or1k_irq[8] = 0;
   assign or1k_irq[9] = 0;
-  assign or1k_irq[10] = 0;
-  assign or1k_irq[11] = 0;
+  assign or1k_irq[10] = qsfp_i2c0_irq;
+  assign or1k_irq[11] = qsfp_i2c1_irq;
   assign or1k_irq[12] = 0;
   assign or1k_irq[13] = 0;
   assign or1k_irq[14] = 0;

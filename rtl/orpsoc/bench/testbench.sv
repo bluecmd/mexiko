@@ -8,6 +8,8 @@ module testbench (
     input           tck_pad_i,
     input           tdi_pad_i
 );
+  parameter STDOUT = 32'h8000_0001;
+
   wire [7:0]  uart_rx_data;
   wire        uart_rx_done;
   wire        uart_rxd;
@@ -76,8 +78,10 @@ module testbench (
 
   always @(posedge sys_clk_i)
   begin
-    if (uart_rx_done)
+    if (uart_rx_done) begin
       $write("%c", uart_rx_data);
+      $fflush(STDOUT);
+    end
   end
 
   initial
