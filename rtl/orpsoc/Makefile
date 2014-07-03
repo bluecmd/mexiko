@@ -10,7 +10,6 @@ VERILATOR_INCLUDE = \
 	-I${PWD}/../orpsoc-cores/cores/ram_wb \
 	-I${PWD}/../utils \
 	-I${PWD}/bench \
-	-I${PWD}/bootrom \
 	-I/home/bluecmd/.cache/fusesoc/adv_debug_sys/rtl/verilog \
 	-I/home/bluecmd/.cache/fusesoc/jtag_tap/rtl/verilog \
 	-I/home/bluecmd/.cache/fusesoc/uart16550/rtl/verilog \
@@ -18,17 +17,17 @@ VERILATOR_INCLUDE = \
 	-I/home/bluecmd/.cache/fusesoc/i2c
 
 DEPS = bench/testbench.sv bench/testbench.cpp include/wb_intercon.v \
-			 bootrom/bootrom.v
+			 bootrom
 
-.PHONY: obj_dir/Vtestbench
+.PHONY: obj_dir/Vtestbench bootrom
 
 all: obj_dir/Vtestbench
 
 include/wb_intercon.v: include/wb_intercon.conf
 	../orpsoc-cores/cores/wb_intercon/sw/wb_intercon_gen $< $@
 
-bootrom/bootrom.v: bootrom/*.S bootrom/bootrom_config.h
-	make -C bootrom bootrom.v
+bootrom:
+	make -C ../../src/bootrom bootrom.v
 
 obj_dir/Vtestbench: $(DEPS)
 	 verilator $(VERILATOR_FLAGS) -cc bench/testbench.sv --top-module testbench \

@@ -55,7 +55,7 @@ module rom
        wb_dat_o <= 32'h15000000;
      else
        case (adr)
-`include "bootrom/bootrom.v"
+`include "../../src/bootrom/bootrom.v"
    default:
      wb_dat_o <= 32'h00000000;
        endcase // case (wb_adr_i)
