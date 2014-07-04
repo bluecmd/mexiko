@@ -125,6 +125,4 @@ module wb_g18 #(
     end
   end
 `endif
-endmodule;
-
-
+endmodule
