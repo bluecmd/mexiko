@@ -13,6 +13,11 @@ module testbench (
   parameter STDOUT = 32'h8000_0001;
   // 80 MHz / (16 * 115200 Baud) = ~43
   parameter UART_DIVISOR = 16'd43;
+  // We want to use half the BPI Flash (which is 1 Gbit)
+  // 1024^3 / 2 / 16 bit = 33554431 (64 MiB)
+  parameter BPI_SIZE = 33554431; 
+
+  reg [15:0]  g18_mem [0:BPI_SIZE];
 
   wire [7:0]  uart_rx_data;
   wire        uart_rx_done;
@@ -30,19 +35,24 @@ module testbench (
   wire        jtag_tap_update_dr;
   wire        jtag_tap_capture_dr;
 
+  wire [15:0] g18_dat;
+  wire [24:0] g18_adr;
+
   orpsoc soc_i (
-    .sys_clk_i(sys_clk_i),
-    .sys_rst_i(sys_rst_i),
-    .uart0_srx_pad_i(uart_rxd),
-    .uart0_stx_pad_o(uart_txd),
-    .dbg_tck_i(dbg_tck),
-    .dbg_if_select_i(dbg_if_select),
-    .dbg_if_tdo_o(dbg_if_tdo),
-    .jtag_tap_tdo_i(jtag_tap_tdo),
-    .jtag_tap_shift_dr_i(jtag_tap_shift_dr),
-    .jtag_tap_pause_dr_i(jtag_tap_pause_dr),
-    .jtag_tap_update_dr_i(jtag_tap_update_dr),
-    .jtag_tap_capture_dr_i(jtag_tap_capture_dr)
+    .sys_clk_i            (sys_clk_i),
+    .sys_rst_i            (sys_rst_i),
+    .uart0_srx_pad_i      (uart_rxd),
+    .uart0_stx_pad_o      (uart_txd),
+    .dbg_tck_i            (dbg_tck),
+    .dbg_if_select_i      (dbg_if_select),
+    .dbg_if_tdo_o         (dbg_if_tdo),
+    .jtag_tap_tdo_i       (jtag_tap_tdo),
+    .jtag_tap_shift_dr_i  (jtag_tap_shift_dr),
+    .jtag_tap_pause_dr_i  (jtag_tap_pause_dr),
+    .jtag_tap_update_dr_i (jtag_tap_update_dr),
+    .jtag_tap_capture_dr_i(jtag_tap_capture_dr),
+    .g18_dat_i            (g18_dat),
+    .g18_adr_o            (g18_adr)
   );
 
   tap_top jtag_tap0 (
@@ -102,9 +112,15 @@ module testbench (
     end
   end
 
+  always @(posedge sys_clk_i)
+  begin
+    g18_dat <= g18_mem[g18_adr];
+  end
+
   initial
   begin
     $display("Mexiko Testbench started");
+    $readmemh("../../src/g18.memh", g18_mem);
   end
 
 endmodule

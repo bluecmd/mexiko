@@ -1,5 +1,5 @@
 
-FLASH_BACKEND = bpi.o
+FLASH_BACKEND = rom.o
 BOOTROM_DEPS = loader.o uart.o $(FLASH_BACKEND)
 STAMP = $(shell date +'%Y-%m-%d %H:%M')
 
@@ -9,7 +9,7 @@ LD = or1k-elf-ld
 all: bootrom.v sim.elf
 
 clean:
-	rm -f *.o *.elf bootrom.v bin2vlogarray
+	rm -f *.o *.elf bootrom.v
 
 %.o: %.S bootrom_config.h
 	$(CC) -c $< -o $@ -DTIMESTAMP="\"$(STAMP)\""

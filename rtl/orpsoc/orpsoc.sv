@@ -50,7 +50,16 @@ module orpsoc (
   inout           qsfp_i2c0_scl_io,
   inout           qsfp_i2c0_sda_io,
   inout           qsfp_i2c1_scl_io,
-  inout           qsfp_i2c1_sda_io
+  inout           qsfp_i2c1_sda_io,
+
+  input  [15:0]   g18_dat_i,
+  output [24:0]   g18_adr_o,
+  output          g18_csn_o,
+  output          g18_oen_o,
+  output          g18_wen_o,
+  output          g18_advn_o,
+  output          g18_clk_o,
+  output          g18_rstn_o
 );
 
   ////////////////////////////////////////////////////////////////////////
@@ -292,26 +301,33 @@ module orpsoc (
 `endif
 
   ////////////////////////////////////////////////////////////////////////
-  // Board BPI flash (to be replaced with wb_bpi)
+  // Board G18 flash
   ////////////////////////////////////////////////////////////////////////
 
-  wb_ram #(
-    .depth(33554432), // 32 MiB
-    .memfile("../../src/bpi.memh")
-  ) bpi0 (
+  wb_g18 #(
+    .g18_size(67108864), // 64 MiB
+  ) g18 (
     .wb_clk_i   (wb_clk),
     .wb_rst_i   (wb_rst),
-    .wb_dat_i   (wb_m2s_bpi0_dat),
-    .wb_adr_i   (wb_m2s_bpi0_adr),
-    .wb_sel_i   (wb_m2s_bpi0_sel),
-    .wb_cti_i   (wb_m2s_bpi0_cti),
-    .wb_bte_i   (wb_m2s_bpi0_bte),
-    .wb_we_i    (wb_m2s_bpi0_we),
-    .wb_cyc_i   (wb_m2s_bpi0_cyc),
-    .wb_stb_i   (wb_m2s_bpi0_stb),
-    .wb_dat_o   (wb_s2m_bpi0_dat),
-    .wb_ack_o   (wb_s2m_bpi0_ack),
-    .wb_err_o   (wb_s2m_bpi0_err)
+    .wb_dat_i   (wb_m2s_g18_dat),
+    .wb_adr_i   (wb_m2s_g18_adr),
+    .wb_sel_i   (wb_m2s_g18_sel),
+    .wb_cti_i   (wb_m2s_g18_cti),
+    .wb_bte_i   (wb_m2s_g18_bte),
+    .wb_we_i    (wb_m2s_g18_we),
+    .wb_cyc_i   (wb_m2s_g18_cyc),
+    .wb_stb_i   (wb_m2s_g18_stb),
+    .wb_dat_o   (wb_s2m_g18_dat),
+    .wb_ack_o   (wb_s2m_g18_ack),
+    .wb_err_o   (wb_s2m_g18_err),
+    .g18_dat_i  (g18_dat_i),
+    .g18_adr_o  (g18_adr_o),
+    .g18_csn_o  (g18_csn_o),
+    .g18_oen_o  (g18_oen_o),
+    .g18_wen_o  (g18_wen_o),
+    .g18_advn_o (g18_advn_o),
+    .g18_clk_o  (g18_clk_o),
+    .g18_rstn_o ()
   );
 
   ////////////////////////////////////////////////////////////////////////

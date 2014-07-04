@@ -38,7 +38,7 @@ module mexiko (
   input             user_clk_p_i,
   input             user_clk_n_i,
   input             emerg_clk_i,
-  
+
   /* QSFP */
   output [0:7]      qsfp_txp_o,
   output [0:7]      qsfp_txn_o,
@@ -46,7 +46,7 @@ module mexiko (
   input  [0:7]      qsfp_rxn_i,
   input             qsfp_refclk_p_i,
   input             qsfp_refclk_n_i,
-  
+
   output            fmc_pg_c2m_o,
 
 `ifdef DDR3
@@ -68,8 +68,8 @@ module mexiko (
   output [0:0]      ddr3_odt_o,
   input             ddr3_refclk_p_i,
   input             ddr3_refclk_n_i,
- `endif 
- 
+`endif
+
 `ifdef PCIE
   /* PCIe */
   output [0:0]      pci_txp_o,
@@ -81,11 +81,11 @@ module mexiko (
   input             pci_refclk100_p_i,
   input             pci_refclk100_n_i,
 `endif
-  
+
   /* USB UART */
   output            usb_uart_rxd_o,
   input             usb_uart_txd_i,
-  
+
   /* DEBUG */
   output [0:6]      debug_o
 );
@@ -96,7 +96,7 @@ module mexiko (
   wire sys_rst;
 
   assign pci_wake_n_o = 1'b1;
-  
+
   assign fmc_pg_c2m_o = 1'b1;
 
   /* TODO(bluecmd): Do something nice here, like a counter or something.
@@ -114,7 +114,7 @@ module mexiko (
   /* Debug unit to show that the sys_clk is alive */
   reg [28:0] dbg_user_clk_cntr_r = 29'b0;
   reg [26:0] dbg_emerg_clk_cntr_r = 27'b0;
-  
+
   /* Using 250 MHz (default for User Si570) and 80 MHz (EMC OSC)
    * these two will blink at at ~1 Hz. */
   assign debug_o[6] = dbg_user_clk_cntr_r[28];
@@ -125,7 +125,7 @@ module mexiko (
   always @(posedge emerg_clk) begin
     dbg_emerg_clk_cntr_r <= dbg_emerg_clk_cntr_r + 27'b1;
   end
-  
+
   IBUFGDS user_clk_ibuf (
     .I(user_clk_p_i),
     .IB(user_clk_n_i),
@@ -170,7 +170,7 @@ module mexiko (
     .jtag_tap_update_dr_i(jtag_tap_update_dr),
     .jtag_tap_capture_dr_i(jtag_tap_capture_dr)
   );
-  
+
   assign jtag_tap_pause_dr = 1'b0;
 
   BSCANE2 #(

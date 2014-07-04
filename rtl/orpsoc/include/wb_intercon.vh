@@ -94,18 +94,18 @@ wire  [7:0] wb_s2m_uart0_dat;
 wire        wb_s2m_uart0_ack;
 wire        wb_s2m_uart0_err;
 wire        wb_s2m_uart0_rty;
-wire [31:0] wb_m2s_bpi0_adr;
-wire [31:0] wb_m2s_bpi0_dat;
-wire  [3:0] wb_m2s_bpi0_sel;
-wire        wb_m2s_bpi0_we;
-wire        wb_m2s_bpi0_cyc;
-wire        wb_m2s_bpi0_stb;
-wire  [2:0] wb_m2s_bpi0_cti;
-wire  [1:0] wb_m2s_bpi0_bte;
-wire [31:0] wb_s2m_bpi0_dat;
-wire        wb_s2m_bpi0_ack;
-wire        wb_s2m_bpi0_err;
-wire        wb_s2m_bpi0_rty;
+wire [31:0] wb_m2s_g18_adr;
+wire [31:0] wb_m2s_g18_dat;
+wire  [3:0] wb_m2s_g18_sel;
+wire        wb_m2s_g18_we;
+wire        wb_m2s_g18_cyc;
+wire        wb_m2s_g18_stb;
+wire  [2:0] wb_m2s_g18_cti;
+wire  [1:0] wb_m2s_g18_bte;
+wire [31:0] wb_s2m_g18_dat;
+wire        wb_s2m_g18_ack;
+wire        wb_s2m_g18_err;
+wire        wb_s2m_g18_rty;
 
 wb_intercon wb_intercon0
    (.wb_clk_i           (wb_clk),
@@ -206,16 +206,16 @@ wb_intercon wb_intercon0
     .wb_uart0_ack_i     (wb_s2m_uart0_ack),
     .wb_uart0_err_i     (wb_s2m_uart0_err),
     .wb_uart0_rty_i     (wb_s2m_uart0_rty),
-    .wb_bpi0_adr_o      (wb_m2s_bpi0_adr),
-    .wb_bpi0_dat_o      (wb_m2s_bpi0_dat),
-    .wb_bpi0_sel_o      (wb_m2s_bpi0_sel),
-    .wb_bpi0_we_o       (wb_m2s_bpi0_we),
-    .wb_bpi0_cyc_o      (wb_m2s_bpi0_cyc),
-    .wb_bpi0_stb_o      (wb_m2s_bpi0_stb),
-    .wb_bpi0_cti_o      (wb_m2s_bpi0_cti),
-    .wb_bpi0_bte_o      (wb_m2s_bpi0_bte),
-    .wb_bpi0_dat_i      (wb_s2m_bpi0_dat),
-    .wb_bpi0_ack_i      (wb_s2m_bpi0_ack),
-    .wb_bpi0_err_i      (wb_s2m_bpi0_err),
-    .wb_bpi0_rty_i      (wb_s2m_bpi0_rty));
+    .wb_g18_adr_o       (wb_m2s_g18_adr),
+    .wb_g18_dat_o       (wb_m2s_g18_dat),
+    .wb_g18_sel_o       (wb_m2s_g18_sel),
+    .wb_g18_we_o        (wb_m2s_g18_we),
+    .wb_g18_cyc_o       (wb_m2s_g18_cyc),
+    .wb_g18_stb_o       (wb_m2s_g18_stb),
+    .wb_g18_cti_o       (wb_m2s_g18_cti),
+    .wb_g18_bte_o       (wb_m2s_g18_bte),
+    .wb_g18_dat_i       (wb_s2m_g18_dat),
+    .wb_g18_ack_i       (wb_s2m_g18_ack),
+    .wb_g18_err_i       (wb_s2m_g18_err),
+    .wb_g18_rty_i       (wb_s2m_g18_rty));
 

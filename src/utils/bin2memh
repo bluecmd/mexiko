@@ -4,5 +4,5 @@ import binascii
 import sys
 
 with open(sys.argv[1], 'rb') as infile:
-  for word in iter(partial(infile.read, 4), ''):
+  for word in iter(partial(infile.read, 2), ''):
     print binascii.hexlify(word)

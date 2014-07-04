@@ -42,5 +42,7 @@ sim: obj_dir/Vtestbench
 
 clean:
 	rm -rf obj_dir/
+	rm -f include/wb_intercon.v
+	rm -f include/wb_intercon.vh
 
 

@@ -5,8 +5,8 @@
 .global flash_deinit
 
 flash_init:
-  l.movhi r25,hi(BPI_BASE)
-  l.ori   r25,r25,lo(BPI_BASE)
+  l.movhi r25,hi(ROM_BASE)
+  l.ori   r25,r25,lo(ROM_BASE)
   l.jr    r9
    l.add  r25,r25,r27
 
