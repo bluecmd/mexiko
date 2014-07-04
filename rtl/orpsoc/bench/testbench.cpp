@@ -47,6 +47,11 @@ int main(int argc, char **argv, char **env) {
   uint32_t old_ex_pc = 0;
   bool wb_reset_released = false;
   bool cpu_stalled = true;
+  bool diagnostics = false;
+
+  if (argc > 1 && !strcmp(argv[1], "--diag")) {
+    diagnostics = true;
+  }
 
   Verilated::commandArgs(argc, argv);
 
@@ -54,6 +59,8 @@ int main(int argc, char **argv, char **env) {
 
   top->sys_clk_i = 0;
   top->sys_rst_i = 1;
+
+  top->v->soc_i->bpi0->ram_wb_b3_0->do_readmemh();
 
   done = false;
   signal(SIGINT, signal_int);
@@ -66,10 +73,12 @@ int main(int argc, char **argv, char **env) {
       printf("Reset released\n");
       top->sys_rst_i = 0;
 
-      /* Press 'd' for 16 cycles
-       * (which is the diff between sys_rst and wb_rst) */
-      top->uart_tx_write_i = 1;
-      top->uart_tx_data_i = 'd';
+      if (diagnostics) {
+        /* Press 'd' for 16 cycles
+         * (which is the diff between sys_rst and wb_rst) */
+        top->uart_tx_write_i = 1;
+        top->uart_tx_data_i = 'd';
+      }
     }
 
     if (!wb_reset_released && top->v->soc_i->wb_rst == 0) {
