@@ -24,8 +24,8 @@ _start:
    l.nop
   l.sfeqi r10,0x64
   l.bnf   copy_init
-   l.ori  r27,r0,BOOTROM_NORMAL
-  l.ori   r27,r0,BOOTROM_DIAG
+   l.movhi r27,hi(PROGRAM_NORMAL)
+  l.movhi r27,hi(PROGRAM_DIAG)
 
   l.movhi r3,hi(txt_diagnostics)
   l.jal   print_str
@@ -39,26 +39,17 @@ copy_init:
    l.ori  r3,r3,lo(txt_loading)
 
   l.movhi r6,0
+  l.ori   r6,r6,4
   l.movhi r7,0xffff
 
-  # Read sizeword
-  l.jal   flash_read_byte
-   l.add  r8,r1,r6
-  l.jal   flash_read_byte
-   l.sb   0(r8),r3
-  l.jal   flash_read_byte
-   l.sb   1(r8),r3
-  l.jal   flash_read_byte
-   l.sb   2(r8),r3
-  l.sb    3(r8),r3
-  l.addi  r6,r6,4
-
-  # Read back the whole sizeword, save it to r7 and sanity check that we're not
+  # Read the sizeword, save it to r7 and sanity check that we're not
   # about to read more than MAX_SIZEWORD.
-  l.lwz   r7,0(r1)
+  l.jal   flash_read_word
+   l.nop
+  l.ori   r7,r3,0
   l.srli  r10,r7,16
   l.sfleui r10,MAX_SIZEWORD_HI
-  l.bf    copy4
+  l.bf    copy_word
    l.nop
   l.movhi r3,hi(txt_invalid_size)
   l.jal   print_str
@@ -66,16 +57,10 @@ copy_init:
   l.j     _start
    l.nop
 
-copy4:
-  l.jal   flash_read_byte
+copy_word:
+  l.jal   flash_read_word
    l.add  r8,r1,r6
-  l.jal   flash_read_byte
-   l.sb   0(r8),r3
-  l.jal   flash_read_byte
-   l.sb   1(r8),r3
-  l.jal   flash_read_byte
-   l.sb   2(r8),r3
-  l.sb    3(r8),r3
+  l.sw    0(r8),r3
   l.addi  r6,r6,4
 
   # Show progress on UART
@@ -88,7 +73,7 @@ copy4:
 1:
   # Check if we've finished loading the words
   l.sfgeu r6,r7
-  l.bnf   copy4
+  l.bnf   copy_word
    l.nop
 
 goto_reset:

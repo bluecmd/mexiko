@@ -1,24 +1,19 @@
 #include "bootrom_config.h"
 
 .global flash_init
-.global flash_read_byte
+.global flash_read_word
 .global flash_deinit
 
 flash_init:
-  l.nop /* TODO(bluecmd): */
-  l.ori   r25,r0,0
+  l.movhi r25,hi(BPI_BASE)
+  l.ori   r25,r25,lo(BPI_BASE)
   l.jr    r9
-   l.nop
+   l.add  r25,r25,r27
 
-flash_read_byte:
-  l.sfeqi r25,2
-  l.bnf   1f
-   l.ori   r3,r0,0x00
-  l.ori   r3,r0,0x40
-1:
-  l.addi  r25,r25,1
+flash_read_word:
+  l.lwz   r3,0(r25)
   l.jr    r9
-   l.nop
+   l.addi r25,r25,4
 
 flash_deinit:
   /* TODO(bluecmd): Clear chip select? */

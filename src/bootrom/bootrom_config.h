@@ -12,7 +12,8 @@
 /* Sanity check: reset if we're about to read more than 32 MB. */
 #define MAX_SIZEWORD_HI 0x0200
 
-#define BOOTROM_NORMAL  0
-#define BOOTROM_DIAG    1
+#define BPI_BASE        0xee000000
+#define PROGRAM_NORMAL  0x0
+#define PROGRAM_DIAG    0x1f00000
 
 #endif
