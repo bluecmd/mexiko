@@ -1,6 +1,2 @@
 work/
 .*.swp
-rtl/vivado/*.srcs/*/ip/*/*/
-rtl/vivado/*.srcs/*/ip/*/*.dcp
-rtl/vivado/*.srcs/*/ip/*/*.v
-rtl/vivado/*.srcs/*/ip/*/*.vhdl
