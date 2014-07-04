@@ -136,6 +136,7 @@ module mexiko (
     .O(emerg_clk)
   );
 
+`ifdef NETWORK
   network network_i (
     .refclk_p_i(qsfp_refclk_p_i),
     .refclk_n_i(qsfp_refclk_n_i),
@@ -146,6 +147,7 @@ module mexiko (
     .rxp_i(qsfp_rxp_i),
     .rxn_i(qsfp_rxn_i)
   );
+`endif
 
   wire dbg_tck;
   wire dbg_if_select;
