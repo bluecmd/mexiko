@@ -1,11 +1,10 @@
 
 FLASH_BACKEND = bpi.o
 BOOTROM_DEPS = loader.o uart.o $(FLASH_BACKEND)
+STAMP = $(shell date +'%Y-%m-%d %H:%M')
 
 CC = or1k-elf-gcc
 LD = or1k-elf-ld
-OBJCOPY = or1k-elf-objcopy
-STAMP = $(shell date +'%Y-%m-%d %H:%M')
 
 all: bootrom.v sim.elf
 
@@ -21,11 +20,5 @@ bootrom.elf: $(BOOTROM_DEPS)
 sim.elf: simboot.o $(BOOTROM_DEPS)
 	$(LD) -T simboot.ld $^ -o $@
 
-bootrom.bin: bootrom.elf
-	$(OBJCOPY) -O binary $< $@
-
-bin2vlogarray: ../utils/bin2vlogarray.c
-	gcc -o $@ $<
-
-bootrom.v: bootrom.bin bin2vlogarray
-	./bin2vlogarray < bootrom.bin | tail -n+65 > $@
+bootrom.v: bootrom.elf
+	../utils/elf2vlogarray $< > $@

@@ -15,8 +15,6 @@ static int diag_function_idx = 0;
 
 static diag_function diag_functions[] = {
   memory_test,
-  memory_test,
-  memory_test,
   diag_summary
 };
 

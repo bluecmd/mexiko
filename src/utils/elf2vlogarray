@@ -1,0 +1,18 @@
+#!/usr/bin/env python2
+from functools import partial
+import binascii
+import struct
+import subprocess
+import sys
+import tempfile
+
+with tempfile.NamedTemporaryFile() as tmpfile:
+  subprocess.check_call(
+          ['or1k-elf-objcopy', '-O', 'binary', sys.argv[1], tmpfile.name])
+  line = 0
+  for word in iter(partial(tmpfile.read, 4), ''):
+    line = line + 1
+    if struct.unpack('!I', word)[0] == 0:
+      continue
+    hexword = binascii.hexlify(word)
+    print "%s : wb_dat_o <=  32'h%s;" % (line-1, hexword)
