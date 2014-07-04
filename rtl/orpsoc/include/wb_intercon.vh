@@ -34,30 +34,6 @@ wire [31:0] wb_s2m_dbg_dat;
 wire        wb_s2m_dbg_ack;
 wire        wb_s2m_dbg_err;
 wire        wb_s2m_dbg_rty;
-wire [31:0] wb_m2s_uart0_adr;
-wire  [7:0] wb_m2s_uart0_dat;
-wire  [3:0] wb_m2s_uart0_sel;
-wire        wb_m2s_uart0_we;
-wire        wb_m2s_uart0_cyc;
-wire        wb_m2s_uart0_stb;
-wire  [2:0] wb_m2s_uart0_cti;
-wire  [1:0] wb_m2s_uart0_bte;
-wire  [7:0] wb_s2m_uart0_dat;
-wire        wb_s2m_uart0_ack;
-wire        wb_s2m_uart0_err;
-wire        wb_s2m_uart0_rty;
-wire [31:0] wb_m2s_sysram_adr;
-wire [31:0] wb_m2s_sysram_dat;
-wire  [3:0] wb_m2s_sysram_sel;
-wire        wb_m2s_sysram_we;
-wire        wb_m2s_sysram_cyc;
-wire        wb_m2s_sysram_stb;
-wire  [2:0] wb_m2s_sysram_cti;
-wire  [1:0] wb_m2s_sysram_bte;
-wire [31:0] wb_s2m_sysram_dat;
-wire        wb_s2m_sysram_ack;
-wire        wb_s2m_sysram_err;
-wire        wb_s2m_sysram_rty;
 wire [31:0] wb_m2s_qsfp_i2c0_adr;
 wire  [7:0] wb_m2s_qsfp_i2c0_dat;
 wire  [3:0] wb_m2s_qsfp_i2c0_sel;
@@ -94,6 +70,42 @@ wire [31:0] wb_s2m_rom0_dat;
 wire        wb_s2m_rom0_ack;
 wire        wb_s2m_rom0_err;
 wire        wb_s2m_rom0_rty;
+wire [31:0] wb_m2s_sysram_adr;
+wire [31:0] wb_m2s_sysram_dat;
+wire  [3:0] wb_m2s_sysram_sel;
+wire        wb_m2s_sysram_we;
+wire        wb_m2s_sysram_cyc;
+wire        wb_m2s_sysram_stb;
+wire  [2:0] wb_m2s_sysram_cti;
+wire  [1:0] wb_m2s_sysram_bte;
+wire [31:0] wb_s2m_sysram_dat;
+wire        wb_s2m_sysram_ack;
+wire        wb_s2m_sysram_err;
+wire        wb_s2m_sysram_rty;
+wire [31:0] wb_m2s_uart0_adr;
+wire  [7:0] wb_m2s_uart0_dat;
+wire  [3:0] wb_m2s_uart0_sel;
+wire        wb_m2s_uart0_we;
+wire        wb_m2s_uart0_cyc;
+wire        wb_m2s_uart0_stb;
+wire  [2:0] wb_m2s_uart0_cti;
+wire  [1:0] wb_m2s_uart0_bte;
+wire  [7:0] wb_s2m_uart0_dat;
+wire        wb_s2m_uart0_ack;
+wire        wb_s2m_uart0_err;
+wire        wb_s2m_uart0_rty;
+wire [31:0] wb_m2s_bpi0_adr;
+wire [31:0] wb_m2s_bpi0_dat;
+wire  [3:0] wb_m2s_bpi0_sel;
+wire        wb_m2s_bpi0_we;
+wire        wb_m2s_bpi0_cyc;
+wire        wb_m2s_bpi0_stb;
+wire  [2:0] wb_m2s_bpi0_cti;
+wire  [1:0] wb_m2s_bpi0_bte;
+wire [31:0] wb_s2m_bpi0_dat;
+wire        wb_s2m_bpi0_ack;
+wire        wb_s2m_bpi0_err;
+wire        wb_s2m_bpi0_rty;
 
 wb_intercon wb_intercon0
    (.wb_clk_i           (wb_clk),
@@ -134,30 +146,6 @@ wb_intercon wb_intercon0
     .wb_dbg_ack_o       (wb_s2m_dbg_ack),
     .wb_dbg_err_o       (wb_s2m_dbg_err),
     .wb_dbg_rty_o       (wb_s2m_dbg_rty),
-    .wb_uart0_adr_o     (wb_m2s_uart0_adr),
-    .wb_uart0_dat_o     (wb_m2s_uart0_dat),
-    .wb_uart0_sel_o     (wb_m2s_uart0_sel),
-    .wb_uart0_we_o      (wb_m2s_uart0_we),
-    .wb_uart0_cyc_o     (wb_m2s_uart0_cyc),
-    .wb_uart0_stb_o     (wb_m2s_uart0_stb),
-    .wb_uart0_cti_o     (wb_m2s_uart0_cti),
-    .wb_uart0_bte_o     (wb_m2s_uart0_bte),
-    .wb_uart0_dat_i     (wb_s2m_uart0_dat),
-    .wb_uart0_ack_i     (wb_s2m_uart0_ack),
-    .wb_uart0_err_i     (wb_s2m_uart0_err),
-    .wb_uart0_rty_i     (wb_s2m_uart0_rty),
-    .wb_sysram_adr_o    (wb_m2s_sysram_adr),
-    .wb_sysram_dat_o    (wb_m2s_sysram_dat),
-    .wb_sysram_sel_o    (wb_m2s_sysram_sel),
-    .wb_sysram_we_o     (wb_m2s_sysram_we),
-    .wb_sysram_cyc_o    (wb_m2s_sysram_cyc),
-    .wb_sysram_stb_o    (wb_m2s_sysram_stb),
-    .wb_sysram_cti_o    (wb_m2s_sysram_cti),
-    .wb_sysram_bte_o    (wb_m2s_sysram_bte),
-    .wb_sysram_dat_i    (wb_s2m_sysram_dat),
-    .wb_sysram_ack_i    (wb_s2m_sysram_ack),
-    .wb_sysram_err_i    (wb_s2m_sysram_err),
-    .wb_sysram_rty_i    (wb_s2m_sysram_rty),
     .wb_qsfp_i2c0_adr_o (wb_m2s_qsfp_i2c0_adr),
     .wb_qsfp_i2c0_dat_o (wb_m2s_qsfp_i2c0_dat),
     .wb_qsfp_i2c0_sel_o (wb_m2s_qsfp_i2c0_sel),
@@ -193,5 +181,41 @@ wb_intercon wb_intercon0
     .wb_rom0_dat_i      (wb_s2m_rom0_dat),
     .wb_rom0_ack_i      (wb_s2m_rom0_ack),
     .wb_rom0_err_i      (wb_s2m_rom0_err),
-    .wb_rom0_rty_i      (wb_s2m_rom0_rty));
+    .wb_rom0_rty_i      (wb_s2m_rom0_rty),
+    .wb_sysram_adr_o    (wb_m2s_sysram_adr),
+    .wb_sysram_dat_o    (wb_m2s_sysram_dat),
+    .wb_sysram_sel_o    (wb_m2s_sysram_sel),
+    .wb_sysram_we_o     (wb_m2s_sysram_we),
+    .wb_sysram_cyc_o    (wb_m2s_sysram_cyc),
+    .wb_sysram_stb_o    (wb_m2s_sysram_stb),
+    .wb_sysram_cti_o    (wb_m2s_sysram_cti),
+    .wb_sysram_bte_o    (wb_m2s_sysram_bte),
+    .wb_sysram_dat_i    (wb_s2m_sysram_dat),
+    .wb_sysram_ack_i    (wb_s2m_sysram_ack),
+    .wb_sysram_err_i    (wb_s2m_sysram_err),
+    .wb_sysram_rty_i    (wb_s2m_sysram_rty),
+    .wb_uart0_adr_o     (wb_m2s_uart0_adr),
+    .wb_uart0_dat_o     (wb_m2s_uart0_dat),
+    .wb_uart0_sel_o     (wb_m2s_uart0_sel),
+    .wb_uart0_we_o      (wb_m2s_uart0_we),
+    .wb_uart0_cyc_o     (wb_m2s_uart0_cyc),
+    .wb_uart0_stb_o     (wb_m2s_uart0_stb),
+    .wb_uart0_cti_o     (wb_m2s_uart0_cti),
+    .wb_uart0_bte_o     (wb_m2s_uart0_bte),
+    .wb_uart0_dat_i     (wb_s2m_uart0_dat),
+    .wb_uart0_ack_i     (wb_s2m_uart0_ack),
+    .wb_uart0_err_i     (wb_s2m_uart0_err),
+    .wb_uart0_rty_i     (wb_s2m_uart0_rty),
+    .wb_bpi0_adr_o      (wb_m2s_bpi0_adr),
+    .wb_bpi0_dat_o      (wb_m2s_bpi0_dat),
+    .wb_bpi0_sel_o      (wb_m2s_bpi0_sel),
+    .wb_bpi0_we_o       (wb_m2s_bpi0_we),
+    .wb_bpi0_cyc_o      (wb_m2s_bpi0_cyc),
+    .wb_bpi0_stb_o      (wb_m2s_bpi0_stb),
+    .wb_bpi0_cti_o      (wb_m2s_bpi0_cti),
+    .wb_bpi0_bte_o      (wb_m2s_bpi0_bte),
+    .wb_bpi0_dat_i      (wb_s2m_bpi0_dat),
+    .wb_bpi0_ack_i      (wb_s2m_bpi0_ack),
+    .wb_bpi0_err_i      (wb_s2m_bpi0_err),
+    .wb_bpi0_rty_i      (wb_s2m_bpi0_rty));
 

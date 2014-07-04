@@ -202,7 +202,7 @@ module orpsoc (
   );
 
   ////////////////////////////////////////////////////////////////////////
-  // Boot ROM (replace with ram_wb)
+  // Boot ROM (replace with wb_ram)
   ////////////////////////////////////////////////////////////////////////
 
   rom #(
@@ -223,9 +223,10 @@ module orpsoc (
   // System Memory (to be replaced with DDR3)
   ////////////////////////////////////////////////////////////////////////
 
+`ifndef NEW_RAM
   ram_wb #(
-    .mem_size_bytes(65536), // 64 KiB
-    .mem_adr_width($clog2(65536))
+    .mem_size_bytes(262144), // 256 KiB
+    .mem_adr_width($clog2(262144))
   ) sysram (
     // Wishbone slave interface 0
     .wbm0_dat_i   (wb_m2s_sysram_dat),
@@ -269,6 +270,48 @@ module orpsoc (
     // Clock, reset
     .wb_clk_i   (wb_clk),
     .wb_rst_i   (wb_rst)
+  );
+`else
+  wb_ram #(
+    .depth(262144) // 256 KiB
+  ) sysram (
+    .wb_clk_i   (wb_clk),
+    .wb_rst_i   (wb_rst),
+    .wb_dat_i   (wb_m2s_sysram_dat),
+    .wb_adr_i   (wb_m2s_sysram_adr),
+    .wb_sel_i   (wb_m2s_sysram_sel),
+    .wb_cti_i   (wb_m2s_sysram_cti),
+    .wb_bte_i   (wb_m2s_sysram_bte),
+    .wb_we_i    (wb_m2s_sysram_we),
+    .wb_cyc_i   (wb_m2s_sysram_cyc),
+    .wb_stb_i   (wb_m2s_sysram_stb),
+    .wb_dat_o   (wb_s2m_sysram_dat),
+    .wb_ack_o   (wb_s2m_sysram_ack),
+    .wb_err_o   (wb_s2m_sysram_err)
+  );
+`endif
+
+  ////////////////////////////////////////////////////////////////////////
+  // Board BPI flash (to be replaced with wb_bpi)
+  ////////////////////////////////////////////////////////////////////////
+
+  wb_ram #(
+    .depth(33554432), // 32 MiB
+    .memfile("../../src/bpi.memh")
+  ) bpi0 (
+    .wb_clk_i   (wb_clk),
+    .wb_rst_i   (wb_rst),
+    .wb_dat_i   (wb_m2s_bpi0_dat),
+    .wb_adr_i   (wb_m2s_bpi0_adr),
+    .wb_sel_i   (wb_m2s_bpi0_sel),
+    .wb_cti_i   (wb_m2s_bpi0_cti),
+    .wb_bte_i   (wb_m2s_bpi0_bte),
+    .wb_we_i    (wb_m2s_bpi0_we),
+    .wb_cyc_i   (wb_m2s_bpi0_cyc),
+    .wb_stb_i   (wb_m2s_bpi0_stb),
+    .wb_dat_o   (wb_s2m_bpi0_dat),
+    .wb_ack_o   (wb_s2m_bpi0_ack),
+    .wb_err_o   (wb_s2m_bpi0_err)
   );
 
   ////////////////////////////////////////////////////////////////////////

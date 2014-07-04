@@ -7,6 +7,8 @@ VERILATOR_INCLUDE = \
 	-I${PWD}/../orpsoc-cores/cores/elf-loader \
 	-I${PWD}/../orpsoc-cores/cores/verilog_utils \
 	-I${PWD}/../orpsoc-cores/cores/wb_intercon \
+	-I${PWD}/../orpsoc-cores/cores/wb_ram/rtl/verilog \
+	-I${PWD}/../orpsoc-cores/cores/wb_bfm \
 	-I${PWD}/../orpsoc-cores/cores/ram_wb \
 	-I${PWD}/../utils \
 	-I${PWD}/bench \
@@ -14,7 +16,8 @@ VERILATOR_INCLUDE = \
 	-I/home/bluecmd/.cache/fusesoc/jtag_tap/rtl/verilog \
 	-I/home/bluecmd/.cache/fusesoc/uart16550/rtl/verilog \
 	-I/home/bluecmd/.cache/fusesoc/verilog-arbiter/src \
-	-I/home/bluecmd/.cache/fusesoc/i2c
+	-I/home/bluecmd/.cache/fusesoc/i2c \
+	${PWD}/../orpsoc-cores/cores/wb_ram/rtl/verilog/wb_funcs.v
 
 DEPS = bench/testbench.sv bench/testbench.cpp include/wb_intercon.v \
 			 bootrom
@@ -31,7 +34,7 @@ bootrom:
 
 obj_dir/Vtestbench: $(DEPS)
 	 verilator $(VERILATOR_FLAGS) -cc bench/testbench.sv --top-module testbench \
-		 --exe bench/testbench.cpp $(VERILATOR_INCLUDE) 
+		 --exe bench/testbench.cpp $(VERILATOR_INCLUDE)
 	 make -C obj_dir -f Vtestbench.mk Vtestbench CXXFLAGS=$(CXXFLAGS)
 
 sim: obj_dir/Vtestbench

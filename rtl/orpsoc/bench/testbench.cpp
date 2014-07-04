@@ -48,9 +48,18 @@ int main(int argc, char **argv, char **env) {
   bool wb_reset_released = false;
   bool cpu_stalled = true;
   bool diagnostics = false;
+  bool trace = false;
 
+  /* TODO(bluecmd): Use a better lib here */
   if (argc > 1 && !strcmp(argv[1], "--diag")) {
     diagnostics = true;
+    argc--;
+    argv++;
+  }
+  if (argc > 1 && !strcmp(argv[1], "--trace")) {
+    trace = true;
+    argc--;
+    argv++;
   }
 
   Verilated::commandArgs(argc, argv);
@@ -59,8 +68,6 @@ int main(int argc, char **argv, char **env) {
 
   top->sys_clk_i = 0;
   top->sys_rst_i = 1;
-
-  top->v->soc_i->bpi0->ram_wb_b3_0->do_readmemh();
 
   done = false;
   signal(SIGINT, signal_int);
@@ -97,10 +104,9 @@ int main(int argc, char **argv, char **env) {
 
     insn = top->v->soc_i->mor1kx0->mor1kx_cpu->monitor_execute_insn;
     ex_pc = top->v->soc_i->mor1kx0->mor1kx_cpu->monitor_execute_pc;
-#ifdef DEBUG_TRACE
-    if (old_ex_pc != ex_pc)
+
+    if (trace && old_ex_pc != ex_pc)
       printf("PC: %08x = %08x\n", ex_pc, insn);
-#endif
     old_ex_pc = ex_pc;
     t++;
   }
