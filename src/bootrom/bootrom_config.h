@@ -5,8 +5,6 @@
 #define SYS_CLK         80000000
 #define BAUD            115200
 
-#define RAM_BASE        0x0
-#define RAM_LOAD_BASE   RAM_BASE
 #define RESET_ADDR      0x100
 
 /* Sanity check: reset if we're about to read more than 16 MB. */

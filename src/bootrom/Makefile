@@ -1,6 +1,4 @@
-
-FLASH_BACKEND = rom.o
-BOOTROM_DEPS = loader.o uart.o $(FLASH_BACKEND)
+BOOTROM_DEPS = loader.o uart.o
 STAMP = $(shell date +'%Y-%m-%d %H:%M')
 
 CC = or1k-elf-gcc
