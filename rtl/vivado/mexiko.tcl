@@ -15,10 +15,7 @@ set_property "default_lib" "xil_defaultlib" $obj
 set_property "part" "xc7k325tffg900-2" $obj
 set_property "simulator_language" "Mixed" $obj
 
-# Create 'sources_1' fileset (if not found)
-if {[string equal [get_filesets -quiet sources_1] ""]} {
-  create_fileset -srcset sources_1
-}
+set_param general.maxThreads 4
 
 # Set 'sources_1' fileset object
 set obj [get_filesets sources_1]
@@ -176,4 +173,7 @@ launch_runs impl_1
 wait_on_run impl_1
 
 open_impl_design [current_run]
+
+set_property BITSTREAM.CONFIG.BPI_SYNC_MODE Disable [current_design]
+set_property BITSTREAM.GENERAL.COMPRESS true [current_design]
 write_bitstream -force mexiko.bit
