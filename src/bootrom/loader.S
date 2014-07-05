@@ -7,8 +7,6 @@
 .org 0x0
 txt_banner:
   .string "\r\nMexiko Boot ROM - compiled "
-  .align 4
-txt_timestamp:
   .string TIMESTAMP
   .align 4
 txt_loading:
@@ -71,9 +69,10 @@ _start:
   l.movhi r3,hi(txt_banner)
   l.jal   print_str
    l.ori  r3,r3,lo(txt_banner)
-  l.movhi r3,hi(txt_timestamp)
   l.jal   print_str
-   l.ori  r3,r3,lo(txt_timestamp)
+   # .string appends a \0, so we need to call the function twice but with +1
+   # to skip the \0.
+   l.addi r3,r3,1
 
   # Wait a while for key presses.
   l.movhi r10,0x2
@@ -84,7 +83,7 @@ _start:
 
   # If user presses 'd', load diagnostics image.
   l.jal   uart_getc
-   l.nop
+   l.ori  r21,r0,0
   l.sfeqi r10,0x64
   l.bnf   copy_init
    l.movhi r27,hi(PROGRAM_NORMAL)
@@ -96,12 +95,12 @@ _start:
 
 copy_init:
   l.jal   flash_init
-   l.nop
+   l.movhi r20,hi(txt_erase_word)
 
   # Read the sizeword, save it to r7 and sanity check that we're not
   # about to read more than MAX_SIZEWORD.
   l.jal   flash_read_word
-   l.nop
+   l.ori  r20,r20,lo(txt_erase_word)
   l.ori   r7,r3,0
 
   # Print sizeword
@@ -119,18 +118,14 @@ copy_init:
   l.jal   print_str
    l.ori  r3,r3,lo(txt_invalid_size)
   l.j     _start
-   l.nop
+   # Don't care what ends up in the delay slot
 
 copy_start:
-  l.movhi r6,0
-  l.ori   r6,r6,4
+  l.ori   r6,r0,4
 
   l.movhi r3,hi(txt_loading)
   l.jal   print_str
    l.ori  r3,r3,lo(txt_loading)
-
-  l.movhi r20,hi(txt_erase_word)
-   l.ori  r20,r20,lo(txt_erase_word)
 copy_vectors:
   # Assuming that vectors are small, move 0x200 to 0x0 in order to
   # be able to catch bus errors with our own exception handler.
@@ -153,6 +148,8 @@ copy_word:
   l.jal   flash_read_word
    l.add  r8,r1,r6
   l.sw    0(r8),r3
+  l.xor   r3,r6,r3
+  l.add   r21,r21,r3
   l.addi  r6,r6,4
 
   # Show progress on UART
@@ -173,6 +170,10 @@ copy_word:
 goto_reset:
   l.jal   put_word
    l.movhi r3,hi(txt_ok)
+  l.jal   uart_putc
+   l.ori  r10,r0,' '
+  l.jal   put_word
+   l.ori  r6,r21,0
   l.jal   print_str
    l.ori  r3,r3,lo(txt_ok)
   l.jal   flash_deinit

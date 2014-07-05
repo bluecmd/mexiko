@@ -29,9 +29,8 @@ uart_init:
   l.sb    UART_DLM(r29),r3
   l.addi  r3,r0,((UART_DIVISOR) & 0x000000ff)
   l.sb    UART_DLL(r29),r3
-  l.sb    0x3(r29),r5
   l.jr    r9
-   l.nop
+   l.sb   0x3(r29),r5
 
 uart_getc:
   l.lbz   r5,5(r29)
