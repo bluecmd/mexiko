@@ -15,7 +15,7 @@ txt_loading:
   .string "\r\nLoading from flash: "
   .align 4
 txt_invalid_size:
-  .string "Invalid size on payload, resetting...\r\n"
+  .string "\r\nInvalid size on payload, resetting...\r\n"
   .align 4
 txt_diagnostics:
   .string "\r\nDiagnostics mode enabled"
@@ -142,12 +142,12 @@ copy_vectors:
   l.jal   flash_read_word
    l.nop
   l.sfgeui r8,0x200
-  l.bnf    1f
-   l.addi  r6,r6,4
-  l.andi   r8,r8,0xff
+  l.bnf   1f
+   l.addi r6,r6,4
+  l.andi  r8,r8,0xff
 1:
   l.j     copy_vectors
-   l.sw    0(r8),r3
+   l.sw   0(r8),r3
 
 copy_word:
   l.jal   flash_read_word
@@ -175,9 +175,8 @@ goto_reset:
    l.movhi r3,hi(txt_ok)
   l.jal   print_str
    l.ori  r3,r3,lo(txt_ok)
-  l.ori   r1,r1,RESET_ADDR
   l.jal   flash_deinit
-   l.nop
+   l.ori   r1,r1,RESET_ADDR
   # Replace our bus vector with the program's.
   l.lwz   r4,0(r0)
   l.sw    0x200(r0),r4
@@ -186,9 +185,8 @@ goto_reset:
   l.lwz   r4,8(r0)
   l.sw    0x208(r0),r4
   l.lwz   r4,12(r0)
-  l.sw    0x20c(r0),r4
   l.jr    r1
-   l.nop
+   l.sw    0x20c(r0),r4
 
 print_str:
   # Print memory in r3 until \0 is found

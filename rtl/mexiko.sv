@@ -107,8 +107,10 @@ module mexiko (
 
   assign fmc_pg_c2m_o = 1'b1;
 
-  /* Always address the higher part of the G18 flash */
-  assign g18_adr_o[25] = 1'b1;
+  /* Always address the higher part of the G18 flash.
+   * We only have 512 Mbit but the board is wired for 1 Gbit. */
+  assign g18_adr_o[25] = 1'b0;
+  assign g18_adr_o[24] = 1'b1;
 
   /* TODO(bluecmd): Do something nice here, like a counter or something.
    * Also clean up the mess with _n and whatnot. At least see what best practise
@@ -183,7 +185,7 @@ module mexiko (
     .jtag_tap_update_dr_i(jtag_tap_update_dr),
     .jtag_tap_capture_dr_i(jtag_tap_capture_dr),
     .g18_dat_io(g18_dat_io),
-    .g18_adr_o(g18_adr_o[24:0]),
+    .g18_adr_o(g18_adr_o[23:0]),
     .g18_csn_o(g18_csn_o),
     .g18_oen_o(g18_oen_o),
     .g18_wen_o(g18_wen_o),

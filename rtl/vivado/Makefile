@@ -3,7 +3,7 @@
 all: mexiko.mcs
 
 clean:
-	rm -f mexiko.bit mexiko.mcs
+	rm -f mexiko.bit mexiko.mcs mexiko.swapped
 
 ../../src/mexiko.bin:
 	make -C ../../src/ mexiko.bin
@@ -12,7 +12,10 @@ mexiko.bit: mexiko.tcl
 	rm -rf .project
 	time vivado -mode batch -nojournal -nolog -source $<
 
-mexiko.mcs: mexiko.bit ../../src/mexiko.bin
+mexiko.swapped: ../../src/mexiko.bin
+	../../src/utils/byteswap $< > $@
+
+mexiko.mcs: mexiko.bit mexiko.swapped
 	vivado -mode batch -nojournal -nolog -source g18.tcl
 
 program: mexiko.bit program.tcl

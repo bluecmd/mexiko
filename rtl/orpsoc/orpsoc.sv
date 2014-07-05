@@ -284,12 +284,12 @@ module orpsoc (
   );
 `else
   wb_ram #(
-    .depth(262144) // 256 KiB
+    .depth(256*1024),
   ) sysram (
     .wb_clk_i   (wb_clk),
     .wb_rst_i   (wb_rst),
     .wb_dat_i   (wb_m2s_sysram_dat),
-    .wb_adr_i   (wb_m2s_sysram_adr),
+    .wb_adr_i   (wb_m2s_sysram_adr[17:0]),
     .wb_sel_i   (wb_m2s_sysram_sel),
     .wb_cti_i   (wb_m2s_sysram_cti),
     .wb_bte_i   (wb_m2s_sysram_bte),

@@ -56,7 +56,9 @@ module wb_g18 #(
   assign g18_wen_o = 1'b1;
 
   assign g18_adr_o = g18_adr_r;
-  assign g18_advn_o = ~adr_valid_r;
+  // For synchronous mode this should be ~adr_valid_r, but we set it to 0
+  // to keep the flash in async mode.
+  assign g18_advn_o = 1'b0;
 
   always @(posedge wb_clk_i)
   begin
