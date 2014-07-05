@@ -4,6 +4,49 @@
 
 #include "bootrom_config.h"
 
+.org 0x0
+txt_banner:
+  .string "\r\nMexiko Boot ROM - compiled "
+  .align 4
+txt_timestamp:
+  .string TIMESTAMP
+  .align 4
+txt_loading:
+  .string "\r\nLoading from flash: "
+  .align 4
+txt_invalid_size:
+  .string "Invalid size on payload, resetting...\r\n"
+  .align 4
+txt_diagnostics:
+  .string "\r\nDiagnostics mode enabled"
+  .align 4
+txt_bus_error:
+  .string "\r\nBus error - system halted\r\n"
+  .align 4
+txt_size:
+  .string "\r\nImage size: "
+  .align 4
+txt_erase_word:
+  .string "\b\b\b\b\b\b\b\b"
+  .align 4
+txt_ok:
+  .string " OK\r\n"
+  .align 4
+
+vector_bus_error:
+  l.movhi r9,hi(exception_bus_error)
+  l.ori   r9,r9,lo(exception_bus_error)
+  l.jr    r9
+   l.nop
+
+exception_bus_error:
+  l.movhi r3,hi(txt_bus_error)
+  l.jal   print_str
+   l.ori  r3,r3,lo(txt_bus_error)
+1:
+  l.j     1b
+   l.nop
+
 .org 0x100
 
 .global _start
@@ -54,29 +97,40 @@ _start:
 copy_init:
   l.jal   flash_init
    l.nop
-  l.movhi r3,hi(txt_loading)
-  l.jal   print_str
-   l.ori  r3,r3,lo(txt_loading)
-
-  l.movhi r6,0
-  l.ori   r6,r6,4
-  l.movhi r7,0xffff
 
   # Read the sizeword, save it to r7 and sanity check that we're not
   # about to read more than MAX_SIZEWORD.
   l.jal   flash_read_word
    l.nop
   l.ori   r7,r3,0
-  l.srli  r10,r7,16
-  l.sfleui r10,MAX_SIZEWORD_HI
-  l.bf    copy_vectors
-   l.nop
-  l.movhi r3,hi(txt_invalid_size)
+
+  # Print sizeword
+  l.movhi r3,hi(txt_size)
+  l.jal   print_str
+   l.ori  r3,r3,lo(txt_size)
+
+  l.jal   put_word
+   l.ori  r6,r7,0
+
+  l.srli  r3,r7,16
+  l.sfleui r3,MAX_SIZEWORD_HI
+  l.bf    copy_start
+   l.movhi r3,hi(txt_invalid_size)
   l.jal   print_str
    l.ori  r3,r3,lo(txt_invalid_size)
   l.j     _start
    l.nop
 
+copy_start:
+  l.movhi r6,0
+  l.ori   r6,r6,4
+
+  l.movhi r3,hi(txt_loading)
+  l.jal   print_str
+   l.ori  r3,r3,lo(txt_loading)
+
+  l.movhi r20,hi(txt_erase_word)
+   l.ori  r20,r20,lo(txt_erase_word)
 copy_vectors:
   # Assuming that vectors are small, move 0x200 to 0x0 in order to
   # be able to catch bus errors with our own exception handler.
@@ -102,12 +156,14 @@ copy_word:
   l.addi  r6,r6,4
 
   # Show progress on UART
-  l.andi  r8,r6,0x3ff
+  l.andi  r8,r6,0x3fff
   l.sfeqi r8,0
   l.bnf   1f
    l.nop
-  l.jal   uart_putc
-   l.ori  r10,r0,'.'
+  l.jal   put_word
+   l.nop
+  l.jal   print_str
+   l.ori  r3,r20,0
 1:
   # Check if we've finished loading the words
   l.sfgeu r6,r7
@@ -115,12 +171,10 @@ copy_word:
    l.nop
 
 goto_reset:
-  l.jal   uart_putc
-   l.ori  r10,r0,'!'
-  l.jal   uart_putc
-   l.ori  r10,r0,'\r'
-  l.jal   uart_putc
-   l.ori  r10,r0,'\n'
+  l.jal   put_word
+   l.movhi r3,hi(txt_ok)
+  l.jal   print_str
+   l.ori  r3,r3,lo(txt_ok)
   l.ori   r1,r1,RESET_ADDR
   l.jal   flash_deinit
    l.nop
@@ -152,35 +206,40 @@ print_str:
   l.jr    r28
    l.nop
 
-vector_bus_error:
-  l.movhi r9,hi(exception_bus_error)
-  l.ori   r9,r9,lo(exception_bus_error)
-  l.jr    r9
+put_hex:
+  l.ori   r2,r9,0
+  l.andi  r4,r10,0xf
+  l.srli  r10,r10,4
+  l.ori   r10,r10,'0'
+  l.sfgtui r10,'9'
+  l.bnf  1f
    l.nop
-
-exception_bus_error:
-  l.movhi r3,hi(txt_bus_error)
-  l.jal   print_str
-   l.ori  r3,r3,lo(txt_bus_error)
+  l.addi  r10,r10,7
 1:
-  l.j     1b
+  l.jal   uart_putc
+   l.nop
+  l.ori   r9,r2,0
+  l.ori   r10,r4,'0'
+  l.sfgtui r10,'9'
+  l.bnf  1f
+   l.nop
+  l.addi  r10,r10,7
+1:
+  l.j     uart_putc
    l.nop
 
-txt_banner:
-  .string "\r\nMexiko Boot ROM - compiled "
-  .align 4
-txt_timestamp:
-  .string TIMESTAMP
-  .align 4
-txt_loading:
-  .string "\r\nLoading from flash: "
-  .align 4
-txt_invalid_size:
-  .string "Invalid size on payload, resetting...\r\n"
-  .align 4
-txt_diagnostics:
-  .string "\r\nDiagnostics mode enabled"
-  .align 4
-txt_bus_error:
-  .string "\r\nBus error - system halted\r\n"
-  .align 4
+put_word:
+  l.ori   r11,r9,0
+  l.srli  r10,r6,24
+  l.jal   put_hex
+   l.nop
+  l.srli  r10,r6,16
+  l.jal   put_hex
+   l.andi r10,r10,0xff
+  l.srli  r10,r6,8
+  l.jal   put_hex
+   l.andi r10,r10,0xff
+  l.jal   put_hex
+   l.andi r10,r6,0xff
+  l.jr    r11
+   l.nop
