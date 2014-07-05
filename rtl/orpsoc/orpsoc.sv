@@ -52,13 +52,12 @@ module orpsoc (
   inout           qsfp_i2c1_scl_io,
   inout           qsfp_i2c1_sda_io,
 
-  input  [15:0]   g18_dat_i,
+  inout  [15:0]   g18_dat_io,
   output [g18_aw-1:0] g18_adr_o,
   output          g18_csn_o,
   output          g18_oen_o,
   output          g18_wen_o,
   output          g18_advn_o,
-  output          g18_clk_o,
   output          g18_rstn_o
 );
 
@@ -218,11 +217,11 @@ module orpsoc (
   ////////////////////////////////////////////////////////////////////////
 
   rom #(
-    .addr_width(8)
+    .addr_width(9)
   ) rom0 (
     .wb_clk         (wb_clk),
     .wb_rst         (wb_rst),
-    .wb_adr_i       (wb_m2s_rom0_adr[9:2]),
+    .wb_adr_i       (wb_m2s_rom0_adr[10:2]),
     .wb_cyc_i       (wb_m2s_rom0_cyc),
     .wb_stb_i       (wb_m2s_rom0_stb),
     .wb_cti_i       (wb_m2s_rom0_cti),
@@ -237,8 +236,8 @@ module orpsoc (
 
 `ifndef NEW_RAM
   ram_wb #(
-    .mem_size_bytes(262144), // 256 KiB
-    .mem_adr_width($clog2(262144))
+    .mem_size_bytes(256*1024), // 256 KiB
+    .mem_adr_width($clog2(256*1024))
   ) sysram (
     // Wishbone slave interface 0
     .wbm0_dat_i   (wb_m2s_sysram_dat),
@@ -324,13 +323,13 @@ module orpsoc (
     .wb_dat_o   (wb_s2m_g18_dat),
     .wb_ack_o   (wb_s2m_g18_ack),
     .wb_err_o   (wb_s2m_g18_err),
-    .g18_dat_i  (g18_dat_i),
+    .g18_dat_io (g18_dat_io),
     .g18_adr_o  (g18_adr_o),
     .g18_csn_o  (g18_csn_o),
     .g18_oen_o  (g18_oen_o),
     .g18_wen_o  (g18_wen_o),
     .g18_advn_o (g18_advn_o),
-    .g18_clk_o  (g18_clk_o),
+    .g18_clk_o  (),
     .g18_rstn_o ()
   );
 

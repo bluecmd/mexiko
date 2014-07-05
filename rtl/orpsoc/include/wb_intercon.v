@@ -318,7 +318,7 @@ wire        wb_s2m_resize_uart0_rty;
 wb_mux
   #(.num_slaves (2),
     .MATCH_ADDR ({32'hf0000000, 32'h00000000}),
-    .MATCH_MASK ({32'hfffff000, 32'hc0000000}))
+    .MATCH_MASK ({32'hffffe000, 32'hc0000000}))
  wb_mux_or1k_i
    (.wb_clk_i  (wb_clk_i),
     .wb_rst_i  (wb_rst_i),
@@ -350,7 +350,7 @@ wb_mux
 wb_mux
   #(.num_slaves (6),
     .MATCH_ADDR ({32'hf0000000, 32'hee000000, 32'he0000000, 32'h00000000, 32'he0000100, 32'he0000200}),
-    .MATCH_MASK ({32'hfffff000, 32'hfe000000, 32'hffffffe0, 32'hc0000000, 32'hfffffff8, 32'hfffffff8}))
+    .MATCH_MASK ({32'hffffe000, 32'hfe000000, 32'hffffffe0, 32'hc0000000, 32'hfffffff8, 32'hfffffff8}))
  wb_mux_or1k_d
    (.wb_clk_i  (wb_clk_i),
     .wb_rst_i  (wb_rst_i),
@@ -382,7 +382,7 @@ wb_mux
 wb_mux
   #(.num_slaves (6),
     .MATCH_ADDR ({32'hf0000000, 32'hee000000, 32'he0000000, 32'h00000000, 32'he0000100, 32'he0000200}),
-    .MATCH_MASK ({32'hfffff000, 32'hfe000000, 32'hffffffe0, 32'hc0000000, 32'hfffffff8, 32'hfffffff8}))
+    .MATCH_MASK ({32'hffffe000, 32'hfe000000, 32'hffffffe0, 32'hc0000000, 32'hfffffff8, 32'hfffffff8}))
  wb_mux_dbg
    (.wb_clk_i  (wb_clk_i),
     .wb_rst_i  (wb_rst_i),

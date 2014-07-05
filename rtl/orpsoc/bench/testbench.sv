@@ -35,8 +35,10 @@ module testbench (
   wire        jtag_tap_update_dr;
   wire        jtag_tap_capture_dr;
 
+  reg  [15:0] g18_dat_r;
   wire [15:0] g18_dat;
   wire [24:0] g18_adr;
+  wire        g18_wen;
 
   orpsoc soc_i (
     .sys_clk_i            (sys_clk_i),
@@ -51,9 +53,12 @@ module testbench (
     .jtag_tap_pause_dr_i  (jtag_tap_pause_dr),
     .jtag_tap_update_dr_i (jtag_tap_update_dr),
     .jtag_tap_capture_dr_i(jtag_tap_capture_dr),
-    .g18_dat_i            (g18_dat),
-    .g18_adr_o            (g18_adr)
+    .g18_dat_io           (g18_dat),
+    .g18_adr_o            (g18_adr),
+    .g18_wen_o            (g18_wen)
   );
+
+  assign g18_dat = g18_wen ? g18_dat_r : {16{1'bz}};
 
   tap_top jtag_tap0 (
     .tdo_pad_o(tdo_pad_o),
@@ -114,7 +119,7 @@ module testbench (
 
   always @(posedge sys_clk_i)
   begin
-    g18_dat <= g18_mem[g18_adr];
+    g18_dat_r <= g18_mem[g18_adr];
   end
 
   initial

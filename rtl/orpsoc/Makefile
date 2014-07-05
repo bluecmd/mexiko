@@ -41,7 +41,7 @@ obj_dir/Vtestbench: $(DEPS)
 	 make -C obj_dir -f Vtestbench.mk Vtestbench CXXFLAGS=$(CXXFLAGS)
 
 sim: obj_dir/Vtestbench
-	obj_dir/Vtestbench
+	obj_dir/Vtestbench --diag
 
 clean:
 	rm -rf obj_dir/

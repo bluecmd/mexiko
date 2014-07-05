@@ -86,6 +86,14 @@ module mexiko (
   output            usb_uart_rxd_o,
   input             usb_uart_txd_i,
 
+  /* G18 Glash */
+  inout  [15:0]   g18_dat_io,
+  output [25:0]   g18_adr_o,
+  output          g18_csn_o,
+  output          g18_oen_o,
+  output          g18_wen_o,
+  output          g18_advn_o,
+
   /* DEBUG */
   output [0:6]      debug_o
 );
@@ -98,6 +106,9 @@ module mexiko (
   assign pci_wake_n_o = 1'b1;
 
   assign fmc_pg_c2m_o = 1'b1;
+
+  /* Always address the higher part of the G18 flash */
+  assign g18_adr_o[25] = 1'b1;
 
   /* TODO(bluecmd): Do something nice here, like a counter or something.
    * Also clean up the mess with _n and whatnot. At least see what best practise
@@ -170,7 +181,13 @@ module mexiko (
     .jtag_tap_shift_dr_i(jtag_tap_shift_dr),
     .jtag_tap_pause_dr_i(jtag_tap_pause_dr),
     .jtag_tap_update_dr_i(jtag_tap_update_dr),
-    .jtag_tap_capture_dr_i(jtag_tap_capture_dr)
+    .jtag_tap_capture_dr_i(jtag_tap_capture_dr),
+    .g18_dat_io(g18_dat_io),
+    .g18_adr_o(g18_adr_o[24:0]),
+    .g18_csn_o(g18_csn_o),
+    .g18_oen_o(g18_oen_o),
+    .g18_wen_o(g18_wen_o),
+    .g18_advn_o(g18_advn_o)
   );
 
   assign jtag_tap_pause_dr = 1'b0;

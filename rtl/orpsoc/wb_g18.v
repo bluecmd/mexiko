@@ -6,13 +6,12 @@
 module wb_g18 #(
   parameter g18_size  = 67108864, // 512 Mbit
   parameter g18_aw    = $clog2(g18_size/2),
-  parameter wb_dw     = 32,
   parameter wb_aw     = 32
 ) (
   input               wb_clk_i,
   input               wb_rst_i,
   input  [wb_aw-1:0]  wb_adr_i,
-  input  [wb_dw-1:0]  wb_dat_i,
+  input  [31:0]       wb_dat_i,
   input  [3:0]        wb_sel_i,
   input               wb_we_i,
   input  [1:0]        wb_bte_i,
@@ -21,9 +20,9 @@ module wb_g18 #(
   input               wb_stb_i,
   output              wb_ack_o,
   output              wb_err_o,
-  output [wb_dw-1:0]  wb_dat_o,
+  output [31:0]       wb_dat_o,
 
-  input  [15:0]       g18_dat_i,
+  inout  [15:0]       g18_dat_io,
   output [g18_aw-1:0] g18_adr_o,
   output              g18_csn_o,
   output              g18_oen_o,
@@ -40,7 +39,7 @@ module wb_g18 #(
   reg                 adr_valid_r = 1'b0;
   reg                 wb_ack_r = 1'b0;
 
-  reg [wb_dw-1:0]     wb_dat_r = 0;
+  reg [31:0]          wb_dat_r = 0;
 
   wire valid = wb_cyc_i & wb_stb_i;
   wire new_cycle = valid & !valid_r;
@@ -73,6 +72,9 @@ module wb_g18 #(
         adr_valid_r <= 1'b1;
         g18_adr_r <= wb_adr_i[1+:g18_aw];
       end
+      if (data_valid & ~data_half_r) begin
+        g18_adr_r <= g18_adr_r + 1;
+      end
     end
   end
 
@@ -81,6 +83,7 @@ module wb_g18 #(
     if (wb_rst_i) begin
       data_half_r <= 1'b0;
       data_valid_cntr_r <= data_valid_cntr_r - 4'b1;
+      wb_dat_r <= 0;
     end else begin
       if (~data_valid) begin
         data_valid_cntr_r <= data_valid_cntr_r - 4'b1;
@@ -89,16 +92,16 @@ module wb_g18 #(
       if (new_cycle) begin
         data_half_r <= 1'b0;
         data_valid_cntr_r <= latency_r;
+        wb_dat_r <= 0;
       end
       if (data_valid & ~data_half_r) begin
         data_half_r <= 1'b1;
-        g18_adr_r <= g18_adr_r + 1;
         data_valid_cntr_r <= latency_r;
-        wb_dat_r[31:16] = g18_dat_i;
+        wb_dat_r[31:16] <= g18_dat_io;
       end
 
       if (data_valid & data_half_r) begin
-        wb_dat_r[15:0] = g18_dat_i;
+        wb_dat_r[15:0] <= g18_dat_io;
       end
     end
   end
