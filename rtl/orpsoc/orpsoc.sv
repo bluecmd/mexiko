@@ -234,57 +234,8 @@ module orpsoc (
   // System Memory (to be replaced with DDR3)
   ////////////////////////////////////////////////////////////////////////
 
-`ifndef NEW_RAM
-  ram_wb #(
-    .mem_size_bytes(256*1024), // 256 KiB
-    .mem_adr_width($clog2(256*1024))
-  ) sysram (
-    // Wishbone slave interface 0
-    .wbm0_dat_i   (wb_m2s_sysram_dat),
-    .wbm0_adr_i   (wb_m2s_sysram_adr),
-    .wbm0_sel_i   (wb_m2s_sysram_sel),
-    .wbm0_cti_i   (wb_m2s_sysram_cti),
-    .wbm0_bte_i   (wb_m2s_sysram_bte),
-    .wbm0_we_i    (wb_m2s_sysram_we),
-    .wbm0_cyc_i   (wb_m2s_sysram_cyc),
-    .wbm0_stb_i   (wb_m2s_sysram_stb),
-    .wbm0_dat_o   (wb_s2m_sysram_dat),
-    .wbm0_ack_o   (wb_s2m_sysram_ack),
-    .wbm0_err_o   (wb_s2m_sysram_err),
-    .wbm0_rty_o   (wb_s2m_sysram_rty),
-    // Wishbone slave interface 1
-    .wbm1_dat_i   (32'd0),
-    .wbm1_adr_i   (32'd0),
-    .wbm1_sel_i   (4'd0),
-    .wbm1_cti_i   (3'd0),
-    .wbm1_bte_i   (2'd0),
-    .wbm1_we_i    (1'd0),
-    .wbm1_cyc_i   (1'd0),
-    .wbm1_stb_i   (1'd0),
-    .wbm1_dat_o   (),
-    .wbm1_ack_o   (),
-    .wbm1_err_o   (),
-    .wbm1_rty_o   (),
-    // Wishbone slave interface 2
-    .wbm2_dat_i   (32'd0),
-    .wbm2_adr_i   (32'd0),
-    .wbm2_sel_i   (4'd0),
-    .wbm2_cti_i   (3'd0),
-    .wbm2_bte_i   (2'd0),
-    .wbm2_we_i    (1'd0),
-    .wbm2_cyc_i   (1'd0),
-    .wbm2_stb_i   (1'd0),
-    .wbm2_dat_o   (),
-    .wbm2_ack_o   (),
-    .wbm2_err_o   (),
-    .wbm2_rty_o   (),
-    // Clock, reset
-    .wb_clk_i   (wb_clk),
-    .wb_rst_i   (wb_rst)
-  );
-`else
   wb_ram #(
-    .depth(256*1024),
+    .depth(256*1024)
   ) sysram (
     .wb_clk_i   (wb_clk),
     .wb_rst_i   (wb_rst),
@@ -297,10 +248,8 @@ module orpsoc (
     .wb_cyc_i   (wb_m2s_sysram_cyc),
     .wb_stb_i   (wb_m2s_sysram_stb),
     .wb_dat_o   (wb_s2m_sysram_dat),
-    .wb_ack_o   (wb_s2m_sysram_ack),
-    .wb_err_o   (wb_s2m_sysram_err)
+    .wb_ack_o   (wb_s2m_sysram_ack)
   );
-`endif
 
   ////////////////////////////////////////////////////////////////////////
   // Board G18 flash

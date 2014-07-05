@@ -45,10 +45,13 @@ int main(int argc, char **argv, char **env) {
   uint32_t insn = 0;
   uint32_t ex_pc = 0;
   uint32_t old_ex_pc = 0;
+  uint32_t r1 = 0;
+  uint32_t r9 = 0;
   bool wb_reset_released = false;
   bool cpu_stalled = true;
   bool diagnostics = false;
   bool trace = false;
+  bool prog_trace = false;
 
   /* TODO(bluecmd): Use a better lib here */
   if (argc > 1 && !strcmp(argv[1], "--diag")) {
@@ -58,6 +61,11 @@ int main(int argc, char **argv, char **env) {
   }
   if (argc > 1 && !strcmp(argv[1], "--trace")) {
     trace = true;
+    argc--;
+    argv++;
+  }
+  else if (argc > 1 && !strcmp(argv[1], "--prog-trace")) {
+    prog_trace = true;
     argc--;
     argv++;
   }
@@ -104,9 +112,13 @@ int main(int argc, char **argv, char **env) {
 
     insn = top->v->soc_i->mor1kx0->mor1kx_cpu->monitor_execute_insn;
     ex_pc = top->v->soc_i->mor1kx0->mor1kx_cpu->monitor_execute_pc;
+    r1 = top->v->soc_i->mor1kx0->mor1kx_cpu->cappuccino__DOT__mor1kx_cpu->mor1kx_rf_cappuccino->rfa->ram[1];
+    r9 = top->v->soc_i->mor1kx0->mor1kx_cpu->cappuccino__DOT__mor1kx_cpu->mor1kx_rf_cappuccino->rfa->ram[9];
+    if(ex_pc == 0x100)
+      trace = trace || prog_trace;
 
     if (trace && old_ex_pc != ex_pc)
-      printf("PC: %08x = %08x\n", ex_pc, insn);
+      printf("PC: %08x = %08x R1 = %08x R9 = %08x\n", ex_pc, insn, r1, r9);
     old_ex_pc = ex_pc;
     t++;
   }

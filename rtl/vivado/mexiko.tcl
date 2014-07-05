@@ -23,8 +23,8 @@ set files [list \
  "[file normalize "$rtl_dir/mexiko-defs.vh"]"\
  "[file normalize "$rtl_dir/mexiko.sv"]"\
  "[file normalize "$rtl_dir/network.sv"]"\
- "[file normalize "$rtl_dir/orpsoc-cores/cores/ram_wb/ram_wb.v"]"\
- "[file normalize "$rtl_dir/orpsoc-cores/cores/ram_wb/ram_wb_b3.v"]"\
+ "[file normalize "$rtl_dir/orpsoc-cores/cores/wb_ram/rtl/verilog/wb_ram.v"]"\
+ "[file normalize "$rtl_dir/orpsoc-cores/cores/wb_ram/rtl/verilog/wb_ram_generic.v"]"\
  "[file normalize "$rtl_dir/orpsoc-cores/cores/verilog_utils/verilog_utils.vh"]"\
  "[file normalize "$rtl_dir/orpsoc-cores/cores/wb_intercon/wb_arbiter.v"]"\
  "[file normalize "$rtl_dir/orpsoc-cores/cores/wb_intercon/wb_data_resize.v"]"\
