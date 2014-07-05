@@ -113,7 +113,7 @@ copy_init:
    l.ori  r6,r7,0
 
   l.srli  r3,r7,16
-  l.sfeq  r3,r0
+  l.sfeq  r7,r0
   l.bf    1f
    l.sfleui r3,MAX_SIZEWORD_HI
   l.bf    copy_start

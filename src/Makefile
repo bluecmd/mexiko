@@ -8,14 +8,15 @@ clean:
 	rm -f diag/diag.bsw
 
 diag/diag.bsw:
-	make -C diag diag.bsw
+	make -C diag diag.bsw simple.bsw
 
 mexiko.memh: diag/diag.bsw
 	# TODO(bluecmd): This is supposed to be u-boot instead
-	#utils/bin2memh diag/diag.bsw > $@
+	utils/bin2memh diag/simple.bsw > $@
 	echo "@800000" >> $@
 	utils/bin2memh diag/diag.bsw >> $@
 
-mexiko.bin: diag/diag.bsw
+mexiko.bin: diag/diag.bsw diag/simple.bsw
 	dd if=/dev/zero bs=64k count=256 of=$@
+	dd if=diag/simple.bsw of=$@ conv=notrunc
 	cat diag/diag.bsw >> $@
