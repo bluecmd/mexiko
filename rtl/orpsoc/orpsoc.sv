@@ -53,7 +53,7 @@ module orpsoc (
   inout           qsfp_i2c1_sda_io,
 
   input  [15:0]   g18_dat_i,
-  output [24:0]   g18_adr_o,
+  output [g18_aw-1:0] g18_adr_o,
   output          g18_csn_o,
   output          g18_oen_o,
   output          g18_wen_o,
@@ -61,6 +61,9 @@ module orpsoc (
   output          g18_clk_o,
   output          g18_rstn_o
 );
+
+  parameter g18_size  = 33554432; // 32 MiB
+  parameter g18_aw    = $clog2(g18_size/2);
 
   ////////////////////////////////////////////////////////////////////////
   // Clock and reset generation module
@@ -305,7 +308,8 @@ module orpsoc (
   ////////////////////////////////////////////////////////////////////////
 
   wb_g18 #(
-    .g18_size(67108864), // 64 MiB
+    .g18_size(g18_size),
+    .g18_aw(g18_aw)
   ) g18 (
     .wb_clk_i   (wb_clk),
     .wb_rst_i   (wb_rst),

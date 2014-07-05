@@ -176,4 +176,4 @@ launch_runs impl_1
 wait_on_run impl_1
 
 open_impl_design [current_run]
-write_bitstream mexiko.bit
+write_bitstream -force mexiko.bit

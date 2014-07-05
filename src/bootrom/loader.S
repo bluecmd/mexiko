@@ -1,6 +1,5 @@
 /*
  * Bootloader for Mexiko.
- * Copy stage two bootloader from BPI flash.
  */
 
 #include "bootrom_config.h"
@@ -18,6 +17,13 @@ _start:
   l.movhi r3,hi(txt_timestamp)
   l.jal   print_str
    l.ori  r3,r3,lo(txt_timestamp)
+
+  # Wait a while for key presses.
+  l.movhi r10,0x2
+1:
+  l.sfeq  r10,r0
+  l.bnf 1b
+   l.addi r10,r10,-1
 
   # If user presses 'd', load diagnostics image.
   l.jal   uart_getc

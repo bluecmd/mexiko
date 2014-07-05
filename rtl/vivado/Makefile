@@ -1,8 +1,19 @@
-.PHONY: program
+.PHONY: program ../../src/mexiko.bin
+
+all: mexiko.mcs
+
+clean:
+	rm -f mexiko.bit mexiko.mcs
+
+../../src/mexiko.bin:
+	make -C ../../src/ mexiko.bin
 
 mexiko.bit: mexiko.tcl
 	rm -rf .project
-	vivado -mode batch -nojournal -nolog -source $<
+	time vivado -mode batch -nojournal -nolog -source $<
+
+mexiko.mcs: mexiko.bit ../../src/mexiko.bin
+	vivado -mode batch -nojournal -nolog -source g18.tcl
 
 program: mexiko.bit program.tcl
 	sudo $(shell which vivado) -mode batch -nojournal -nolog -source program.tcl

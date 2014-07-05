@@ -20,14 +20,17 @@ VERILATOR_INCLUDE = \
 	${PWD}/../orpsoc-cores/cores/wb_ram/rtl/verilog/wb_funcs.v
 
 DEPS = bench/testbench.sv bench/testbench.cpp include/wb_intercon.v \
-			 bootrom
+			 bootrom mexiko.memh
 
-.PHONY: obj_dir/Vtestbench bootrom
+.PHONY: obj_dir/Vtestbench bootrom mexiko.memh
 
 all: obj_dir/Vtestbench
 
 include/wb_intercon.v: include/wb_intercon.conf
 	../orpsoc-cores/cores/wb_intercon/sw/wb_intercon_gen $< $@
+
+mexiko.memh:
+	make -C ../../src mexiko.memh
 
 bootrom:
 	make -C ../../src/bootrom bootrom.v

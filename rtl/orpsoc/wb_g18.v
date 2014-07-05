@@ -24,7 +24,7 @@ module wb_g18 #(
   output [wb_dw-1:0]  wb_dat_o,
 
   input  [15:0]       g18_dat_i,
-  output [15:0]       g18_adr_o,
+  output [g18_aw-1:0] g18_adr_o,
   output              g18_csn_o,
   output              g18_oen_o,
   output              g18_wen_o,
@@ -121,7 +121,6 @@ module wb_g18 #(
     if (wb_ack_r) begin
       $display("Finished read cycle: 0x%08x", {g18_adr_r, 1'b0});
       $display("Data returned: 0x%08x", wb_dat_o);
-      $display("Data returned: 0x%08x", g18_dat_i);
     end
   end
 `endif
