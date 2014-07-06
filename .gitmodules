@@ -4,3 +4,9 @@
 [submodule "rtl/orpsoc-cores"]
 	path = rtl/orpsoc-cores
 	url = https://github.com/openrisc/orpsoc-cores
+[submodule "misoc/kc705"]
+	path = misoc/kc705
+	url = https://github.com/Florent-Kermarrec/misoc-kc705
+[submodule "src/barebox"]
+	path = src/barebox
+	url = git@github.com:bluecmd/barebox.git

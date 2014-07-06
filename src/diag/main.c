@@ -21,8 +21,7 @@ static diag_function diag_functions[] = {
 static void handle_bus_error(void);
 
 int main(void) {
-  test_newline();
-  test_info("Board diagnostic program for Mexiko");
+  test_section("Board diagnostic program for Mexiko");
 
   or1k_exception_handler_add(0x2, handle_bus_error);
 

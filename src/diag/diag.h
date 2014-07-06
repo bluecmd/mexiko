@@ -23,6 +23,7 @@ extern void diag_next(void);
 
 extern void test_newline(void);
 extern void test_info(const char * text);
+extern void test_warning(const char * text);
 extern void test_section(const char *section);
 extern void test_start(const char *test);
 extern void test_progress(const char *fmt, ...);

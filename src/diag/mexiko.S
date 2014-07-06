@@ -12,7 +12,7 @@
 
 _board_clk_freq:  .long SYS_CLK
 
-_board_mem_base:  .long RAM_BASE
+_board_mem_base:  .long 0
 _board_mem_size:  .long RESERVED_RAM
 
 _board_uart_base: .long UART_BASE

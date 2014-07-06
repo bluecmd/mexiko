@@ -26,7 +26,11 @@ void test_newline(void) {
 }
 
 void test_info(const char *section) {
-  printf(COLOR_WHITE "%s" COLOR_RESET NL, section);
+  printf("%s" NL, section);
+}
+
+void test_warning(const char *section) {
+  printf(COLOR_YELLOW "%s" COLOR_RESET NL, section);
 }
 
 void test_section(const char *section) {
