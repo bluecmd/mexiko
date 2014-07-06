@@ -13,7 +13,7 @@ int test_failure = -1;
 
 const char *current_test = NULL;
 
-static const char * test_failure_str(int reason) {
+const char * test_failure_str(int reason) {
   if (reason == FAILURE_UNKNOWN)
     return "Unknown";
   if (reason == FAILURE_BUS_ERROR)

@@ -8,14 +8,14 @@ all: diag.bsw simple.bsw
 clean:
 	rm -f diag.bsw diag.elf simple.elf simple.bsw
 
-diag.elf: main.c test.c memory.c mexiko.S mexiko.h diag.h
+diag.elf: main.c test.c memory.c mexiko.S mexiko.h diag.h console.c
 	$(CC) $^ -o $@ $(CFLAGS)
 
 simple.elf: simple.c mexiko.S
 	$(CC) $^ -o $@ $(CFLAGS)
 
 diag.bsw: diag.elf
-	../utils/elf2binsizeword $< > $@
+	../utils/elf2binsizeword $< DIAG > $@
 
 simple.bsw: simple.elf
-	../utils/elf2binsizeword $< > $@
+	../utils/elf2binsizeword $< SIMP > $@

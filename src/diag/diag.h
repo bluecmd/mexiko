@@ -28,6 +28,9 @@ extern void test_section(const char *section);
 extern void test_start(const char *test);
 extern void test_progress(const char *fmt, ...);
 extern void test_finish(int level, const char *fmt, ...);
+extern const char * test_failure_str(int reason);
+
+extern void console();
 
 extern int test_all_tests;
 extern int test_failures;
