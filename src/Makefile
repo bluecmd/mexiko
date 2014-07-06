@@ -1,5 +1,6 @@
+DEFAULT_BAREBOX_PASSWD=hunter2
 
-.PHONY: diag/diag.bsw
+.PHONY: diag/diag.bsw barebox/barebox
 
 all: mexiko.memh mexiko.bin
 
@@ -10,13 +11,23 @@ clean:
 diag/diag.bsw:
 	make -C diag diag.bsw simple.bsw
 
-mexiko.memh: diag/diag.bsw
-	# TODO(bluecmd): This is supposed to be u-boot instead
-	utils/bin2memh diag/simple.bsw > $@
+barebox/.config:
+	cp barebox-config barebox/.config
+
+barebox/barebox: barebox/.config
+	echo -n $(DEFAULT_BAREBOX_PASSWD) | sha256sum > barebox/mexiko.passwd
+	make -C barebox/ ARCH=openrisc CROSS_COMPILE=or1k-elf-
+	cp barebox/.config barebox-config
+
+barebox/barebox.bsw: barebox/barebox
+	utils/elf2binsizeword $< > $@
+
+mexiko.memh: diag/diag.bsw barebox/barebox.bsw
+	utils/bin2memh barebox/barebox.bsw > $@
 	echo "@800000" >> $@
 	utils/bin2memh diag/diag.bsw >> $@
 
-mexiko.bin: diag/diag.bsw diag/simple.bsw
+mexiko.bin: diag/diag.bsw barebox/barebox.bsw
 	dd if=/dev/zero bs=64k count=256 of=$@
-	dd if=diag/simple.bsw of=$@ conv=notrunc
+	dd if=barebox/barebox.bsw of=$@ conv=notrunc
 	cat diag/diag.bsw >> $@
