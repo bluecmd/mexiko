@@ -2,3 +2,7 @@ mexiko.bit
 mexiko.mcs
 mexiko.swapped
 .project
+*.jou
+*.log
+.time
+timing.report

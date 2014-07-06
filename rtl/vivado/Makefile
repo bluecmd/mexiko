@@ -3,7 +3,8 @@
 all: mexiko.mcs
 
 clean:
-	rm -f mexiko.bit mexiko.mcs mexiko.swapped
+	rm -f mexiko.bit mexiko.mcs mexiko.swapped *.jou *.log .time \
+		timing.report
 
 ../../src/mexiko.bin:
 	make -C ../../src/ mexiko.bin

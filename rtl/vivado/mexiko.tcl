@@ -173,6 +173,9 @@ launch_runs impl_1
 wait_on_run impl_1
 
 open_impl_design [current_run]
+check_timing
+report_timing_summary -max_paths 5 -nworst 5 -file timing.report \
+  -warn_on_violation
 
 set_property BITSTREAM.CONFIG.BPI_SYNC_MODE Disable [current_design]
 set_property BITSTREAM.GENERAL.COMPRESS true [current_design]
