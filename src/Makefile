@@ -20,14 +20,14 @@ barebox/barebox: barebox/.config
 	cp barebox/.config barebox-config
 
 barebox/barebox.bsw: barebox/barebox
-	utils/elf2binsizeword $< > $@
+	utils/elf2binsizeword $< BARE > $@
 
 mexiko.memh: diag/diag.bsw barebox/barebox.bsw
 	utils/bin2memh barebox/barebox.bsw > $@
-	echo "@800000" >> $@
+	echo "@400000" >> $@
 	utils/bin2memh diag/diag.bsw >> $@
 
 mexiko.bin: diag/diag.bsw barebox/barebox.bsw
-	dd if=/dev/zero bs=64k count=256 of=$@
+	dd if=/dev/zero bs=32k count=256 of=$@
 	dd if=barebox/barebox.bsw of=$@ conv=notrunc
 	cat diag/diag.bsw >> $@

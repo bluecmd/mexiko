@@ -20,7 +20,7 @@ set_property PROGRAM.VERIFY  0 [ get_property PROGRAM.HW_CFGMEM $device]
 
 create_hw_bitstream -hw_device $device [get_property PROGRAM.HW_CFGMEM_BITFILE $device]
 program_hw_devices $device
-program_hw_cfgmem -hw_cfgmem [get_property PROGRAM.HW_CFGMEM $device]
+catch {program_hw_cfgmem -hw_cfgmem [get_property PROGRAM.HW_CFGMEM $device]}
 
 set_property PROGRAM.FILE {mexiko.bit} $device
 program_hw_devices $device

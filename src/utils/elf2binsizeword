@@ -1,4 +1,5 @@
 #!/usr/bin/env python2
+import binascii
 import io
 import struct
 import subprocess
@@ -8,8 +9,10 @@ import tempfile
 with tempfile.NamedTemporaryFile() as tmpfile:
   subprocess.check_call(
           ['or1k-elf-objcopy', '-O', 'binary', sys.argv[1], tmpfile.name])
+  magic = int(binascii.hexlify(sys.argv[2]), 16)
   tmpfile.seek(0, io.SEEK_END)
   size = tmpfile.tell()
   sys.stdout.write(struct.pack('>I', size))
-  tmpfile.seek(4, io.SEEK_SET)
+  sys.stdout.write(struct.pack('>I', magic ^ size))
+  tmpfile.seek(8, io.SEEK_SET)
   sys.stdout.write(tmpfile.read())

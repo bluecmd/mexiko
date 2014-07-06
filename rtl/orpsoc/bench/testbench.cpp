@@ -91,8 +91,7 @@ int main(int argc, char **argv, char **env) {
       top->sys_rst_i = 0;
 
       if (diagnostics) {
-        /* Press 'd' for 16 cycles
-         * (which is the diff between sys_rst and wb_rst) */
+        /* Press 'd' to load diagnostics program. */
         top->uart_tx_write_i = 1;
         top->uart_tx_data_i = 'd';
       }
@@ -101,7 +100,6 @@ int main(int argc, char **argv, char **env) {
     if (!wb_reset_released && top->v->soc_i->wb_rst == 0) {
       printf("Wishbone reset released\n");
       wb_reset_released = true;
-      top->uart_tx_write_i = 0;
     }
 
     if ((top->v->soc_i->or1k_dbg_stall_i || top->v->soc_i->or1k_dbg_bp_o) &&
@@ -118,8 +116,13 @@ int main(int argc, char **argv, char **env) {
     r1 = top->v->soc_i->mor1kx0->mor1kx_cpu->cappuccino__DOT__mor1kx_cpu->mor1kx_rf_cappuccino->rfa->ram[1];
     r9 = top->v->soc_i->mor1kx0->mor1kx_cpu->cappuccino__DOT__mor1kx_cpu->mor1kx_rf_cappuccino->rfa->ram[9];
 #endif
-    if(ex_pc == 0x100)
+    if(ex_pc == 0x100) {
       trace = trace || prog_trace;
+      if (diagnostics) {
+        /* Now press 'enter' to automate all prompts */
+        top->uart_tx_data_i = '\r';
+      }
+    }
 
     if (trace && old_ex_pc != ex_pc) {
 #ifdef MOR1KX_RFA_VISIBLE

@@ -61,7 +61,7 @@ module orpsoc (
   output          g18_rstn_o
 );
 
-  parameter g18_size  = 33554432; // 32 MiB
+  parameter g18_size  = 16777216; // 16 MiB
   parameter g18_aw    = $clog2(g18_size/2);
 
   ////////////////////////////////////////////////////////////////////////
@@ -235,12 +235,12 @@ module orpsoc (
   ////////////////////////////////////////////////////////////////////////
 
   wb_ram #(
-    .depth(256*1024)
+    .depth(1024*1024)
   ) sysram (
     .wb_clk_i   (wb_clk),
     .wb_rst_i   (wb_rst),
     .wb_dat_i   (wb_m2s_sysram_dat),
-    .wb_adr_i   (wb_m2s_sysram_adr[17:0]),
+    .wb_adr_i   (wb_m2s_sysram_adr[19:0]),
     .wb_sel_i   (wb_m2s_sysram_sel),
     .wb_cti_i   (wb_m2s_sysram_cti),
     .wb_bte_i   (wb_m2s_sysram_bte),

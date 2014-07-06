@@ -18,5 +18,5 @@ mexiko.swapped: ../../src/mexiko.bin
 mexiko.mcs: mexiko.bit mexiko.swapped
 	vivado -mode batch -nojournal -nolog -source g18.tcl
 
-program: mexiko.bit program.tcl
+program: mexiko.mcs mexiko.bit program.tcl
 	sudo $(shell which vivado) -mode batch -nojournal -nolog -source program.tcl

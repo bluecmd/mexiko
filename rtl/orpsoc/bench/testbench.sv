@@ -13,9 +13,9 @@ module testbench (
   parameter STDOUT = 32'h8000_0001;
   // 80 MHz / (16 * 115200 Baud) = ~43
   parameter UART_DIVISOR = 16'd43;
-  // We want to use half the BPI Flash (which is 512 Mbit)
-  // 512*1024^2 / 2 / 16 bit = 16777215 (32 MiB)
-  parameter BPI_SIZE = 16777215;
+  // We want to use a quarter the BPI Flash (which is 512 Mbit)
+  // 512*1024^2 / 4 / 16 bit = 8388608 (16 MiB)
+  parameter BPI_SIZE = 8388608;
 
   reg [15:0]  g18_mem [BPI_SIZE:0];
 
@@ -37,7 +37,7 @@ module testbench (
 
   reg  [15:0] g18_dat_r;
   wire [15:0] g18_dat;
-  wire [23:0] g18_adr;
+  wire [22:0] g18_adr;
   wire        g18_wen;
 
   orpsoc soc_i (
@@ -126,8 +126,8 @@ module testbench (
   begin
     $display("Mexiko Testbench started");
     $readmemh("../../src/mexiko.memh", g18_mem);
-    $display("Boot ROM: %04x%04x", g18_mem[24'h0], g18_mem[24'h1]);
-    $display("Diag ROM: %04x%04x", g18_mem[24'h800000], g18_mem[24'h800001]);
+    $display("Boot ROM: %04x%04x", g18_mem[23'h0], g18_mem[23'h1]);
+    $display("Diag ROM: %04x%04x", g18_mem[23'h400000], g18_mem[23'h400001]);
   end
 
 endmodule
