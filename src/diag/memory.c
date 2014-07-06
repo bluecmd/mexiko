@@ -22,8 +22,8 @@ void memory_test(void) {
     test_start("Full read");
     for(ptr = 0; ptr < RAM_SIZE; ptr+=4) {
       data = *((uint32_t*)(ptr + RAM_BASE));
-      if ((ptr & 0xffff) == 0) {
-        test_progress("%d KiB", ptr / 1024);
+      if ((ptr & 0x3fffff) == 0) {
+        test_progress("%d MiB", ptr / (1024 * 1024));
       }
     }
     test_finish(OK, "%d KiB / %d KiB", ptr / 1024, RAM_SIZE / 1024);
@@ -34,9 +34,9 @@ void memory_test(void) {
   STAGE(2) {
     test_start("Non-reserved write");
     for(ptr = RESERVED_RAM; ptr < RAM_SIZE; ptr+=4) {
-      *((uint32_t*)(ptr + RAM_BASE)) = 0xaa55aa55;
-      if ((ptr & 0xffff) == 0) {
-        test_progress("%d KiB", ptr / 1024);
+      *((uint32_t*)(ptr + RAM_BASE)) = 0xaa55aa55 ^ ptr;
+      if ((ptr & 0x3fffff) == 0) {
+        test_progress("%d MiB", ptr / (1024 * 1024));
       }
     }
     test_finish(OK, "%d KiB / %d KiB", ptr / 1024, RAM_SIZE / 1024);
@@ -48,12 +48,12 @@ void memory_test(void) {
     int fail = 0;
     test_start("Non-reserved read-back");
     for(ptr = RESERVED_RAM; ptr < RAM_SIZE; ptr+=4) {
-      if (*((uint32_t*)(ptr + RAM_BASE)) != 0xaa55aa55) {
+      if (*((uint32_t*)(ptr + RAM_BASE)) != 0xaa55aa55 ^ ptr) {
         fail = 1;
         break;
       }
-      if ((ptr & 0xffff) == 0) {
-        test_progress("%d KiB", ptr / 1024);
+      if ((ptr & 0x3fffff) == 0) {
+        test_progress("%d MiB", ptr / (1024 * 1024));
       }
     }
     test_finish(fail ? ERROR : OK,

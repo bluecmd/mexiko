@@ -5,6 +5,8 @@
 
 #include "diag.h"
 
+#define NL "\r\n"
+
 int test_all_tests = 0;
 int test_failures = 0;
 int test_failure = -1;
@@ -19,8 +21,16 @@ static const char * test_failure_str(int reason) {
   return "Internal Error";
 }
 
+void test_newline(void) {
+  printf(NL);
+}
+
+void test_info(const char *section) {
+  printf(COLOR_WHITE "%s" COLOR_RESET NL, section);
+}
+
 void test_section(const char *section) {
-  printf("\n" COLOR_WHITE "%s" COLOR_RESET "\n", section);
+  printf(NL COLOR_WHITE "%s" COLOR_RESET NL, section);
 }
 
 void test_start(const char *test) {
@@ -56,21 +66,21 @@ void test_finish(int level, const char *fmt, ...) {
   va_end(arg_list);
 
   if (level == OK) {
-    puts(COLOR_RESET);
+    printf(COLOR_RESET NL);
   } else if (level == ERROR) {
     if (test_failure != -1) {
-      printf(COLOR_RESET " (%s)\n", test_failure_str(test_failure));
+      printf(COLOR_RESET " (%s)" NL, test_failure_str(test_failure));
     } else {
-      puts(COLOR_RESET);
+      printf(COLOR_RESET NL);
     }
   } else {
-    puts("");
+    printf(NL);
   }
   fflush(stdout);
 }
 
 void test_unknown_failure(int reason) {
-  printf("\nUnknown test failure (type: %s), cannot continue :(\n",
+  printf(NL "Unknown test failure (type: %s), cannot continue :(" NL,
       test_failure_str(reason));
   exit(1);
 }

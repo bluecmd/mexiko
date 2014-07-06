@@ -6,7 +6,7 @@ CFLAGS=-DTIMESTAMP="\"$(shell date +'%Y-%m-%d %H:%M')\""
 all: diag.bsw simple.bsw
 
 clean:
-	rm -f diag.bin diag.binsize diag.elf bin2binsizeword
+	rm -f diag.bsw diag.elf simple.elf simple.bsw
 
 diag.elf: main.c test.c memory.c mexiko.S mexiko.h diag.h
 	$(CC) $^ -o $@ $(CFLAGS)

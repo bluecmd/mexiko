@@ -21,8 +21,8 @@ static diag_function diag_functions[] = {
 static void handle_bus_error(void);
 
 int main(void) {
-  putchar('\n');
-  puts("Board diagnostic program for Mexiko");
+  test_newline();
+  test_info("Board diagnostic program for Mexiko");
 
   or1k_exception_handler_add(0x2, handle_bus_error);
 
@@ -55,7 +55,8 @@ static void diag_summary(void) {
   test_finish(INFO, "%d", test_all_tests);
   test_start("Failures");
   test_finish(test_failures > 0 ? ERROR : OK, "%d", test_failures);
-  printf("\nDiagnostics completed\n");
+  test_newline();
+  test_info("Diagnostics completed");
   exit(0);
 }
 
