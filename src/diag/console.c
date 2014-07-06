@@ -61,6 +61,8 @@ void console(void) {
     if (readline(buffer, sizeof(buffer)) == 0)
       continue;
 
+    test_newline();
+
     split(buffer, &args);
 
     /* memory dump */

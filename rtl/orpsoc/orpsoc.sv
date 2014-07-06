@@ -217,11 +217,11 @@ module orpsoc (
   ////////////////////////////////////////////////////////////////////////
 
   rom #(
-    .addr_width(9)
+    .addr_width(8)
   ) rom0 (
     .wb_clk         (wb_clk),
     .wb_rst         (wb_rst),
-    .wb_adr_i       (wb_m2s_rom0_adr[10:2]),
+    .wb_adr_i       (wb_m2s_rom0_adr[9:2]),
     .wb_cyc_i       (wb_m2s_rom0_cyc),
     .wb_stb_i       (wb_m2s_rom0_stb),
     .wb_cti_i       (wb_m2s_rom0_cti),
