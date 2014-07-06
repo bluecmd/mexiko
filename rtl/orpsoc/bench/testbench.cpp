@@ -45,8 +45,10 @@ int main(int argc, char **argv, char **env) {
   uint32_t insn = 0;
   uint32_t ex_pc = 0;
   uint32_t old_ex_pc = 0;
+#ifdef MOR1KX_RFA_VISIBLE
   uint32_t r1 = 0;
   uint32_t r9 = 0;
+#endif
   bool wb_reset_released = false;
   bool cpu_stalled = true;
   bool diagnostics = false;
@@ -112,13 +114,20 @@ int main(int argc, char **argv, char **env) {
 
     insn = top->v->soc_i->mor1kx0->mor1kx_cpu->monitor_execute_insn;
     ex_pc = top->v->soc_i->mor1kx0->mor1kx_cpu->monitor_execute_pc;
+#ifdef MOR1KX_RFA_VISIBLE
     r1 = top->v->soc_i->mor1kx0->mor1kx_cpu->cappuccino__DOT__mor1kx_cpu->mor1kx_rf_cappuccino->rfa->ram[1];
     r9 = top->v->soc_i->mor1kx0->mor1kx_cpu->cappuccino__DOT__mor1kx_cpu->mor1kx_rf_cappuccino->rfa->ram[9];
+#endif
     if(ex_pc == 0x100)
       trace = trace || prog_trace;
 
-    if (trace && old_ex_pc != ex_pc)
+    if (trace && old_ex_pc != ex_pc) {
+#ifdef MOR1KX_RFA_VISIBLE
       printf("PC: %08x = %08x R1 = %08x R9 = %08x\n", ex_pc, insn, r1, r9);
+#else
+      printf("PC: %08x = %08x\n", ex_pc, insn);
+#endif
+    }
     old_ex_pc = ex_pc;
     t++;
   }
