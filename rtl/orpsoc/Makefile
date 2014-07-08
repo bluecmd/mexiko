@@ -3,6 +3,9 @@ VERILATOR_FLAGS = -Wno-fatal -Wno-combdly
 VERILATOR_INCLUDE = \
 	-I${PWD}/include \
 	-I${PWD}/.. \
+	-I${PWD}/../gic \
+	-I${PWD}/../kuba \
+	-I${PWD}/../kuba/include \
 	-I${PWD}/../mor1kx/rtl/verilog \
 	-I${PWD}/../orpsoc-cores/cores/elf-loader \
 	-I${PWD}/../orpsoc-cores/cores/verilog_utils \
