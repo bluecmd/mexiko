@@ -1,0 +1,5 @@
+#!/bin/bash
+
+(sleep 2; brctl addif buildbot-br tap0; ip link set up dev tap0) &
+ sim -f $(dirname $0)/or1ksim.cfg $1
+

@@ -4,8 +4,11 @@ DEFAULT_BAREBOX_PASSWD=hunter2
 
 all: mexiko.memh mexiko.bin linux/vmlinux
 
-sim: linux/vmlinux
-	sim linux/vmlinux -f utils/or1ksim.cfg
+sim-linux: linux/vmlinux
+	sudo utils/or1ksim $<
+
+sim-barebox: barebox/barebox
+	sudo utils/or1ksim $<
 
 clean:
 	rm -f mexiko.memh mexiko.bin
