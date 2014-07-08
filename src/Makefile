@@ -1,8 +1,11 @@
 DEFAULT_BAREBOX_PASSWD=hunter2
 
-.PHONY: diag/diag.bsw barebox/barebox
+.PHONY: diag/diag.bsw barebox/barebox sim
 
-all: mexiko.memh mexiko.bin
+all: mexiko.memh mexiko.bin linux/vmlinux
+
+sim: linux/vmlinux
+	sim linux/vmlinux -f utils/or1ksim.cfg
 
 clean:
 	rm -f mexiko.memh mexiko.bin
@@ -21,6 +24,15 @@ barebox/barebox: barebox/.config
 
 barebox/barebox.bsw: barebox/barebox
 	utils/elf2binsizeword $< BARE > $@
+
+linux/.config: linux-config
+	cp $< $@
+
+linux/arch/openrisc/boot/dts/mexiko.dts: mexiko.dts
+	cp $< $@
+
+linux/vmlinux: linux/.config linux/arch/openrisc/boot/dts/mexiko.dts
+	make -C linux ARCH=openrisc -j
 
 mexiko.memh: diag/diag.bsw barebox/barebox.bsw
 	utils/bin2memh barebox/barebox.bsw > $@

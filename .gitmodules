@@ -10,3 +10,6 @@
 [submodule "src/barebox"]
 	path = src/barebox
 	url = git@github.com:bluecmd/barebox.git
+[submodule "src/linux"]
+	path = src/linux
+	url = git@github.com:bluecmd/or1k-linux.git
