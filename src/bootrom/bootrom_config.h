@@ -1,7 +1,7 @@
 #ifndef __HEADER_BOOTROM_CONFIG__
 #define __HEADER_BOOTROM_CONFIG__
 
-#define UART            0xe0000000
+#define UART            0xe8000000
 #define SYS_CLK         80000000
 #define BAUD            115200
 

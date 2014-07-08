@@ -8,7 +8,7 @@
 #define FLASH_BASE          0xef000000
 #define FLASH_END           0xf0000000
 
-#define UART_BASE           0xe0000000
+#define UART_BASE           0xe8000000
 #define UART_BAUD           115200
 #define UART_IRQ            13
 #define UART_LSR            5

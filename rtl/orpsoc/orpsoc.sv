@@ -44,6 +44,10 @@ module orpsoc (
   input           jtag_tap_update_dr_i,
   input           jtag_tap_capture_dr_i,
 
+  input  [3:0]    gic_dat_i,
+  output [3:0]    gic_dat_o,
+  output          gic_cs_o,
+
   input           uart0_srx_pad_i,
   output          uart0_stx_pad_o,
 
@@ -78,7 +82,7 @@ module orpsoc (
   );
 
   ////////////////////////////////////////////////////////////////////////
-  // Modules interconnections
+  // Wishbone bus
   ////////////////////////////////////////////////////////////////////////
   `include "wb_intercon.vh"
 
@@ -201,7 +205,6 @@ module orpsoc (
     .wb_dat_i       (wb_s2m_dbg_dat),
     .wb_ack_i       (wb_s2m_dbg_ack),
     .wb_err_i       (wb_s2m_dbg_err),
-
     .wb_adr_o       (wb_m2s_dbg_adr),
     .wb_dat_o       (wb_m2s_dbg_dat),
     .wb_cyc_o       (wb_m2s_dbg_cyc),
@@ -210,6 +213,29 @@ module orpsoc (
     .wb_we_o        (wb_m2s_dbg_we),
     .wb_cti_o       (wb_m2s_dbg_cti),
     .wb_bte_o       (wb_m2s_dbg_bte)
+  );
+
+  ////////////////////////////////////////////////////////////////////////
+  // Gris InterConnect
+  ////////////////////////////////////////////////////////////////////////
+
+  gic_master gic0 (
+    .wb_clk_i   (wb_clk),
+    .wb_rst_i   (wb_rst),
+    .wb_dat_i   (wb_m2s_gic0_dat),
+    .wb_adr_i   (wb_m2s_gic0_adr),
+    .wb_sel_i   (wb_m2s_gic0_sel),
+    .wb_cti_i   (wb_m2s_gic0_cti),
+    .wb_bte_i   (wb_m2s_gic0_bte),
+    .wb_we_i    (wb_m2s_gic0_we),
+    .wb_cyc_i   (wb_m2s_gic0_cyc),
+    .wb_stb_i   (wb_m2s_gic0_stb),
+    .wb_dat_o   (wb_s2m_gic0_dat),
+    .wb_ack_o   (wb_s2m_gic0_ack),
+    .wb_err_o   (wb_s2m_gic0_err),
+    .gic_dat_i  (gic_dat_i),
+    .gic_dat_o  (gic_dat_o),
+    .gic_cs_o   (gic_cs_o)
   );
 
   ////////////////////////////////////////////////////////////////////////
@@ -428,4 +454,4 @@ module orpsoc (
   assign or1k_irq[30] = 0;
   assign or1k_irq[31] = 0;
 
-endmodule // orpsoc_top
+endmodule

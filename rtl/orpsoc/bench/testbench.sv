@@ -40,6 +40,10 @@ module testbench (
   wire [22:0] g18_adr;
   wire        g18_wen;
 
+  wire [3:0]  gic_m2s_dat;
+  wire [3:0]  gic_s2m_dat;
+  wire        gic_cs;
+
   orpsoc soc_i (
     .sys_clk_i            (sys_clk_i),
     .sys_rst_i            (sys_rst_i),
@@ -54,13 +58,26 @@ module testbench (
     .jtag_tap_update_dr_i (jtag_tap_update_dr),
     .jtag_tap_capture_dr_i(jtag_tap_capture_dr),
     .g18_dat_io           (g18_dat),
-    .g18_adr_o            (g18_adr),
-    .g18_wen_o            (g18_wen)
+    .g18_adr_o            (),
+    .g18_wen_o            (),
+    .gic_dat_i            (gic_s2m_dat),
+    .gic_dat_o            (gic_m2s_dat),
+    .gic_cs_o             (gic_cs)
+  );
+
+  kuba kuba_i (
+    .sys_clk_i   (sys_clk_i),
+    .sys_rst_i   (sys_rst_i),
+    .gic_dat_i   (gic_m2s_dat),
+    .gic_dat_o   (gic_s2m_dat),
+    .g18_adr_o   (g18_adr),
+    .g18_dat_io  (g18_dat),
+    .g18_wen_o   (g18_wen)
   );
 
   assign g18_dat = g18_wen ? g18_dat_r : {16{1'bz}};
 
-  tap_top jtag_tap0 (
+  tap_top jtag_tap_i (
     .tdo_pad_o(tdo_pad_o),
     .tms_pad_i(tms_pad_i),
     .tck_pad_i(dbg_tck),
