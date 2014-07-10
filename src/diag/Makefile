@@ -8,7 +8,7 @@ all: diag.bsw simple.bsw
 clean:
 	rm -f diag.bsw diag.elf simple.elf simple.bsw
 
-diag.elf: main.c test.c memory.c mexiko.S mexiko.h diag.h console.c
+diag.elf: main.c test.c memory.c mexiko.S mexiko.h diag.h console.c mgmteth.c
 	$(CC) $^ -o $@ $(CFLAGS)
 
 simple.elf: simple.c mexiko.S

@@ -13,6 +13,7 @@ static volatile uint8_t *uart_lsr;
 static uint32_t timer_period;
 
 extern void memory_test(void);
+extern void mgmteth_test(void);
 static void diag_summary(void);
 static void diag_start(void);
 
@@ -21,6 +22,7 @@ static int diag_function_idx = 0;
 
 static diag_function diag_functions[] = {
   diag_start,
+  mgmteth_test,
   memory_test,
   diag_summary
 };

@@ -1,6 +1,8 @@
 #ifndef __HEADER_DIAG__
 #define __HEADER_DIAG__
 
+#include <stdint.h>
+
 #include "mexiko.h"
 
 #define COLOR_RED     "\x1b[91m"
@@ -14,6 +16,10 @@
 
 #define FAILURE_UNKNOWN     0
 #define FAILURE_BUS_ERROR   1
+
+#define VPTR(x)               ((volatile uint32_t*)(x))
+#define VPTR8(x)              ((volatile uint8_t*)(x))
+#define MB                    asm volatile ("" : : : "memory")
 
 #define INFO                0
 #define OK                  1
@@ -31,6 +37,7 @@ extern void test_finish(int level, const char *fmt, ...);
 extern const char * test_failure_str(int reason);
 
 extern void console();
+extern void memory_dump(uint8_t addr[], uint32_t size);
 
 extern int test_all_tests;
 extern int test_failures;

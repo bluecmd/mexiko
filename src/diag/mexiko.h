@@ -14,6 +14,9 @@
 #define UART_LSR            5
 #define UART_LSR_DR         0x01
 
+#define MGMT_ETH_BASE       0xe0000000
+#define MGMT_ETH_DMA        0xe0008000
+
 #define PROGRAM_LOCATION_BAREBOX    (FLASH_BASE)
 #define PROGRAM_MAGIC_BAREBOX       0x42415245 /* BARE in ASCII */
 #define PROGRAM_LOCATION_DIAG       (FLASH_BASE + 0x0800000)

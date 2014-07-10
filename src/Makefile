@@ -10,6 +10,9 @@ sim-linux: linux/vmlinux
 sim-barebox: barebox/barebox
 	sudo utils/or1ksim $<
 
+sim-diag: diag/diag.elf
+	sudo utils/or1ksim $<
+
 clean:
 	rm -f mexiko.memh mexiko.bin
 	rm -f diag/diag.bsw

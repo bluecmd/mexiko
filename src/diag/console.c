@@ -3,8 +3,6 @@
 
 #include "diag.h"
 
-static void memory_dump(uint8_t addr[], uint32_t size);
-
 static int readline(char *ptr, int max) {
   int count;
   for (count = 0; max > 1; max--, ptr++, count++) {
@@ -78,7 +76,7 @@ void console(void) {
   }
 }
 
-static void memory_dump(uint8_t addr[], uint32_t size) {
+void memory_dump(uint8_t addr[], uint32_t size) {
   size_t i;
   if (size & 3) {
     size = (size & ~3) + 4;

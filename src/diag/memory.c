@@ -9,9 +9,6 @@
 #define WRITE_MAGIC1(x)       (uint32_t)(x)
 #define WRITE_MAGIC2(x)       (uint32_t)(0xaa55aa55 ^ (x))
 
-#define VPTR(x)               ((volatile uint32_t*)(x))
-#define MB                    asm volatile ("" : : : "memory")
-
 #define MEMORY_LOOP_TEST_BEGIN(name, start, incr) \
     int fail = 0; \
     test_start(name); \
