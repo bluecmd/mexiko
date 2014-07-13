@@ -1,26 +1,26 @@
 
 VERILATOR_FLAGS = -Wno-fatal -Wno-combdly
 VERILATOR_INCLUDE = \
-	-I${PWD}/include \
-	-I${PWD}/.. \
-	-I${PWD}/../gic \
-	-I${PWD}/../kuba \
-	-I${PWD}/../kuba/include \
-	-I${PWD}/../mor1kx/rtl/verilog \
-	-I${PWD}/../orpsoc-cores/cores/elf-loader \
-	-I${PWD}/../orpsoc-cores/cores/verilog_utils \
-	-I${PWD}/../orpsoc-cores/cores/wb_intercon \
-	-I${PWD}/../orpsoc-cores/cores/wb_ram/rtl/verilog \
-	-I${PWD}/../orpsoc-cores/cores/wb_bfm \
-	-I${PWD}/../utils \
-	-I${PWD}/bench \
+	-I${CURDIR}/include \
+	-I${CURDIR}/.. \
+	-I${CURDIR}/../gic \
+	-I${CURDIR}/../kuba \
+	-I${CURDIR}/../kuba/include \
+	-I${CURDIR}/../mor1kx/rtl/verilog \
+	-I${CURDIR}/../orpsoc-cores/cores/elf-loader \
+	-I${CURDIR}/../orpsoc-cores/cores/verilog_utils \
+	-I${CURDIR}/../orpsoc-cores/cores/wb_intercon \
+	-I${CURDIR}/../orpsoc-cores/cores/wb_ram/rtl/verilog \
+	-I${CURDIR}/../orpsoc-cores/cores/wb_bfm \
+	-I${CURDIR}/../utils \
+	-I${CURDIR}/bench \
 	-I/home/bluecmd/.cache/fusesoc/adv_debug_sys/rtl/verilog \
 	-I/home/bluecmd/.cache/fusesoc/jtag_tap/rtl/verilog \
 	-I/home/bluecmd/.cache/fusesoc/uart16550/rtl/verilog \
 	-I/home/bluecmd/.cache/fusesoc/verilog-arbiter/src \
 	-I/home/bluecmd/.cache/fusesoc/i2c \
 	-I/home/bluecmd/.cache/fusesoc/ethmac/rtl/verilog \
-	${PWD}/../orpsoc-cores/cores/wb_ram/rtl/verilog/wb_funcs.v
+	${CURDIR}/../orpsoc-cores/cores/wb_ram/rtl/verilog/wb_funcs.v
 
 DEPS = bench/testbench.sv bench/testbench.cpp include/wb_intercon.v \
 			 bootrom mexiko.memh

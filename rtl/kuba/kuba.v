@@ -37,9 +37,19 @@ module kuba (
   input  [3:0]    gic_dat_i,
   output [3:0]    gic_dat_o,
 
-  inout  [15:0]   g18_dat_io,
-  output [g18_aw-1:0] g18_adr_o,
-  output          g18_wen_o
+  input           eth0_tx_clk,
+  output [3:0]    eth0_tx_data,
+  output          eth0_tx_en,
+  output          eth0_tx_er,
+  input           eth0_rx_clk,
+  input [3:0]     eth0_rx_data,
+  input           eth0_dv,
+  input           eth0_rx_er,
+  input           eth0_col,
+  input           eth0_crs,
+  output          eth0_mdc_pad_o,
+  inout           eth0_md_pad_io,
+  output          eth0_rst_n_o
 );
 
   ////////////////////////////////////////////////////////////////////////
@@ -81,36 +91,113 @@ module kuba (
   );
 
   ////////////////////////////////////////////////////////////////////////
-  // Debug Slave (used to test GIC)
+  // Expansion Memory
   ////////////////////////////////////////////////////////////////////////
 
-  parameter g18_size  = 16777216; // 16 MiB
-  parameter g18_aw    = $clog2(g18_size/2);
-  wb_g18 #(
-    .g18_size(g18_size),
-    .g18_aw(g18_aw)
-  ) g18 (
+  wb_ram #(
+    .depth(32*1024)
+  ) expram_i (
     .wb_clk_i   (wb_clk),
     .wb_rst_i   (wb_rst),
-    .wb_dat_i   (wb_m2s_g18_dat),
-    .wb_adr_i   (wb_m2s_g18_adr),
-    .wb_sel_i   (wb_m2s_g18_sel),
-    .wb_cti_i   (wb_m2s_g18_cti),
-    .wb_bte_i   (wb_m2s_g18_bte),
-    .wb_we_i    (wb_m2s_g18_we),
-    .wb_cyc_i   (wb_m2s_g18_cyc),
-    .wb_stb_i   (wb_m2s_g18_stb),
-    .wb_dat_o   (wb_s2m_g18_dat),
-    .wb_ack_o   (wb_s2m_g18_ack),
-    .wb_err_o   (wb_s2m_g18_err),
-    .g18_dat_io (g18_dat_io),
-    .g18_adr_o  (g18_adr_o),
-    .g18_csn_o  (),
-    .g18_oen_o  (),
-    .g18_wen_o  (g18_wen_o),
-    .g18_advn_o (),
-    .g18_clk_o  (),
-    .g18_rstn_o ()
+    .wb_dat_i   (wb_m2s_expram_dat),
+    .wb_adr_i   (wb_m2s_expram_adr[14:0]),
+    .wb_sel_i   (wb_m2s_expram_sel),
+    .wb_cti_i   (wb_m2s_expram_cti),
+    .wb_bte_i   (wb_m2s_expram_bte),
+    .wb_we_i    (wb_m2s_expram_we),
+    .wb_cyc_i   (wb_m2s_expram_cyc),
+    .wb_stb_i   (wb_m2s_expram_stb),
+    .wb_dat_o   (wb_s2m_expram_dat),
+    .wb_ack_o   (wb_s2m_expram_ack)
+  );
+
+  ////////////////////////////////////////////////////////////////////////
+  // Management Ethernet
+  ////////////////////////////////////////////////////////////////////////
+  wire          eth0_irq;
+  wire [3:0]    eth0_mtxd;
+  wire          eth0_mtxen;
+  wire          eth0_mtxerr;
+  wire          eth0_mtx_clk;
+  wire          eth0_mrx_clk;
+  wire [3:0]    eth0_mrxd;
+  wire          eth0_mrxdv;
+  wire          eth0_mrxerr;
+  wire          eth0_mcoll;
+  wire          eth0_mcrs;
+  wire          eth0_speed;
+  wire          eth0_duplex;
+  wire          eth0_link;
+  // Management interface wires
+  wire          eth0_md_i;
+  wire          eth0_md_o;
+  wire          eth0_md_oe;
+
+  // Hook up MII wires
+  assign eth0_mtx_clk   = eth0_tx_clk;
+  assign eth0_tx_data   = eth0_mtxd[3:0];
+  assign eth0_tx_en     = eth0_mtxen;
+  assign eth0_tx_er     = eth0_mtxerr;
+  assign eth0_mrxd[3:0] = eth0_rx_data;
+  assign eth0_mrxdv     = eth0_dv;
+  assign eth0_mrxerr    = eth0_rx_er;
+  assign eth0_mrx_clk   = eth0_rx_clk;
+  assign eth0_mcoll     = eth0_col;
+  assign eth0_mcrs      = eth0_crs;
+
+  // Tristate control for management interface
+  assign eth0_md_pad_io = eth0_md_oe ? eth0_md_o : 1'bz;
+  assign eth0_md_i = eth0_md_pad_io;
+
+  assign eth0_rst_n_o = !wb_rst;
+
+  ethmac ethmac_i (
+    // Wishbone Slave interface
+    .wb_clk_i   (wb_clk),
+    .wb_rst_i   (wb_rst),
+    .wb_adr_i   (wb_m2s_eth0_adr[11:2]),
+    .wb_dat_i   (wb_m2s_eth0_dat),
+    .wb_sel_i   (wb_m2s_eth0_sel),
+    .wb_we_i    (wb_m2s_eth0_we),
+    .wb_cyc_i   (wb_m2s_eth0_cyc),
+    .wb_stb_i   (wb_m2s_eth0_stb),
+    .wb_dat_o   (wb_s2m_eth0_dat),
+    .wb_err_o   (wb_s2m_eth0_err),
+    .wb_ack_o   (wb_s2m_eth0_ack),
+    // Wishbone Master Interface
+    .m_wb_adr_o (wb_m2s_eth0_master_adr),
+    .m_wb_sel_o (wb_m2s_eth0_master_sel),
+    .m_wb_we_o  (wb_m2s_eth0_master_we),
+    .m_wb_dat_o (wb_m2s_eth0_master_dat),
+    .m_wb_cyc_o (wb_m2s_eth0_master_cyc),
+    .m_wb_stb_o (wb_m2s_eth0_master_stb),
+    .m_wb_cti_o (wb_m2s_eth0_master_cti),
+    .m_wb_bte_o (wb_m2s_eth0_master_bte),
+    .m_wb_dat_i (wb_s2m_eth0_master_dat),
+    .m_wb_ack_i (wb_s2m_eth0_master_ack),
+    .m_wb_err_i (wb_s2m_eth0_master_err),
+
+    // Ethernet MII interface
+    // Transmit
+    .mtxd_pad_o    (eth0_mtxd[3:0]),
+    .mtxen_pad_o   (eth0_mtxen),
+    .mtxerr_pad_o  (eth0_mtxerr),
+    .mtx_clk_pad_i (eth0_mtx_clk),
+    // Receive
+    .mrx_clk_pad_i (eth0_mrx_clk),
+    .mrxd_pad_i    (eth0_mrxd[3:0]),
+    .mrxdv_pad_i   (eth0_mrxdv),
+    .mrxerr_pad_i  (eth0_mrxerr),
+    .mcoll_pad_i   (eth0_mcoll),
+    .mcrs_pad_i    (eth0_mcrs),
+    // Management interface
+    .md_pad_i      (eth0_md_i),
+    .mdc_pad_o     (eth0_mdc_pad_o),
+    .md_pad_o      (eth0_md_o),
+    .md_padoe_o    (eth0_md_oe),
+
+    // Processor interrupt
+    .int_o         (eth0_irq)
   );
 
 endmodule

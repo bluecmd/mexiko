@@ -71,7 +71,14 @@ module testbench (
     .sys_clk_i   (sys_clk_i),
     .sys_rst_i   (sys_rst_i),
     .gic_dat_i   (gic_m2s_dat),
-    .gic_dat_o   (gic_s2m_dat)
+    .gic_dat_o   (gic_s2m_dat),
+    .eth0_tx_clk (sys_clk_i),
+    .eth0_rx_clk (sys_clk_i),
+    .eth0_rx_data(4'b0),
+    .eth0_dv     (1'b0),
+    .eth0_rx_er  (1'b0),
+    .eth0_col    (1'b0),
+    .eth0_crs    (1'b0)
   );
 
   tap_top jtag_tap_i (
