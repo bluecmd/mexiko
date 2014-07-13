@@ -251,17 +251,16 @@ module gic_master #(
 `ifdef DEBUG_GIC_MASTER
   always @(posedge wb_clk_i)
   begin
-    if (wb_ack_o & (state_r == state_m_init)) begin
-      $display("Finished read cycle: 0x%08x", wb_adr_i);
-      $display("Data returned: 0x%08x", wb_dat_o);
-    end else if (valid & (state_r == state_m_init)) begin
-      $display("\nNew read cycle: 0x%08x", wb_adr_i);
-    end
+    if (valid & (state_r == state_m_init))
+      $display("\nNew %s cycle: 0x%08x", wb_we_i ? "write" : "read", wb_adr_i);
     if (~((state_r == state_m_init) & ~valid) & (state_r != state_s_init)) begin
       $display(
         "GIC: OUT: %04b IN: %04b CS: %b CKS: %04b CNTR: %d S: %d O: %4b",
         gic_dat_r, gic_dat_i, cs, gic_chksum_r, cntr_r, state_r, chksum_operand);
     end
+    if (wb_ack_o)
+      $display("Finished %s cycle: 0x%08x = %08x)", wb_we_i ? "write" : "read",
+        wb_adr_i, wb_we_i ? wb_dat_i : wb_dat_o);
   end
 `endif
 

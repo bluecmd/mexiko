@@ -56,8 +56,8 @@ module gic_slave #(
   assign wbm_adr_o = wb_adr_r;
   assign wbm_dat_o = wb_dat_r;
   assign wbm_we_o = wb_we_r;
-  assign wbm_stb_o = wb_cycle_r;
-  assign wbm_cyc_o = wb_cycle_r;
+  assign wbm_stb_o = wb_cycle_r & data_correct_r;
+  assign wbm_cyc_o = wb_cycle_r & data_correct_r;
   assign wbm_sel_o = wb_sel_r;
   assign wbm_cti_o = 3'b000; // We only support classic cycles
   assign wbm_cti_o = 3'b000;
@@ -112,7 +112,7 @@ module gic_slave #(
   // Checksum validator
   always @(state_r)
   begin
-    data_correct_r <= 1'b0;
+    data_correct_r <= 1'b1;
     // TODO(bluecmd)
   end
 
@@ -134,7 +134,7 @@ module gic_slave #(
   end
 
   // Wishbone driver
-  always @(state_r or cntr_r or cycle_complete)
+  always @(posedge wbm_clk_i)
   begin
     wb_adr_r <= wb_adr_r;
     wb_dat_r <= wb_dat_r;
@@ -150,12 +150,14 @@ module gic_slave #(
         wb_adr_r[cntr_r*4+:4] <= gic_dat_i;
       state_m_dat:
         wb_dat_r[cntr_r*4+:4] <= gic_dat_i;
+      state_m_cksum:
+        wb_cycle_r <= 1'b1;
       state_s_init:
         wb_cycle_r <= ~cycle_complete;
     endcase
   end
 
-  always @(state_r or cntr_r or cycle_complete or gic_dat_i)
+  always @(state_r or cntr_r or cycle_complete)
   begin
     next_state_r <= state_r;
     case (state_r)
