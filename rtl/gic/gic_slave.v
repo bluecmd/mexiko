@@ -46,6 +46,7 @@ module gic_slave #(
   reg                 wb_we_r = 1'b0;
   reg [31:0]          wb_adr_r = 0;
   reg [31:0]          wb_dat_r = 0;
+  reg [31:0]          wbm_dat_r = 0;
   reg [3:0]           wb_sel_r = 0;
   reg                 wb_cycle_r = 1'b0;
 
@@ -105,7 +106,7 @@ module gic_slave #(
       state_s_resp:
         gic_chksum_r <= 0;
       state_s_dat:
-        gic_chksum_r <= gic_chksum_r ^ wbm_dat_i[cntr_r*4+:4] ^ chksum_operand;
+        gic_chksum_r <= gic_chksum_r ^ wbm_dat_r[cntr_r*4+:4] ^ chksum_operand;
     endcase
   end
 
@@ -127,7 +128,7 @@ module gic_slave #(
       state_s_resp:
         gic_dat_r <= 4'bxxxx;
       state_s_dat:
-        gic_dat_r <= wbm_dat_i[cntr_r*4+:4];
+        gic_dat_r <= wbm_dat_r[cntr_r*4+:4];
       state_s_cksum:
         gic_dat_r <= gic_chksum_r;
     endcase
@@ -154,6 +155,17 @@ module gic_slave #(
         wb_cycle_r <= 1'b1;
       state_s_init:
         wb_cycle_r <= ~cycle_complete;
+    endcase
+  end
+
+  // Wishbone input capture
+  always @(posedge wbm_clk_i)
+  begin
+    wbm_dat_r <= wbm_dat_r;
+    case (state_r)
+      state_s_init:
+        if (cycle_complete)
+          wbm_dat_r <= wbm_dat_i;
     endcase
   end
 
