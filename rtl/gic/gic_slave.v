@@ -133,8 +133,6 @@ module gic_slave #(
     endcase
   end
 
-  // TODO(bluecmd): cmd decoder to write wb_we_r
-
   // Wishbone driver
   always @(state_r or cntr_r or cycle_complete)
   begin
@@ -142,7 +140,10 @@ module gic_slave #(
     wb_dat_r <= wb_dat_r;
     wb_sel_r <= wb_sel_r;
     wb_cycle_r <= wb_cycle_r;
+    wb_we_r <= wb_we_r;
     case (state_r)
+      state_m_cmd:
+        wb_we_r <= gic_dat_i[3];
       state_m_sel:
         wb_sel_r <= gic_dat_i;
       state_m_adr:

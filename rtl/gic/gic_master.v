@@ -54,6 +54,7 @@
 //  TODO(bluecmd): err / rty propagation
 //  TODO(bluecmd): Retry handling
 //  TODO(bluecmd): Writes
+//  TODO(bluecmd): Fix CRC on selective transfers
 //  TODO(bluecmd): Statistic counters (new WB slave core)
 
 module gic_master #(
@@ -151,8 +152,8 @@ module gic_master #(
         if (valid)
           gic_dat_r <= master_initiate;
       state_m_cmd:
-        // TODO(bluecmd):
-        gic_dat_r <= 4'bxxxx;
+        // TODO(bluecmd): rty, irq
+        gic_dat_r <= {wb_we_i, 1'b0, 1'b0, 1'b0};
       state_m_sel:
         gic_dat_r <= wb_sel_i;
       state_m_adr:
