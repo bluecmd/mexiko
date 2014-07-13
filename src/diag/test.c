@@ -60,6 +60,8 @@ void test_finish(int level, const char *fmt, ...) {
   test_all_tests++;
   if (level == OK) {
     printf(COLOR_GREEN);
+  } else if (level == WARN) {
+    printf(COLOR_YELLOW);
   } else if (level == ERROR) {
     printf(COLOR_RED);
     test_failures++;
@@ -69,7 +71,7 @@ void test_finish(int level, const char *fmt, ...) {
   vprintf(fmt, arg_list);
   va_end(arg_list);
 
-  if (level == OK) {
+  if (level == OK || level == WARN) {
     printf(COLOR_RESET NL);
   } else if (level == ERROR) {
     if (test_failure != -1) {

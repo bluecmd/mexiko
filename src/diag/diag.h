@@ -24,6 +24,7 @@
 #define INFO                0
 #define OK                  1
 #define ERROR               2
+#define WARN                3
 
 extern void diag_next(void);
 
