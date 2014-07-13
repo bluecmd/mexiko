@@ -58,24 +58,21 @@ module testbench (
     .jtag_tap_update_dr_i (jtag_tap_update_dr),
     .jtag_tap_capture_dr_i(jtag_tap_capture_dr),
     .g18_dat_io           (g18_dat),
-    .g18_adr_o            (),
-    .g18_wen_o            (),
+    .g18_adr_o            (g18_adr),
+    .g18_wen_o            (g18_wen),
     .gic_dat_i            (gic_s2m_dat),
     .gic_dat_o            (gic_m2s_dat),
     .gic_cs_o             (gic_cs)
   );
 
+  assign g18_dat = g18_wen ? g18_dat_r : {16{1'bz}};
+
   kuba kuba_i (
     .sys_clk_i   (sys_clk_i),
     .sys_rst_i   (sys_rst_i),
     .gic_dat_i   (gic_m2s_dat),
-    .gic_dat_o   (gic_s2m_dat),
-    .g18_adr_o   (g18_adr),
-    .g18_dat_io  (g18_dat),
-    .g18_wen_o   (g18_wen)
+    .gic_dat_o   (gic_s2m_dat)
   );
-
-  assign g18_dat = g18_wen ? g18_dat_r : {16{1'bz}};
 
   tap_top jtag_tap_i (
     .tdo_pad_o(tdo_pad_o),

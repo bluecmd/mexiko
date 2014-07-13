@@ -12,7 +12,6 @@ VERILATOR_INCLUDE = \
 	-I${PWD}/../orpsoc-cores/cores/wb_intercon \
 	-I${PWD}/../orpsoc-cores/cores/wb_ram/rtl/verilog \
 	-I${PWD}/../orpsoc-cores/cores/wb_bfm \
-	-I${PWD}/../orpsoc-cores/cores/ram_wb \
 	-I${PWD}/../utils \
 	-I${PWD}/bench \
 	-I/home/bluecmd/.cache/fusesoc/adv_debug_sys/rtl/verilog \
@@ -20,6 +19,7 @@ VERILATOR_INCLUDE = \
 	-I/home/bluecmd/.cache/fusesoc/uart16550/rtl/verilog \
 	-I/home/bluecmd/.cache/fusesoc/verilog-arbiter/src \
 	-I/home/bluecmd/.cache/fusesoc/i2c \
+	-I/home/bluecmd/.cache/fusesoc/ethmac/rtl/verilog \
 	${PWD}/../orpsoc-cores/cores/wb_ram/rtl/verilog/wb_funcs.v
 
 DEPS = bench/testbench.sv bench/testbench.cpp include/wb_intercon.v \
