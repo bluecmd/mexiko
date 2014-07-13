@@ -13,3 +13,6 @@
 [submodule "src/linux"]
 	path = src/linux
 	url = git@github.com:bluecmd/or1k-linux.git
+[submodule "rtl/wb_axi"]
+	path = rtl/wb_axi
+	url = git@github.com:bluecmd/wb-axi.git
