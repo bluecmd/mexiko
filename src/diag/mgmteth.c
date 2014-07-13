@@ -32,7 +32,7 @@
 #define TX_BD               0x400
 #define RX_BD               (TX_BD + (TX_BD_NUM_VALUE * 8))
 
-#define PKT_SIZE            137
+#define PKT_SIZE            128
 
 #define TIMER_HZ            100000
 
@@ -108,6 +108,20 @@ void mgmteth_test(void) {
   } END_STAGE
 
   STAGE(4) {
+    /* TODO(bluecmd): Use IRQ here as well */
+    uint32_t ticks;
+    test_start("Waiting on packet");
+
+    or1k_timer_init(TIMER_HZ);
+    or1k_timer_enable();
+    ticks = or1k_timer_get_ticks();
+    while(*(uint32_t*)dma_rx == 0x0);
+    test_finish(OK, "OK, took %lu us", ticks * 10);
+  } ON_ERROR {
+    test_finish(ERROR, "Failed");
+  } END_STAGE
+
+  STAGE(5) {
     uint32_t ticks;
     test_start("Copying packet from DMA area");
     or1k_timer_init(TIMER_HZ);
@@ -121,7 +135,7 @@ void mgmteth_test(void) {
     test_finish(ERROR, "Failed");
   } END_STAGE
 
-  STAGE(5) {
+  STAGE(6) {
     test_start("Comparing packets");
     if (!memcmp(rx_packet, sample_packet, PKT_SIZE)) {
       test_finish(OK, "Match");
@@ -136,7 +150,7 @@ void mgmteth_test(void) {
     test_finish(ERROR, "Failed");
   } END_STAGE
 
-  STAGE(6) {
+  STAGE(7) {
     int old_status;
     test_start("Cable status");
     old_status = (*miistatus & (1 << MIISTATUS_LINKFAIL));
