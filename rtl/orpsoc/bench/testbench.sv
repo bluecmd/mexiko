@@ -102,41 +102,13 @@ module testbench (
     .debug_tdi_i(dbg_if_tdo)
   );
 
-  uart_transceiver uart_i (
-    .sys_rst(sys_rst_i),
-    .sys_clk(sys_clk_i),
-    .uart_rx(uart_txd),
-    .uart_tx(uart_rxd),
-    .divisor(UART_DIVISOR),
-    .rx_data(uart_rx_data),
-    .rx_done(uart_rx_done),
-    .tx_data(uart_tx_data_i),
-    .tx_wr(uart_tx_wr),
-    .tx_done(uart_tx_done),
-    .rx_break()
+  dpi_uart uart_i (
+    .rst_i(sys_rst_i),
+    .clk_i(sys_clk_i),
+    .uart_rx_i(uart_txd),
+    .uart_tx_o(uart_rxd),
+    .divisor_i(UART_DIVISOR)
   );
-
-  always @(posedge sys_clk_i)
-  begin
-    if (uart_rx_done) begin
-      $write("%c", uart_rx_data);
-      $fflush(STDOUT);
-    end
-  end
-
-  always @(posedge sys_clk_i)
-  begin
-    uart_tx_wr <= 1'b0;
-    if (uart_tx_done) begin
-      uart_tx_busy <= 1'b0;
-    end
-    if (uart_tx_write_i) begin
-      if (~uart_tx_busy & ~sys_rst_i) begin
-        uart_tx_wr <= 1'b1;
-        uart_tx_busy <= 1'b1;
-      end
-    end
-  end
 
   always @(posedge sys_clk_i)
   begin

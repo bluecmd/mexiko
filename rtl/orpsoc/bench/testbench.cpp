@@ -51,16 +51,10 @@ int main(int argc, char **argv, char **env) {
 #endif
   bool wb_reset_released = false;
   bool cpu_stalled = true;
-  bool diagnostics = false;
   bool trace = false;
   bool prog_trace = false;
 
   /* TODO(bluecmd): Use a better lib here */
-  if (argc > 1 && !strcmp(argv[1], "--diag")) {
-    diagnostics = true;
-    argc--;
-    argv++;
-  }
   if (argc > 1 && !strcmp(argv[1], "--trace")) {
     trace = true;
     argc--;
@@ -89,12 +83,6 @@ int main(int argc, char **argv, char **env) {
     if (t > RESET_TIME && top->sys_rst_i == 1) {
       printf("Reset released\n");
       top->sys_rst_i = 0;
-
-      if (diagnostics) {
-        /* Press 'd' to load diagnostics program. */
-        top->uart_tx_write_i = 1;
-        top->uart_tx_data_i = 'd';
-      }
     }
 
     if (!wb_reset_released && top->v->soc_i->wb_rst == 0) {
@@ -118,10 +106,6 @@ int main(int argc, char **argv, char **env) {
 #endif
     if(ex_pc == 0x100) {
       trace = trace || prog_trace;
-      if (diagnostics) {
-        /* Now press 'enter' to automate all prompts */
-        top->uart_tx_data_i = '\r';
-      }
     }
 
     if (trace && old_ex_pc != ex_pc) {

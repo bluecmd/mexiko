@@ -14,6 +14,8 @@ VERILATOR_INCLUDE = \
 	-I${CURDIR}/../orpsoc-cores/cores/wb_bfm \
 	-I${CURDIR}/../utils \
 	-I${CURDIR}/bench \
+	-I/home/bluecmd/work/vpi-uart \
+	/home/bluecmd/work/vpi-uart/dpi_uart.cpp \
 	-I/home/bluecmd/.cache/fusesoc/adv_debug_sys/rtl/verilog \
 	-I/home/bluecmd/.cache/fusesoc/jtag_tap/rtl/verilog \
 	-I/home/bluecmd/.cache/fusesoc/uart16550/rtl/verilog \
