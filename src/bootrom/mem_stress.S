@@ -70,12 +70,6 @@ _start:
 write_test:
   l.sw    0(r6),r6
 
-  l.sfeqi r6,100
-  l.bnf   1f
-    l.nop
-  l.sw    0(r6),r0
-1:
-
   # Show progress on UART
   l.andi  r8,r6,0x3fff
   l.sfeqi r8,0
