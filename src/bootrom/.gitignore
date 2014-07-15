@@ -1,4 +1,4 @@
 *.o
 *.elf
-bootrom.v
-bootrom.bin
+*.v
+*.bin

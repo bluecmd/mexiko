@@ -5,6 +5,9 @@
 #define SYS_CLK         80000000
 #define BAUD            115200
 
+/* Used for mem_stress */
+#define MEM_STOP        0x40000000
+
 #define RESET_ADDR      0x100
 
 /* Sanity check: reset if we're about to read more than 8 MB. */
