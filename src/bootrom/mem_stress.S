@@ -23,11 +23,6 @@ txt_done:
   .string "\r\nDone\r\n"
   .align 4
 
-vector_bus_error:
-  l.movhi r9,hi(exception_bus_error)
-  l.ori   r9,r9,lo(exception_bus_error)
-  l.jr    r9
-   l.nop
 
 exception_bus_error:
   l.movhi r3,hi(txt_bus_error)
@@ -68,6 +63,16 @@ _start:
   l.movhi r3,hi(txt_writing)
   l.jal   uart_print_str
    l.ori  r3,r3,lo(txt_writing)
+  l.j     write_test
+   l.nop
+
+.org 0x200
+vector_bus_error:
+  l.movhi r9,hi(exception_bus_error)
+  l.ori   r9,r9,lo(exception_bus_error)
+  l.jr    r9
+   l.nop
+
 write_test:
   l.sw    0(r6),r6
 
