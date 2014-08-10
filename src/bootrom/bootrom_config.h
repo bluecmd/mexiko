@@ -6,6 +6,7 @@
 #define BAUD            115200
 
 /* Used for mem_stress */
+#define MEM_START       0x00000000
 #define MEM_STOP        0x40000000
 
 #define RESET_ADDR      0x100

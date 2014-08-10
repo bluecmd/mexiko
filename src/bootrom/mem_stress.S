@@ -23,11 +23,6 @@ txt_done:
   .string "\r\nDone\r\n"
   .align 4
 
-vector_bus_error:
-  l.movhi r9,hi(exception_bus_error)
-  l.ori   r9,r9,lo(exception_bus_error)
-  l.jr    r9
-   l.nop
 
 exception_bus_error:
   l.movhi r3,hi(txt_bus_error)
@@ -58,15 +53,26 @@ _start:
   l.jal   uart_print_str
    l.ori  r3,r3,lo(txt_banner)
 
-  l.movhi r21,hi(MEM_STOP)
-  l.ori   r21,r21,lo(MEM_STOP)
+  l.movhi r21,hi(MEM_STOP-4)
+  l.ori   r21,r21,lo(MEM_STOP-4)
   l.movhi r20,hi(txt_erase_word)
   l.ori   r20,r20,lo(txt_erase_word)
 
-  l.ori   r6,r0,0
+  l.movhi r6,hi(MEM_START)
+  l.ori   r6,r6,lo(MEM_START)
   l.movhi r3,hi(txt_writing)
   l.jal   uart_print_str
    l.ori  r3,r3,lo(txt_writing)
+  l.j     write_test
+   l.nop
+
+.org 0x200
+vector_bus_error:
+  l.movhi r9,hi(exception_bus_error)
+  l.ori   r9,r9,lo(exception_bus_error)
+  l.jr    r9
+   l.nop
+
 write_test:
   l.sw    0(r6),r6
 
@@ -85,7 +91,8 @@ write_test:
   l.bnf   write_test
    l.addi r6,r6,4
 
-  l.ori   r6,r0,0
+  l.movhi r6,hi(MEM_START)
+  l.ori   r6,r6,lo(MEM_START)
   l.movhi r3,hi(txt_verifying)
   l.jal   uart_print_str
    l.ori  r3,r3,lo(txt_verifying)
