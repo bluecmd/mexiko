@@ -58,8 +58,8 @@ _start:
   l.jal   uart_print_str
    l.ori  r3,r3,lo(txt_banner)
 
-  l.movhi r21,hi(MEM_STOP)
-  l.ori   r21,r21,lo(MEM_STOP)
+  l.movhi r21,hi(MEM_STOP-4)
+  l.ori   r21,r21,lo(MEM_STOP-4)
   l.movhi r20,hi(txt_erase_word)
   l.ori   r20,r20,lo(txt_erase_word)
 
