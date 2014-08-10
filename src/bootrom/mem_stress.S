@@ -63,7 +63,8 @@ _start:
   l.movhi r20,hi(txt_erase_word)
   l.ori   r20,r20,lo(txt_erase_word)
 
-  l.ori   r6,r0,0
+  l.movhi r6,hi(MEM_START)
+  l.ori   r6,r6,lo(MEM_START)
   l.movhi r3,hi(txt_writing)
   l.jal   uart_print_str
    l.ori  r3,r3,lo(txt_writing)
@@ -85,7 +86,8 @@ write_test:
   l.bnf   write_test
    l.addi r6,r6,4
 
-  l.ori   r6,r0,0
+  l.movhi r6,hi(MEM_START)
+  l.ori   r6,r6,lo(MEM_START)
   l.movhi r3,hi(txt_verifying)
   l.jal   uart_print_str
    l.ori  r3,r3,lo(txt_verifying)
