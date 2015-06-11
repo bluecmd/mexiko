@@ -49,7 +49,6 @@ set files [list \
  "[file normalize "$mor1kx/mor1kx_store_buffer.v"]"\
  "[file normalize "$mor1kx/mor1kx-sprs.v"]"\
  "[file normalize "$mor1kx/mor1kx_simple_dpram_sclk.v"]"\
- "[file normalize "$mor1kx/mor1kx_rf_ram.v"]"\
  "[file normalize "$mor1kx/mor1kx_rf_espresso.v"]"\
  "[file normalize "$mor1kx/mor1kx_rf_cappuccino.v"]"\
  "[file normalize "$mor1kx/mor1kx_pic.v"]"\

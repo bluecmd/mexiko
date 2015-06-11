@@ -1,15 +1,20 @@
 [submodule "rtl/mor1kx"]
 	path = rtl/mor1kx
 	url = https://github.com/openrisc/mor1kx.git
+	branch = master
 [submodule "rtl/orpsoc-cores"]
 	path = rtl/orpsoc-cores
 	url = https://github.com/openrisc/orpsoc-cores
+	branch = master
 [submodule "src/barebox"]
 	path = src/barebox
 	url = git@github.com:bluecmd/barebox.git
+	branch = master
 [submodule "src/linux"]
 	path = src/linux
 	url = git@github.com:bluecmd/or1k-linux.git
+	branch = master
 [submodule "rtl/wb_axi"]
 	path = rtl/wb_axi
 	url = git@github.com:bluecmd/wb-axi.git
+	branch = master

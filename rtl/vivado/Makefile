@@ -11,7 +11,7 @@ clean:
 
 mexiko.bit: mexiko.tcl
 	rm -rf .project
-	time vivado -mode batch -nojournal -nolog -source $<
+	vivado -mode batch -nojournal -nolog -source $<
 
 mexiko.swapped: ../../src/mexiko.bin
 	../../src/utils/byteswap $< > $@
